@@ -11,14 +11,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.Properties; // key/value pairs
 
+import com.vso.interfaces.DatabaseNames;
 import com.vso.models.User;
 
-public class SetupDB {
+public class SetupDB implements DatabaseNames {
 
 	private static Connection connectionDB;
 	private static String databaseURL = "jdbc:mysql://localhost";
 	private static String databasePort = "3306";
-	private static String dbName = "recipes_site";
+	private static String dbName = databaseName;
 	private static String user = "root";
 	private static String password = "asxz16";
 	private static Statement connection;
@@ -37,15 +38,12 @@ public class SetupDB {
 			Class.forName("com.mysql.jdbc.Driver");
 			connectionDB = DriverManager.getConnection(url, loginDB);
 			Statement state = connectionDB.createStatement();
-			System.out.println("Connection established: " + !connectionDB.isClosed());
-			System.out.println("Connection statement: " + !state.isClosed());
 			return (Statement) state;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
-	
 
 	private static Properties setLoginForDB() {
 		Properties loginData = new Properties();
@@ -74,7 +72,7 @@ public class SetupDB {
 	public static Connection getConnection() {
 		return connectionDB;
 	}
-	
+
 	public static String getPassword() {
 		return password;
 	}
