@@ -7,19 +7,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="css/main.css">
-<title>Insert title here</title>
+<title>Рецептурник</title>
 </head>
 <body class="tablecloth">
 	<%
 		SetupDB single = SetupDB.getInstance();
 		SetupDB.getStatement();
-	%>
-
-	<%
-		String usernameCheck = (String) request.getAttribute("registrationSuccess");
-		if (usernameCheck != null) {
-			out.println(usernameCheck);
-		}
 	%>
 
 	<div class="top_bar">

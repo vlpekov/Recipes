@@ -70,6 +70,9 @@ public class RegistrationValidation extends HttpServlet implements RegistrationF
 				pre.setString(9, "" + username + "_image");
 				pre.executeUpdate();
 				pre.close();
+				request.setAttribute("registrationSuccess", "<div class=\"error\" >Поздравления<br>Регистрирахте се успешно.<br>Може да се впишете:</div>");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("signin");
+				dispatcher.include(request, response);
 
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
@@ -79,7 +82,7 @@ public class RegistrationValidation extends HttpServlet implements RegistrationF
 				e.printStackTrace();
 			}
 		} else {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("register.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		}
 		out.close();
 	}
@@ -89,7 +92,7 @@ public class RegistrationValidation extends HttpServlet implements RegistrationF
 		if (passwordOne != "" && passwordTwo != "") {
 			if (!passwordOne.equals(passwordTwo)) {
 				request.setAttribute("status", "<div class=\"error\" >Грешно въведена парола.</div>");
-				RequestDispatcher dispatcher = request.getRequestDispatcher("register.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("register");
 				try {
 					dispatcher.include(request, response);
 				} catch (ServletException e) {
@@ -116,7 +119,7 @@ public class RegistrationValidation extends HttpServlet implements RegistrationF
 			if (results.next()) {
 				request.setAttribute("usernameCheck",
 						"<div class=\"error\" >Потребителското име вече съшествува.</div>");
-				RequestDispatcher dispatcher = request.getRequestDispatcher("register.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("register");
 
 				try {
 					dispatcher.include(request, response);

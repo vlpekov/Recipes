@@ -9,9 +9,7 @@
 <title>Регистрация на потребител</title>
 </head>
 <body>
-	<jsp:useBean id="snr" class="com.javabeans.FormRegistration" />
-
-
+	<jsp:useBean id="filds" class="com.javabeans.FormRegistration" />
 	<form class="form-container" action="validation" method="post"
 		enctype="multipart/form-data">
 
@@ -24,7 +22,7 @@
 				<tr>
 					<td><div class="form-title">Потребителско име:</div></td>
 					<td><input class="form-field" type="text"
-						name=<%=snr.getUsernameInputName()%> required="required" /></td>
+						name=<%=filds.getUsernameInputName()%> required="required" /></td>
 				</tr>
 				<tr>
 					<td></td>
@@ -41,29 +39,29 @@
 				<tr>
 					<td><div class="form-title">Име:</div></td>
 					<td><input class="form-field" type="text"
-						name=<%=snr.getFirstNameInputName()%> required="required" /></td>
+						name=<%=filds.getFirstNameInputName()%> required="required" /></td>
 				</tr>
 				<tr>
 					<td><div class="form-title">Фамилия:</div></td>
 					<td><input class="form-field" type="text"
-						name=<%=snr.getSecondNameInputName()%> required="required" /></td>
+						name=<%=filds.getSecondNameInputName()%> required="required" /></td>
 				</tr>
 				<tr>
 					<td><div class="form-title">E-mail:</div></td>
 					<td><input class="form-field" type="email"
-						name=<%=snr.getEmailInputName()%> required="required" /></td>
+						name=<%=filds.getEmailInputName()%> required="required" /></td>
 				</tr>
 				<tr>
 					<td><div class="form-title">Парола:</div></td>
 					<td><input type="password" class="form-field"
-						name=<%=snr.getPasswordInputName()%> required="required"></td>
+						name=<%=filds.getPasswordInputName()%> required="required"></td>
 				</tr>
 
 
 				<tr>
 					<td><div class="form-title">Потвърдете паролата:</div></td>
 					<td><input type="password" class="form-field"
-						name=<%=snr.getPasswordConfirmInputName()%> required="required"></td>
+						name=<%=filds.getPasswordConfirmInputName()%> required="required"></td>
 
 				</tr>
 
@@ -87,7 +85,8 @@
 
 				</tr>
 			</table>
-			<input class="brown_button" type="submit" name="submit" /> <a class="white_button" href="login.jsp">Отказ</a>
+			<input class="brown_button" type="submit" name="submit" /> <a
+				class="white_button" href="login.jsp">Отказ</a>
 
 
 		</fieldset>
