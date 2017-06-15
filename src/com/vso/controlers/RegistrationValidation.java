@@ -23,22 +23,10 @@ import com.database.utilities.SetupDB;
 import com.vso.models.Password;
 import com.vso.interfaces.*;
 
-/**
- * Servlet implementation class PasswordValidation
- */
 @WebServlet("/RegistrationValidation")
 @MultipartConfig(maxFileSize = 16177216)
 public class RegistrationValidation extends HttpServlet implements RegistrationForm, TableUsersNames {
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -58,34 +46,17 @@ public class RegistrationValidation extends HttpServlet implements RegistrationF
 		boolean isUsernameCorrect = usernameValidation(username, connectionDB, request, response);
 		boolean isPasswordCorrect = true;
 		if (isUsernameCorrect) {
-			System.out.println("Потребителското име е добре, сега проверяваме паролите");
 			isPasswordCorrect = passwordValidation(request.getParameter(passwordInputName),
 					request.getParameter(passwordConfirmInputName), request, response);
 		}
 		Date currentDate = new Date(new Date().getTime());
 		java.sql.Date sqlDate = new java.sql.Date(currentDate.getTime());
-		// int result = 0;
-		System.out.printf("%s %s %s %s ", username, firstName, lastName, email);
 		Part filePart = request.getPart("image");
-		// if (filePart != null) {
-		// System.out.println(
-		// "================== До тук всичко е ок
-		// ------------------filePart------------filePart------------filePart---------");
-		// } else {
-		// System.out.println("filePart null
-		// ***************************************************** filePart");
-		// }
-		System.out
-				.println((isPasswordCorrect && isUsernameCorrect) + " " + isPasswordCorrect + " " + isUsernameCorrect);
 		if (isPasswordCorrect && isUsernameCorrect) {
-			System.out.println("Време е да направим запис");
-			// System.out.println("================== До тук всичко е ок
-			// ---------------------------------------------------");
 			try {
 				InputStream fileContent = filePart.getInputStream();
 				String password = new Password().getSaltedHash(passwordInputName);
 				connectionDB = Conector.getInstance().getConnection();
-
 				PreparedStatement pre = connectionDB.prepareStatement(
 						"INSERT INTO `recipes_site`.`users` (`username`, `password`, `first_name`, `last_name`, `email`, `date_of_registration`, `gender`, `image`, `image_name`) VALUES (?,?,?,?,?,?,?,?,?);");
 				pre.setString(1, username);
@@ -99,16 +70,12 @@ public class RegistrationValidation extends HttpServlet implements RegistrationF
 				pre.setString(9, "" + username + "_image");
 				pre.executeUpdate();
 				pre.close();
-				// String L_url1 = response.encodeRedirectURL("myUpload.jsp");
-				// response.sendRedirect(L_url1);
+
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} else {
@@ -119,7 +86,6 @@ public class RegistrationValidation extends HttpServlet implements RegistrationF
 
 	private boolean passwordValidation(String passwordOne, String passwordTwo, HttpServletRequest request,
 			HttpServletResponse response) {
-		System.out.println("Сега сме в метода за паролит");
 		if (passwordOne != "" && passwordTwo != "") {
 			if (!passwordOne.equals(passwordTwo)) {
 				request.setAttribute("status", "<div class=\"error\" >Грешно въведена парола.</div>");
@@ -139,18 +105,15 @@ public class RegistrationValidation extends HttpServlet implements RegistrationF
 
 	private Boolean usernameValidation(String username, Connection connectionDB, HttpServletRequest request,
 			HttpServletResponse response) {
-		System.out.println("Сега сме в метода за потребителското име");
 		ResultSet results = null;
 		Statement statement;
 		String query = "SELECT * FROM " + databaseName + "." + tableUsersName + " where " + tableUsersUsername + "='"
 				+ username + "'";
-		System.out.println(query);
 		try {
 			connectionDB = Conector.getInstance().getConnection();
 			statement = connectionDB.createStatement();
 			results = statement.executeQuery(query);
 			if (results.next()) {
-				System.out.println("ВЕЧЕ СЪШЕСТВУВА ТАКОВА ИМЕ");
 				request.setAttribute("usernameCheck",
 						"<div class=\"error\" >Потребителското име вече съшествува.</div>");
 				RequestDispatcher dispatcher = request.getRequestDispatcher("register.jsp");
