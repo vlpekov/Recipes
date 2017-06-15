@@ -30,9 +30,9 @@
 					<td></td>
 					<td>
 						<%
-							String status = (String) request.getAttribute("usernameCheck");
-							if (status != null) {
-								out.println(status);
+							String usernameCheck = (String) request.getAttribute("usernameCheck");
+							if (usernameCheck != null) {
+								out.println(usernameCheck);
 							}
 						%>
 					</td>
