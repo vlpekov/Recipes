@@ -26,6 +26,18 @@
 					<td><input class="form-field" type="text"
 						name=<%=snr.getUsernameInputName()%> required="required" /></td>
 				</tr>
+					<tr>
+					<td></td>
+					<td>
+						<%
+							String status = (String) request.getAttribute("usernameCheck");
+							if (status != null) {
+								out.println(status);
+							}
+						%>
+					</td>
+
+				</tr>
 				<tr>
 					<td><div class="form-title">Име:</div></td>
 					<td><input class="form-field" type="text"

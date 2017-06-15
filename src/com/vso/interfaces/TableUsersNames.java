@@ -1,7 +1,7 @@
 package com.vso.interfaces;
 
 public interface TableUsersNames extends DatabaseNames {
-	String tableUsersName = "users";
+	String tableUsersName = tableUsers;
 	String tableUsersId = "id";
 	String tableUsersUsername = "username";
 	String tableUsersPassword = "password";
