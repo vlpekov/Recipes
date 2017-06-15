@@ -3,9 +3,9 @@ package com.database.utilities;
 import java.sql.Connection;
 import java.sql.Statement;
 
-import com.vso.interfaces.DatabaseNames;
+import com.vso.interfaces.*;
 
-public class CreateTables implements DatabaseNames {
+public class CreateTables implements DatabaseNames, TablesColumnNames {
 	private static String dbName = SetupDB.getDbName();
 	SetupDB single = SetupDB.getInstance();
 	private static Statement dbStatement = SetupDB.getStatement();
@@ -22,17 +22,9 @@ public class CreateTables implements DatabaseNames {
 	}
 
 	public static void crateUsersTable() {
-		String crateTable = "CREATE TABLE `" + dbName + "`.`users` (" + "id SERIAL PRIMARY KEY NOT NULL, "
-				+ "username TEXT NOT NULL, " + "password TEXT NOT NULL, " + "first_name TEXT NOT NULL, "
-				+ "last_name TEXT NOT NULL, " + "email TEXT NOT NULL, " + "date_of_registration DATE NOT NULL, "
-				+ "gender TEXT NOT NULL, is_remember INT NOT NULL," + "image MEDIUMBLOB NOT NULL, "
-				+ "image_name TEXT NOT NULL);";
-
 		try {
-			dbStatement.executeUpdate(crateTable);
-			System.out.println(crateTable);
+			dbStatement.executeUpdate(crateTableComand);
 		} catch (Exception e) {
-			System.out.println("Ops... crateUsersTable failed");
 			e.printStackTrace();
 		}
 	}
@@ -98,7 +90,7 @@ public class CreateTables implements DatabaseNames {
 
 	public static void crateImagesTable() {
 		String crateTable = "CREATE TABLE `" + dbName + "`.`images` (" + "id SERIAL PRIMARY KEY NOT NULL, "
-				+  "image MEDIUMBLOB NOT NULL);";
+				+ "image MEDIUMBLOB NOT NULL);";
 
 		try {
 			dbStatement.executeUpdate(crateTable);
