@@ -26,7 +26,7 @@
 					<td><input class="form-field" type="text"
 						name=<%=snr.getUsernameInputName()%> required="required" /></td>
 				</tr>
-					<tr>
+				<tr>
 					<td></td>
 					<td>
 						<%
@@ -87,7 +87,7 @@
 
 				</tr>
 			</table>
-
+			<input class="brown_button" type="submit" name="submit" /> <a class="white_button" href="login.jsp">Отказ</a>
 
 
 		</fieldset>

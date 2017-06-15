@@ -55,13 +55,17 @@ public class RegistrationValidation extends HttpServlet implements RegistrationF
 		String firstName = request.getParameter(firstNameInputName);
 		String lastName = request.getParameter(secondNameInputName);
 		String email = request.getParameter(emailInputName);
-		boolean isPasswordCorrect = passwordValidation(request.getParameter(passwordInputName),
-				request.getParameter(passwordConfirmInputName), request, response);
 		boolean isUsernameCorrect = usernameValidation(username, connectionDB, request, response);
+		boolean isPasswordCorrect = true;
+		if (isUsernameCorrect) {
+			System.out.println("Потребителското име е добре, сега проверяваме паролите");
+			isPasswordCorrect = passwordValidation(request.getParameter(passwordInputName),
+					request.getParameter(passwordConfirmInputName), request, response);
+		}
 		Date currentDate = new Date(new Date().getTime());
 		java.sql.Date sqlDate = new java.sql.Date(currentDate.getTime());
 		// int result = 0;
-
+		System.out.printf("%s %s %s %s ", username, firstName, lastName, email);
 		Part filePart = request.getPart("image");
 		// if (filePart != null) {
 		// System.out.println(
@@ -71,7 +75,10 @@ public class RegistrationValidation extends HttpServlet implements RegistrationF
 		// System.out.println("filePart null
 		// ***************************************************** filePart");
 		// }
-		if (!isPasswordCorrect && !isUsernameCorrect) {
+		System.out
+				.println((isPasswordCorrect && isUsernameCorrect) + " " + isPasswordCorrect + " " + isUsernameCorrect);
+		if (isPasswordCorrect && isUsernameCorrect) {
+			System.out.println("Време е да направим запис");
 			// System.out.println("================== До тук всичко е ок
 			// ---------------------------------------------------");
 			try {
@@ -104,12 +111,15 @@ public class RegistrationValidation extends HttpServlet implements RegistrationF
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		} else {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("register.jsp");
 		}
 		out.close();
 	}
 
 	private boolean passwordValidation(String passwordOne, String passwordTwo, HttpServletRequest request,
 			HttpServletResponse response) {
+		System.out.println("Сега сме в метода за паролит");
 		if (passwordOne != "" && passwordTwo != "") {
 			if (!passwordOne.equals(passwordTwo)) {
 				request.setAttribute("status", "<div class=\"error\" >Грешно въведена парола.</div>");
@@ -129,19 +139,31 @@ public class RegistrationValidation extends HttpServlet implements RegistrationF
 
 	private Boolean usernameValidation(String username, Connection connectionDB, HttpServletRequest request,
 			HttpServletResponse response) {
+		System.out.println("Сега сме в метода за потребителското име");
 		ResultSet results = null;
 		Statement statement;
 		String query = "SELECT * FROM " + databaseName + "." + tableUsersName + " where " + tableUsersUsername + "='"
 				+ username + "'";
+		System.out.println(query);
 		try {
 			connectionDB = Conector.getInstance().getConnection();
 			statement = connectionDB.createStatement();
 			results = statement.executeQuery(query);
 			if (results.next()) {
-				request.setAttribute("usernameCheck", "<div class=\"error\" >Потребителското име вече съшествува.</div>");
+				System.out.println("ВЕЧЕ СЪШЕСТВУВА ТАКОВА ИМЕ");
+				request.setAttribute("usernameCheck",
+						"<div class=\"error\" >Потребителското име вече съшествува.</div>");
 				RequestDispatcher dispatcher = request.getRequestDispatcher("register.jsp");
+
+				try {
+					dispatcher.include(request, response);
+				} catch (ServletException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				return false;
 			}
-			return false;
 		} catch (ClassNotFoundException | SQLException e2) {
 			e2.printStackTrace();
 		} catch (Exception e) {
