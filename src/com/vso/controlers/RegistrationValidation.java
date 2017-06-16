@@ -43,6 +43,10 @@ public class RegistrationValidation extends HttpServlet implements RegistrationF
 		String firstName = request.getParameter(firstNameInputName);
 		String lastName = request.getParameter(secondNameInputName);
 		String email = request.getParameter(emailInputName);
+		request.setAttribute(usernameInputName, "value = \"" + username + "\"");
+		request.setAttribute(firstNameInputName, "value = \"" + firstName + "\"");
+		request.setAttribute(secondNameInputName, "value = \"" + lastName + "\"");
+		request.setAttribute(emailInputName, "value = \"" + email + "\"");
 		boolean isUsernameCorrect = usernameValidation(username, connectionDB, request, response);
 		boolean isPasswordCorrect = true;
 		if (isUsernameCorrect) {
@@ -119,6 +123,7 @@ public class RegistrationValidation extends HttpServlet implements RegistrationF
 			if (results.next()) {
 				request.setAttribute("usernameCheck",
 						"<div class=\"error\" >Потребителското име вече съшествува.</div>");
+				
 				RequestDispatcher dispatcher = request.getRequestDispatcher("register");
 
 				try {

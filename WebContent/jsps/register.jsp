@@ -12,7 +12,16 @@
 	<jsp:useBean id="filds" class="com.javabeans.FormRegistration" />
 	<form class="form-container" action="validation" method="post"
 		enctype="multipart/form-data">
-
+		<%
+			String usernameValue = ((String) request.getAttribute(filds.getUsernameInputName()) != null)
+					? (String) request.getAttribute(filds.getUsernameInputName()) : "";
+			String firstNameValue = ((String) request.getAttribute(filds.getFirstNameInputName()) != null)
+					? (String) request.getAttribute(filds.getFirstNameInputName()) : "";
+			String lastNameValue = ((String) request.getAttribute(filds.getSecondNameInputName()) != null)
+					? (String) request.getAttribute(filds.getSecondNameInputName()) : "";
+			String emailValue = ((String) request.getAttribute(filds.getEmailInputName()) != null)
+					? (String) request.getAttribute(filds.getEmailInputName()) : "";
+		%>
 		<fieldset class="form-box">
 			<legend>Регистрация</legend>
 
@@ -22,7 +31,8 @@
 				<tr>
 					<td><div class="form-title">Потребителско име:</div></td>
 					<td><input class="form-field" type="text"
-						name=<%=filds.getUsernameInputName()%> required="required" /></td>
+						<%=usernameValue%> name=<%=filds.getUsernameInputName()%>
+						required="required" /></td>
 				</tr>
 				<tr>
 					<td></td>
@@ -39,16 +49,17 @@
 				<tr>
 					<td><div class="form-title">Име:</div></td>
 					<td><input class="form-field" type="text"
-						name=<%=filds.getFirstNameInputName()%> required="required" /></td>
+						<%=firstNameValue%> name=<%=filds.getFirstNameInputName()%>
+						required="required" /></td>
 				</tr>
 				<tr>
 					<td><div class="form-title">Фамилия:</div></td>
-					<td><input class="form-field" type="text"
+					<td><input class="form-field" type="text" <%=lastNameValue%>
 						name=<%=filds.getSecondNameInputName()%> required="required" /></td>
 				</tr>
 				<tr>
 					<td><div class="form-title">E-mail:</div></td>
-					<td><input class="form-field" type="email"
+					<td><input class="form-field" type="email" <%=emailValue%>
 						name=<%=filds.getEmailInputName()%> required="required" /></td>
 				</tr>
 				<tr>
