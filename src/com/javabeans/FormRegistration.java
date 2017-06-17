@@ -1,8 +1,8 @@
 package com.javabeans;
 
-import com.vso.interfaces.RegistrationForm;
+import com.vso.interfaces.FormNamesRegistration;
 
-public class FormRegistration implements RegistrationForm {
+public class FormRegistration implements FormNamesRegistration {
 
 
 	public String getUsernameInputName() {
@@ -13,8 +13,8 @@ public class FormRegistration implements RegistrationForm {
 		return firstNameInputName;
 	}
 
-	public String getSecondNameInputName() {
-		return secondNameInputName;
+	public String getLastNameInputName() {
+		return lastNameInputName;
 	}
 
 	public String getEmailInputName() {

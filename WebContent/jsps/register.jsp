@@ -17,8 +17,8 @@
 					? (String) request.getAttribute(filds.getUsernameInputName()) : "";
 			String firstNameValue = ((String) request.getAttribute(filds.getFirstNameInputName()) != null)
 					? (String) request.getAttribute(filds.getFirstNameInputName()) : "";
-			String lastNameValue = ((String) request.getAttribute(filds.getSecondNameInputName()) != null)
-					? (String) request.getAttribute(filds.getSecondNameInputName()) : "";
+			String lastNameValue = ((String) request.getAttribute(filds.getLastNameInputName()) != null)
+					? (String) request.getAttribute(filds.getLastNameInputName()) : "";
 			String emailValue = ((String) request.getAttribute(filds.getEmailInputName()) != null)
 					? (String) request.getAttribute(filds.getEmailInputName()) : "";
 		%>
@@ -30,9 +30,8 @@
 			<table>
 				<tr>
 					<td><div class="form-title">Потребителско име:</div></td>
-					<td><input class="form-field" type="text"
-						<%=usernameValue%> name=<%=filds.getUsernameInputName()%>
-						required="required" /></td>
+					<td><input class="form-field" type="text" <%=usernameValue%>
+						name=<%=filds.getUsernameInputName()%> required="required" /></td>
 				</tr>
 				<tr>
 					<td></td>
@@ -48,14 +47,13 @@
 				</tr>
 				<tr>
 					<td><div class="form-title">Име:</div></td>
-					<td><input class="form-field" type="text"
-						<%=firstNameValue%> name=<%=filds.getFirstNameInputName()%>
-						required="required" /></td>
+					<td><input class="form-field" type="text" <%=firstNameValue%>
+						name=<%=filds.getFirstNameInputName()%> required="required" /></td>
 				</tr>
 				<tr>
 					<td><div class="form-title">Фамилия:</div></td>
 					<td><input class="form-field" type="text" <%=lastNameValue%>
-						name=<%=filds.getSecondNameInputName()%> required="required" /></td>
+						name=<%=filds.getLastNameInputName()%> required="required" /></td>
 				</tr>
 				<tr>
 					<td><div class="form-title">E-mail:</div></td>

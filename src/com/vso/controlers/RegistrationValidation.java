@@ -25,7 +25,7 @@ import com.vso.interfaces.*;
 
 @WebServlet("/RegistrationValidation")
 @MultipartConfig(maxFileSize = 16177216)
-public class RegistrationValidation extends HttpServlet implements RegistrationForm, TableUsersNames {
+public class RegistrationValidation extends HttpServlet implements FormNamesRegistration, TableUsersNames {
 	private static final long serialVersionUID = 1L;
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -41,11 +41,11 @@ public class RegistrationValidation extends HttpServlet implements RegistrationF
 		}
 		String username = request.getParameter(usernameInputName);
 		String firstName = request.getParameter(firstNameInputName);
-		String lastName = request.getParameter(secondNameInputName);
+		String lastName = request.getParameter(lastNameInputName);
 		String email = request.getParameter(emailInputName);
 		request.setAttribute(usernameInputName, "value = \"" + username + "\"");
 		request.setAttribute(firstNameInputName, "value = \"" + firstName + "\"");
-		request.setAttribute(secondNameInputName, "value = \"" + lastName + "\"");
+		request.setAttribute(lastNameInputName, "value = \"" + lastName + "\"");
 		request.setAttribute(emailInputName, "value = \"" + email + "\"");
 		boolean isUsernameCorrect = usernameValidation(username, connectionDB, request, response);
 		boolean isPasswordCorrect = true;
