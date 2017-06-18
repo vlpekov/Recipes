@@ -28,7 +28,7 @@ public class SetupDB implements DatabaseNames {
 	private SetupDB() {
 		CreateDB.crateDatabase();
 		connection = setDBConnection();
-		CreateTables.CreateAllTables();
+		new CreateTables();
 		new FillTables();
 	}
 
