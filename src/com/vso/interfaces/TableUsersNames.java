@@ -2,21 +2,21 @@ package com.vso.interfaces;
 
 public interface TableUsersNames extends DatabaseNames {
 	String tableUsersName = tableUsers;
-	String tableUsersId = "id";
-	String tableUsersUsername = "username";
-	String tableUsersPassword = "password";
-	String tableUsersFirstName = "first_name";
-	String tableUsersLastName = "last_name";
-	String tableUsersEmail = "email";
-	String tableUsersRegistrationDate = "date_of_registration";
-	String tableUsersGender = "gender";
-	String tableUsersProfilPictureFile = "image";
-	String tableUsersProfilPictureName = "image_name";
+	String tableUsersColumnId = "id";
+	String tableUsersColumnUsername = "username";
+	String tableUsersColumnPassword = "password";
+	String tableUsersColumnFirstName = "first_name";
+	String tableUsersColumnLastName = "last_name";
+	String tableUsersColumnEmail = "email";
+	String tableUsersColumnRegistrationDate = "date_of_registration";
+	String tableUsersColumnGender = "gender";
+	String tableUsersColumnProfilPictureFile = "image";
+	String tableUsersColumnProfilPictureName = "image_name";
 
-	String crateTableComand = "CREATE TABLE `" + databaseName + "`.`" + tableUsersName + "` (" + tableUsersId
-			+ " SERIAL PRIMARY KEY NOT NULL, " + tableUsersUsername + " TEXT NOT NULL, " + tableUsersPassword
-			+ " TEXT NOT NULL, " + tableUsersFirstName + " TEXT NOT NULL, " + tableUsersLastName + " TEXT NOT NULL, "
-			+ tableUsersEmail + " TEXT NOT NULL, " + tableUsersRegistrationDate + " DATE NOT NULL, " + tableUsersGender
-			+ " TEXT NOT NULL," + tableUsersProfilPictureFile + " MEDIUMBLOB NOT NULL, " + tableUsersProfilPictureName
+	String createTableUsersCommand = "CREATE TABLE `" + databaseName + "`.`" + tableUsersName + "` (" + tableUsersColumnId
+			+ " SERIAL PRIMARY KEY NOT NULL, " + tableUsersColumnUsername + " TEXT NOT NULL, " + tableUsersColumnPassword
+			+ " TEXT NOT NULL, " + tableUsersColumnFirstName + " TEXT NOT NULL, " + tableUsersColumnLastName + " TEXT NOT NULL, "
+			+ tableUsersColumnEmail + " TEXT NOT NULL, " + tableUsersColumnRegistrationDate + " DATE NOT NULL, " + tableUsersColumnGender
+			+ " TEXT NOT NULL," + tableUsersColumnProfilPictureFile + " MEDIUMBLOB NOT NULL, " + tableUsersColumnProfilPictureName
 			+ " TEXT NOT NULL);";
 }

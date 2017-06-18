@@ -62,7 +62,7 @@ public class RegistrationValidation extends HttpServlet implements FormNamesRegi
 				String password = new Password().getSaltedHash(passwordInputName);
 				connectionDB = Conector.getInstance().getConnection();
 				PreparedStatement pre = connectionDB.prepareStatement(
-						"INSERT INTO `recipes_site`.`users` (`username`, `password`, `first_name`, `last_name`, `email`, `date_of_registration`, `gender`, `image`, `image_name`) VALUES (?,?,?,?,?,?,?,?,?);");
+						"INSERT INTO `" + databaseName + "`.`" + tableUsersName + "` (`" + tableUsersColumnUsername + "`, `" + tableUsersColumnPassword + "`, `" + tableUsersColumnFirstName + "`, `" + tableUsersColumnLastName + "`, `" + tableUsersColumnEmail + "`, `" + tableUsersColumnRegistrationDate + "`, `" + tableUsersColumnGender + "`, `" + tableUsersColumnProfilPictureFile + "`, `" + tableUsersColumnProfilPictureName + "`) VALUES (?,?,?,?,?,?,?,?,?);");
 				pre.setString(1, username);
 				pre.setString(2, password);
 				pre.setString(3, firstName);
@@ -114,7 +114,7 @@ public class RegistrationValidation extends HttpServlet implements FormNamesRegi
 			HttpServletResponse response) {
 		ResultSet results = null;
 		Statement statement;
-		String query = "SELECT * FROM " + databaseName + "." + tableUsersName + " where " + tableUsersUsername + "='"
+		String query = "SELECT * FROM " + databaseName + "." + tableUsersName + " where " + tableUsersColumnUsername + "='"
 				+ username + "'";
 		try {
 			connectionDB = Conector.getInstance().getConnection();
