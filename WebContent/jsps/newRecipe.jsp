@@ -14,43 +14,53 @@
 </head>
 <body>
 	<script>
-	previousValue = "";
+		previousValue = "";
 		$(function() {
-			$("input[name='product']").keypress(function() {
-				$.ajax({
-					url : "../auto",
-					type : "post",
-					data : '',
-					success : function(data) {
-						$("input[name='product']").autocomplete({
-							autoFocus: true,
-						    source: data
-						}).keyup(function() {
-						    var isValid = false;
-						    for (i in data) {
-						        if (data[i].toLowerCase().match(this.value.toLowerCase())) {
-						            isValid = true;
-						        }
-						    }
-						    if (!isValid) {
-						        this.value = previousValue
-						    } else {
-						        previousValue = this.value;
-						    }
-						});				
-					},
-					error : function(data, status, er) {
-						console.log(data + "_" + status + "_" + er);
-					},
-				});
-			});	
+			$("input[name='product']")
+					.keypress(
+							function() {
+								$
+										.ajax({
+											url : "../auto",
+											type : "post",
+											data : '',
+											success : function(data) {
+												$("input[name='product']")
+														.autocomplete({
+															autoFocus : true,
+															source : data
+														})
+														.keyup(
+																function() {
+																	var isValid = false;
+																	for (i in data) {
+																		if (data[i]
+																				.toLowerCase()
+																				.match(
+																						this.value
+																								.toLowerCase())) {
+																			isValid = true;
+																		}
+																	}
+																	if (!isValid) {
+																		this.value = previousValue
+																	} else {
+																		previousValue = this.value;
+																	}
+																});
+											},
+											error : function(data, status, er) {
+												console.log(data + "_" + status
+														+ "_" + er);
+											},
+										});
+							});
 			$('html').bind('keypress', function(e) {
 				if (e.keyCode == 13) {
 					return false;
 				}
 			});
 		});
-		
 	</script>
 </head>
 <body>
@@ -60,26 +70,33 @@
 
 			<form action="saveRecipe" id="mainform" method="post"
 				name="recipe_data">
-				Име на рецептата:<input class="form-field" type="text"
-					name="recipe_name" placeholder="Име">
-				<div>
-					Начин на приготвяне:
-					<textarea class="form-field_description" id="description"
-						name="description"></textarea>
-				</div>
-
-				Продукти:
+				<p class="form-title">Име на рецептата:</p>
+				<input class="form-field" type="text" name="recipe_name"
+					placeholder="Име" required="required">
+				<p class="form-title">Продукти:</p>
 				<table id="products_table">
 					<tr>
-						<td><input id="product_tag" type="text" placeholder="Продукт"
-							class="form-field_product" name="product"></td>
-						<td><input type="text" placeholder="Количество"
-							class="form-field_quantity" name="quantity_0"></td>
+						<td class="input_lables">Име на продукт:</td>
+						<td class="input_lables">Количество:</td>
 						<td></td>
 					</tr>
+					<tr>
+						<td><input id="product_input" type="text"
+							placeholder="Продукт" class="form-field_product" name="product"></td>
+						<td><input type="number" id="quantity_input"
+							placeholder="g/ml" class="form-field_quantity"
+							name="quantity_input"></td>
+						<td><button type="button" class="white_button"
+								onclick="addProduct('products_table')">Добави</button></td>
+					</tr>
 				</table>
-				<button type="button" class="white_button"
-					onclick="newRow('products_table')">Нов продукт</button>
+				<div>
+					<p class="form-title">Начин на приготвяне:</p>
+					<textarea class="form-field_description" id="description"
+						name="description" required="required"></textarea>
+				</div>
+				<label for="picture" class="form-title">Снимка:</label><input style="padding: 3px;" type="file" name="image"
+					required="required" />
 				<input class="brown_button" type="submit"
 					value="Публикувай рецептата">
 			</form>
