@@ -69,14 +69,16 @@ function newRow(tableID) {
 	var cell3 = row.insertCell(2);
 	var product = document.createElement("INPUT");
 	product.setAttribute("type", "text");
+	product.setAttribute("id", "product_tag");
 	product.setAttribute("placeholder", "Продукт");
 	product.setAttribute("class", "form-field_product");
 	var quantity = document.createElement("INPUT");
 	quantity.setAttribute("type", "text");
 	quantity.setAttribute("placeholder", "Количество");
 	quantity.setAttribute("class", "form-field_quantity");
-	product.setAttribute("Name", "product_" + i);
-	quantity.setAttribute("Name", "quantity_" + i);
+	product.setAttribute("Name", "product_");
+	product.setAttribute("autocomplete", "off");
+	quantity.setAttribute("Name", "quantity");
 	cell1.appendChild(product);
 	cell2.appendChild(quantity);
 	var button = document.createElement("IMG");

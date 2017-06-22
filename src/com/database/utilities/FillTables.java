@@ -11,7 +11,7 @@ public class FillTables implements DatabaseNames, TablesColumnNames {
 	private Statement dbStatement = SetupDB.getStatement();
 
 	public FillTables() {
-		fillProductsTable();
+//		fillProductsTable();
 	}
 
 	private void fillProductsTable() {
