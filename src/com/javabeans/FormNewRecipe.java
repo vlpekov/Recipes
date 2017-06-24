@@ -1,8 +1,11 @@
 package com.javabeans;
 
+import java.io.Serializable;
+
 import com.vso.interfaces.FormNamesNewRecipe;
 
-public class FormNewRecipe implements FormNamesNewRecipe {
+public class FormNewRecipe implements Serializable, FormNamesNewRecipe {
+	private static final long serialVersionUID = 1L;
 
 	public String getRecipeTitleInputName() {
 		return recipeTitleInputName;

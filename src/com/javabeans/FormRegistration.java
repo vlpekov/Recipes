@@ -1,9 +1,11 @@
 package com.javabeans;
 
+import java.io.Serializable;
+
 import com.vso.interfaces.FormNamesRegistration;
 
-public class FormRegistration implements FormNamesRegistration {
-
+public class FormRegistration implements Serializable, FormNamesRegistration {
+	private static final long serialVersionUID = 1L;
 
 	public String getUsernameInputName() {
 		return usernameInputName;

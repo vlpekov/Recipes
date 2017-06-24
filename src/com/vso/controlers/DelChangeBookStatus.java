@@ -20,7 +20,7 @@ import com.vso.models.User;
  * Servlet implementation class ChangeBookStatus
  */
 @WebServlet("/ChangeBookStatus")
-public class ChangeBookStatus extends HttpServlet {
+public class DelChangeBookStatus extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	final int free = 0;
 	final int booked = 1;
@@ -28,7 +28,7 @@ public class ChangeBookStatus extends HttpServlet {
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ChangeBookStatus() {
+	public DelChangeBookStatus() {
 		new SelectBooks();
 		// TODO Auto-generated constructor stub
 	}

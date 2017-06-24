@@ -15,43 +15,29 @@
 		SetupDB.getStatement();
 	%>
 
-	<div class="top_bar">
-		<form action="Login" method="post">
-			<fieldset style="width: 300px;">
-				<legend> Потребителски вход: </legend>
-				<table>
-					<tr>
-						<td>Потребител:</td>
-						<td><input type="text" name="username" required="required" /></td>
-					</tr>
-					<tr>
-						<td>Парола:</td>
-						<td><input type="password" name="password"
-							required="required" /></td>
-					</tr>
-					<tr>
-						<td><input type="submit" value="Вход" /></td>
-
-					</tr>
-				</table>
-			</fieldset>
-		</form>
+	<div class="header">
+		<div class="left_header"></div>
+		<div class="midle_header">
+			<a href="index.jsp"> <img border="0" alt="Рецептурник"
+				src="img/label.png" height="110">
+			</a>
+		</div>
+		<div class="right_header">
+			<div class="login_field">
+				<input type="text">
+			</div>
+			<table>
+				<tr>
+					<td><div class="login_field_bottom"> <input
+						type="password" placeholder="******">
+					</div></td>
+					<td><input class="red_button" type="submit" value="Вход" /></td>
+				</tr>
+			</table>
+		</div>
 	</div>
 
-	<form class="form-container" action="Login" method="post">
-		<div class="form-title">
-			<h2>Вход</h2>
-		</div>
-		<div class="form-title">Потребителско име:</div>
-		<input class="form-field" type="text" name="username"
-			required="required" /><br />
-		<div class="form-title">Парола:</div>
-		<input class="form-field" type="password" name="password"
-			required="required" /><br />
-		<div class="submit-container">
-			<input class="brown_button" type="submit" value="Вход" />
-		</div>
-	</form>
+
 
 </body>
 </html>
