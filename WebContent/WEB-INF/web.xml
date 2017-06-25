@@ -64,13 +64,23 @@
 		<servlet-name>loginForm</servlet-name>
 		<url-pattern>/signin</url-pattern>
 	</servlet-mapping>
+
 	<servlet>
-		<servlet-name>header</servlet-name>
+		<servlet-name>Header</servlet-name>
 		<jsp-file>/WEB-INF/jsps/header.jsp</jsp-file>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>header</servlet-name>
+		<servlet-name>Header</servlet-name>
 		<url-pattern>/header</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>indexBody</servlet-name>
+		<jsp-file>/WEB-INF/jsps/indexBody.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>indexBody</servlet-name>
+		<url-pattern>/body</url-pattern>
 	</servlet-mapping>
 
 	<filter>

@@ -6,63 +6,39 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="stylesheet" type="text/css" href="css/main.css">
-<title>Рецептурник</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="css/header.css">
+<title>Header</title>
 </head>
-<%
-	if (isLoggedIn) {
-%>
-<frameset rows="auto,*">
-	<frame src="header" name="header" frameborder="0" noresize="noresize"
-		scrolling="no">
-	<frameset cols="20%,*">
-		<frame src="frame2.jsp" name="" frameborder="0" noresize="noresize"
-			scrolling="no">
-		<frame src="body" name="body" frameborder="0" noresize="noresize"
-			scrolling="no">
-	</frameset>
-</frameset>
-<%
-	} else {
-%>
-<frameset rows="300px,*">
-	<frame src="header" name="header" frameborder="0" noresize="noresize"
-		scrolling="no">
-	<frameset cols="20%,*">
-		<frame src="frame2.jsp" name="" frameborder="0" noresize="noresize"
-			scrolling="no">
-		<frame src="body" name="body" frameborder="0" noresize="noresize"
-			scrolling="no">
-	</frameset>
-</frameset>
-<%
-	}
-%>
-<body class="tablecloth">
+<body>
 	<jsp:useBean id="filds" class="com.javabeans.FormRegistration" />
 	<jsp:useBean id="cookieManager" class="com.javabeans.CookiesManager" />
 	<%
 		SetupDB single = SetupDB.getInstance();
 		SetupDB.getStatement();
 	%>
-	<%!boolean isLoggedIn = false;%>
+	<%!boolean isLoggedIn = false;
+	String guestElements = "";
+	String userElements = "";%>
 	<%
 		Cookie[] cookies = request.getCookies();
 		isLoggedIn = cookieManager.isUserCorrect(cookies);
+		if (isLoggedIn) {
+			guestElements = "hidden";
+			userElements = "";
+		} else {
+			guestElements = "";
+			userElements = "hidden";
+		}
 	%>
-
 	<div class="header">
 		<div class="left_header">
-			<%
-				if (isLoggedIn) {
-			%>
-			<h1>
+			<h3>
 				Добре дошъл,
-				<%=cookieManager.getCurrentUsername()%><%=session.getAttribute("name")%></h1>
-			<%
-				}
-			%>
+				<%=cookieManager.getCurrentUsername()%>
+				(Сесия:
+				<%=session.getAttribute("name")%>)
+			</h3>
 		</div>
 		<div class="midle_header">
 			<a href="index.jsp"> <img border="0" alt="Рецептурник"
@@ -70,7 +46,7 @@
 			</a>
 		</div>
 		<div class="right_header">
-			<form action="login" method="post">
+			<form <%=guestElements%> action="login" method="post">
 				<div class="login_field">
 					<input type="text" required="required"
 						name=<%=filds.getUsernameInputName()%>>
@@ -84,15 +60,29 @@
 						<td><input class="red_button" type="submit" value="Вход" /></td>
 					</tr>
 					<tr>
-						<td><a href="register"> <img border="0"
+						<td><a href="register" target="_top"> <img border="0"
 								alt="Регистрирай се" src="img/register.png" height="18"></a>
 						<td>
 					</tr>
 				</table>
 			</form>
+			<div <%=userElements%> >
+				<table>
+					<tr>
+						<td>
+							<h2>
+								Добре дошъл,
+								<%=cookieManager.getCurrentUsername()%>
+								(Сесия:
+								<%=session.getAttribute("name")%>)
+							</h2>
+						</td>
+					<tr>
+						<td class="right"><a class="button" href="logout" target="_top">Изход</a></td>
+					</tr>
+				</table>
+			</div>
 		</div>
 	</div>
-
-
 </body>
 </html>

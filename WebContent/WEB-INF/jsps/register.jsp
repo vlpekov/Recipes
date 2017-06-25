@@ -96,7 +96,7 @@ com.javabeans.
 				</tr>
 			</table>
 			<input class="brown_button" type="submit" name="submit" /> <a
-				class="white_button" href="login.jsp">Отказ</a>
+				class="white_button" href="/Recipes/">Отказ</a>
 
 
 		</fieldset>

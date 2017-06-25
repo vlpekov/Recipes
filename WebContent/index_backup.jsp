@@ -10,35 +10,13 @@
 <link rel="stylesheet" type="text/css" href="css/main.css">
 <title>Рецептурник</title>
 </head>
-<%
-	if (isLoggedIn) {
-%>
-<frameset rows="auto,*">
-	<frame src="header" name="header" frameborder="0" noresize="noresize"
-		scrolling="no">
-	<frameset cols="20%,*">
-		<frame src="frame2.jsp" name="" frameborder="0" noresize="noresize"
-			scrolling="no">
-		<frame src="body" name="body" frameborder="0" noresize="noresize"
-			scrolling="no">
-	</frameset>
-</frameset>
-<%
-	} else {
-%>
 <frameset rows="300px,*">
-	<frame src="header" name="header" frameborder="0" noresize="noresize"
-		scrolling="no">
-	<frameset cols="20%,*">
-		<frame src="frame2.jsp" name="" frameborder="0" noresize="noresize"
-			scrolling="no">
-		<frame src="body" name="body" frameborder="0" noresize="noresize"
-			scrolling="no">
-	</frameset>
+<frame src="WEB-INF/jsps/header.jsp" name="frame1" frameborder="0" noresize="noresize" scrolling="no">
+<frameset cols="20%,*">
+<frame src="frame2.jsp" name="frame2" frameborder="0" noresize="noresize" scrolling="no">
+<frame src="frame3.jsp" name="frame3" frameborder="0" noresize="noresize" scrolling="no">
 </frameset>
-<%
-	}
-%>
+</frameset>
 <body class="tablecloth">
 	<jsp:useBean id="filds" class="com.javabeans.FormRegistration" />
 	<jsp:useBean id="cookieManager" class="com.javabeans.CookiesManager" />
