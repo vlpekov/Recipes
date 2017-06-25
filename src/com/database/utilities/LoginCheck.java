@@ -42,15 +42,18 @@ public class LoginCheck {
 		ResultSet results = null;
 		Connection connectionDB;
 		String query = "SELECT * FROM " + SetupDB.getDbName() + "." + usersTableName + " where " + usernameColumn + "='"
-				+ username + "'";
+				+ username + "';";
+		System.out.println("LoginCheck.java query:" + query);
 		try {
 			connectionDB = Conector.getInstance().getConnection();
 			Statement statement = connectionDB.createStatement();
 			results = statement.executeQuery(query);
 			if (results.next()) {
 				String dbPassword = results.getString("password");
+				System.out.println("LoginCheck.java method: validatePassword dbPassword: " + dbPassword);
 				status = Password.check(password, dbPassword);
 			}
+			System.out.println("LoginCheck.java password check: " + status);
 			return status;
 		} catch (Exception e) {
 			System.out.println(e);

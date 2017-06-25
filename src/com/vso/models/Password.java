@@ -8,6 +8,8 @@ import javax.crypto.spec.PBEKeySpec;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 
+import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
+
 public class Password {
 	// The higher the number of iterations the more
 	// expensive computing the hash is for us and
@@ -22,6 +24,7 @@ public class Password {
 	 */
 	public static String getSaltedHash(String password) throws Exception {
 		byte[] salt = SecureRandom.getInstance("SHA1PRNG").generateSeed(saltLen);
+		System.out.println("Password.java method:getSaltedHash salt:" + Base64.encodeBase64String(salt));
 		// store the salt with the password
 		return Base64.encodeBase64String(salt) + "$" + hash(password, salt);
 	}
@@ -31,14 +34,32 @@ public class Password {
 	 * hash of the password.
 	 */
 	public static boolean check(String password, String storedPassword) throws Exception {
+		System.out.println("Password.java method:check ************************************************************");
 		String[] saltAndPass = storedPassword.split("\\$");
 		if (saltAndPass.length != 2) {
 			throw new IllegalStateException("The stored password have the form 'salt$hash'");
 		}
 		String hashOfInput = hash(password, Base64.decodeBase64(saltAndPass[0]));
+		System.out.println("Password.java method:check hashOfInput: " + hashOfInput);
+		System.out.println("Password.java method:check storedPassword: " + saltAndPass[1]);
+		System.out.println("Password.java method:check equals: " + hashOfInput.equals(saltAndPass[1]));
 		return hashOfInput.equals(saltAndPass[1]);
 	}
 
+	public static boolean checkCookiePassword(String cookiePassword, String dbPassword) throws Exception {
+		System.out.println("Password.java checkCookiePassword ************************************************************");
+		String[] saltAndPassCookie = cookiePassword.split("\\$");
+		if (saltAndPassCookie.length != 2) {
+			throw new IllegalStateException("The stored password have the form 'salt$hash'");
+		}
+		String[] saltAndPassDB = cookiePassword.split("\\$");
+		if (saltAndPassDB.length != 2) {
+			throw new IllegalStateException("The stored password have the form 'salt$hash'");
+		}
+		System.out.println("Password.java checkCookiePassword equals: " + saltAndPassDB[1].equals(saltAndPassCookie[1]));
+		return saltAndPassDB[1].equals(saltAndPassCookie[1]);
+	}
+	
 	// using PBKDF2 from Sun, an alternative is https://github.com/wg/scrypt
 	// cf. http://www.unlimitednovelty.com/2012/03/dont-use-bcrypt.html
 	private static String hash(String password, byte[] salt) throws Exception {
@@ -60,4 +81,5 @@ public class Password {
 		}
 		return firstHashSaltAndPass[1].equals(secondHashSaltAndPass[1]) ? true : false;
 	}
+
 }

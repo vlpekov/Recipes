@@ -10,7 +10,7 @@ com.javabeans.
 <title>Регистрация на потребител</title>
 </head>
 <body>
-	<jsp:useBean id="validator" class="com.javabeans.Validator" />
+	<jsp:useBean id="filds" class="com.javabeans.FormRegistration" />
 	<form class="form-container" action="validation" method="post"
 		enctype="multipart/form-data">
 		<%

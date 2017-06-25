@@ -36,8 +36,6 @@ public class Login extends HttpServlet implements Cookies {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -51,6 +49,7 @@ public class Login extends HttpServlet implements Cookies {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String hashPassword = null;
+		System.out.println("Login.java user&pass: "  + username + ", " + password);
 		try {
 			hashPassword = Password.getSaltedHash(password);
 		} catch (Exception e) {
@@ -63,13 +62,14 @@ public class Login extends HttpServlet implements Cookies {
 		}
 
 		if (LoginCheck.validatePassword(username, password)) {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("welcome.jsp");
+			System.out.println("Login.java паролите съвпадат *************************************");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 			response.addCookie(createCookie(cookieUsername, username));
 			response.addCookie(createCookie(cookiePassword, hashPassword));
 			dispatcher.forward(request, response);
 		} else {
 			out.print("<p style=\"color:red\">Грешно потребителско име или парола.</p>");
-			RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("signin");
 			dispatcher.include(request, response);
 		}
 		out.close();
@@ -80,6 +80,7 @@ public class Login extends HttpServlet implements Cookies {
 		Cookie newCookie = new Cookie(CookieName, CookieData);
 		newCookie.setMaxAge(sessionExpiryTime);
 		newCookie.setPath("/");
+		System.out.println("Добавен куки");
 		return newCookie;
 	}
 

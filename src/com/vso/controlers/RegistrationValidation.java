@@ -59,7 +59,8 @@ public class RegistrationValidation extends HttpServlet implements FormNamesRegi
 		if (isPasswordCorrect && isUsernameCorrect) {
 			try {
 				InputStream fileContent = filePart.getInputStream();
-				String password = new Password().getSaltedHash(passwordInputName);
+				String password = new Password().getSaltedHash(request.getParameter(passwordInputName));
+				System.out.println("RegistrationValidation.class hashed password: " + password);
 				connectionDB = Conector.getInstance().getConnection();
 				PreparedStatement pre = connectionDB.prepareStatement(
 						"INSERT INTO `" + databaseName + "`.`" + tableUsersName + "` (`" + tableUsersColumnUsername + "`, `" + tableUsersColumnPassword + "`, `" + tableUsersColumnFirstName + "`, `" + tableUsersColumnLastName + "`, `" + tableUsersColumnEmail + "`, `" + tableUsersColumnRegistrationDate + "`, `" + tableUsersColumnGender + "`, `" + tableUsersColumnProfilPictureFile + "`, `" + tableUsersColumnProfilPictureName + "`) VALUES (?,?,?,?,?,?,?,?,?);");
@@ -74,7 +75,7 @@ public class RegistrationValidation extends HttpServlet implements FormNamesRegi
 				pre.setString(9, "" + username + "_image");
 				pre.executeUpdate();
 				pre.close();
-				request.setAttribute("registrationSuccess", "<div class=\"error\" >Поздравления<br>Регистрирахте се успешно.<br>Може да се впишете:</div>");
+				request.setAttribute("registrationSuccess", "<h1>Поздравления<br>Регистрирахте се успешно.<br>Може да се впишете:</h1>");
 				RequestDispatcher dispatcher = request.getRequestDispatcher("signin");
 				dispatcher.include(request, response);
 
@@ -110,7 +111,7 @@ public class RegistrationValidation extends HttpServlet implements FormNamesRegi
 		return true;
 	}
 
-	private Boolean usernameValidation(String username, Connection connectionDB, HttpServletRequest request,
+	private boolean usernameValidation(String username, Connection connectionDB, HttpServletRequest request,
 			HttpServletResponse response) {
 		ResultSet results = null;
 		Statement statement;
