@@ -92,8 +92,6 @@ public class Logout extends HttpServlet implements Cookies {
 		if (session != null) {
 			session.removeAttribute("name");
 		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-		dispatcher.include(request, response);
 		// out.println("</body>");
 		// out.println("</html>");
 		response.sendRedirect("/Recipes/");

@@ -5,11 +5,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Нова рецепта</title>
-<script src="../js/newInput.js" type="text/javascript"></script>
-<link rel="stylesheet" type="text/css" href="../css/newRecipe.css">
-<link rel="stylesheet" href="../css/jquery-ui.css">
-<script src="../js/jquery-1.11.2.js"></script>
-<script src="../js/jquery-ui.js"></script>
+<script src="js/newInput.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="css/newRecipe.css">
+<link rel="stylesheet" href="css/jquery-ui.css">
+<script src="js/jquery-1.11.2.js"></script>
+<script src="js/jquery-ui.js"></script>
 
 </head>
 <body>
@@ -21,7 +21,7 @@
 							function() {
 								$
 										.ajax({
-											url : "../auto",
+											url : "auto",
 											type : "post",
 											data : '',
 											success : function(data) {
@@ -55,11 +55,12 @@
 											},
 										});
 							});
-			$('html').bind('keypress', function(e) {
-				if (e.keyCode == 13) {
-					return false;
-				}
-			});
+			$(document).on("keypress",
+					":input:not(textarea):not([type=submit])", function(event) {
+						if (event.keyCode == 13) {
+							event.preventDefault();
+						}
+					});
 		});
 	</script>
 </head>
@@ -68,7 +69,7 @@
 		<div class="form-box">
 			<h2>Нова рецепта:</h2>
 
-			<form action="saveRecipe" id="mainform" method="post"
+			<form action="save_recipe" id="mainform" method="post"
 				name="recipe_data">
 				<p class="form-title">Име на рецептата:</p>
 				<input class="form-field" type="text" name="recipe_name"
@@ -95,9 +96,9 @@
 					<textarea class="form-field_description" id="description"
 						name="description" required="required"></textarea>
 				</div>
-				<label for="picture" class="form-title">Снимка:</label><input style="padding: 3px;" type="file" name="image"
-					required="required" />
-				<input class="brown_button" type="submit"
+				<label for="picture" class="form-title">Снимка:</label><input
+					style="padding: 3px;" type="file" name="image" required="required" />
+				<input id="send" class="brown_button" type="submit"
 					value="Публикувай рецептата">
 			</form>
 

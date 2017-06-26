@@ -90,7 +90,7 @@ function addProduct(tableID) {
 	cell1.appendChild(product);
 	cell2.appendChild(quantity);
 	var button = document.createElement("IMG");
-	button.setAttribute("src", "../img/delete.png");
+	button.setAttribute("src", "img/delete.png");
 	button.setAttribute("onclick", "deleteRow('id_" + number + "')");
 	button.setAttribute("class", "remove_button");
 	cell3.appendChild(button);

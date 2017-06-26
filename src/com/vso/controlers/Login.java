@@ -49,24 +49,21 @@ public class Login extends HttpServlet implements Cookies {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String hashPassword = null;
-		System.out.println("Login.java user&pass: "  + username + ", " + password);
+		System.out.println("Login.java user&pass: " + username + ", " + password);
 		try {
 			hashPassword = Password.getSaltedHash(password);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		HttpSession session = request.getSession(false);
-		if (session != null) {
-			session.setAttribute("name", username);
-		}
-
 		if (LoginCheck.validatePassword(username, password)) {
 			System.out.println("Login.java паролите съвпадат *************************************");
-			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 			response.addCookie(createCookie(cookieUsername, username));
 			response.addCookie(createCookie(cookiePassword, hashPassword));
-			dispatcher.forward(request, response);
+			if (session != null) {
+				session.setAttribute("name", username);
+			}
+			response.sendRedirect("/Recipes/");
 		} else {
 			out.print("<p style=\"color:red\">Грешно потребителско име или парола.</p>");
 			RequestDispatcher dispatcher = request.getRequestDispatcher("signin");
