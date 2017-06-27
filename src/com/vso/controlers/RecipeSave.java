@@ -22,6 +22,8 @@ import javax.servlet.http.Part;
 import com.database.utilities.ConnectorDB;
 import com.vso.interfaces.FormNamesNewRecipe;
 import com.vso.interfaces.FormNamesRegistration;
+import com.vso.interfaces.TableCategories;
+import com.vso.interfaces.TableCategoriesMapNames;
 import com.vso.interfaces.TableProductsMapNames;
 import com.vso.interfaces.TableProductsNames;
 import com.vso.interfaces.TableRecipesNames;
@@ -36,18 +38,17 @@ import com.javabeans.CookiesManager;;
 @WebServlet("/RecipeSave")
 @javax.servlet.annotation.MultipartConfig
 public class RecipeSave extends HttpServlet
-		implements FormNamesNewRecipe, TableProductsNames, TableRecipesNames, TableProductsMapNames {
+		implements FormNamesNewRecipe, TableProductsNames, TableRecipesNames, TableProductsMapNames, TableCategories, TableCategoriesMapNames {
 	private static final long serialVersionUID = 1L;
 	
-	int vegan = 1;
-	int vegeterian = 2;
-	int meat = 3;
+	int vegan;
+	int vegeterian;
+	int meaty;
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public RecipeSave() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -99,7 +100,7 @@ public class RecipeSave extends HttpServlet
 			pre.executeUpdate();
 			pre.close();
 			request.setAttribute("recipeRecordSuccess", "<h1>Рецептата е записана успешно.</h1>");
-			
+			getCategories(connectionDB);
 			Recipe thisRecipe = new Recipe(recipeName);
 			PreparedStatement preProducts = connectionDB.prepareStatement(queryNewProductsMapRecord);
 			int recipeCategory = vegan;
@@ -108,11 +109,18 @@ public class RecipeSave extends HttpServlet
 				preProducts.setInt(2, thisRecipe.getId());
 				preProducts.setInt(3, Integer.parseInt(quantitiesList[index]));
 				preProducts.executeUpdate();
-				if (recipeCategory != meat) {
-					
+				if (recipeCategory != meaty) {
+					if (categryVegetarian.equals(getProductCategory(productsList[index], connectionDB))) {
+						recipeCategory = vegeterian;
+					}
 				}
 			}
 			preProducts.close();
+			PreparedStatement preCategoryMap = connectionDB.prepareStatement(queryNewCategoriesMapRecord);
+			// 1 - recipeId; 2 - categoryId
+			preCategoryMap.setInt(1, thisRecipe.getId());
+			preCategoryMap.setInt(2, recipeCategory);
+			preCategoryMap.close();
 			request.setAttribute("productsRecordSuccess", "<h1>Продуктите са записана успешно.</h1>");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -123,6 +131,49 @@ public class RecipeSave extends HttpServlet
 		RequestDispatcher dispatcher = request.getRequestDispatcher("signin");
 		dispatcher.include(request, response);
 		out.close();
+	}
+
+	private String getProductCategory(String productName, Connection connectionDB) {
+		String query = queryGetProductCategoryByName + productName + "'";
+		Statement statement = null;
+		ResultSet results = null;
+		try {
+			statement = connectionDB.createStatement();
+			results = statement.executeQuery(query);
+			if (results.next()) {
+				return results.getString(tableProductsColumnGroup);
+			}
+			statement.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	private void getCategories(Connection connectionDB) {
+		Statement statement = null;
+		ResultSet results = null;
+		String query = queryGetCategoryIDByName + categryVegan;
+		try {
+			statement = connectionDB.createStatement();
+			results = statement.executeQuery(query);
+			if (results.next()) {
+				vegan =  results.getInt(tableCategoriesColumnId);
+			}
+			query = queryGetCategoryIDByName + categryVegetarian;
+			results = statement.executeQuery(query);
+			if (results.next()) {
+				vegeterian =  results.getInt(tableCategoriesColumnId);
+			}
+			query = queryGetCategoryIDByName + categryMeaty;
+			results = statement.executeQuery(query);
+			if (results.next()) {
+				meaty =  results.getInt(tableCategoriesColumnId);
+			}
+			statement.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void loginCheck(HttpServletRequest request, HttpServletResponse response) {

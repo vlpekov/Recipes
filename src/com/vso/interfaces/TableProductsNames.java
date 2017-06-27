@@ -28,4 +28,8 @@ public interface TableProductsNames extends DatabaseNames {
 	String queryGetProductByName = "SELECT * FROM " + databaseName + "." + tableProductsName + " WHERE "
 			+ tableProductsColumnName + "='";
 	// String query = queryGetProductByName + p + "'";
+	
+	String queryGetProductCategoryByName = "SELECT * FROM " + databaseName + "." + tableProductsName + " WHERE "
+			+ tableProductsColumnName + "='";
+	// String query = queryGetProductCategoryByName + productName + "'";
 }

@@ -71,9 +71,7 @@ public class CreateTables implements DatabaseNames, TablesColumnNames {
 
 	private void crateCategoryMap() {
 		try {
-			String crateTable = "CREATE TABLE `" + dbName + "`.`category_map` (" + "id SERIAL PRIMARY KEY NOT NULL, "
-					+ "category_id INT NOT NULL, " + "recipe_id INT NOT NULL);";
-			dbStatement.executeUpdate(crateTable);
+			dbStatement.executeUpdate(createTableCategoriesMapCommand);
 		} catch (Exception e) {
 		}
 	}

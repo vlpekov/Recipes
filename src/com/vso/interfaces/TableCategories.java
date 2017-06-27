@@ -1,9 +1,12 @@
 package com.vso.interfaces;
 
 public interface TableCategories extends DatabaseNames {
-	String tableCategoriesName = tableCategory;
+	String tableCategoriesName = tableCategoriesMap;
 	String tableCategoriesColumnId = "id";
 	String tableCategoriesColumnName = "category_name";
+	String categryVegan = "веган";
+	String categryVegetarian = "вегетарианскa";
+	String categryMeaty = "обща";
 	
 	String createTableCategoriesCommand = "CREATE TABLE `" + databaseName + "`.`" + tableCategoriesName + "` ("
 			+ tableCategoriesColumnId + " SERIAL PRIMARY KEY NOT NULL AUTO_INCREMENT, " + tableCategoriesColumnName + " TEXT NOT NULL);";
