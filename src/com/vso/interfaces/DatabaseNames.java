@@ -9,4 +9,5 @@ public interface DatabaseNames {
 	String tableProductsMap = "products_map";
 	String tableUserMap = "user_map";
 	String tableCategoriesMap = "categories_map";
+	String tableImages = "images";
 }

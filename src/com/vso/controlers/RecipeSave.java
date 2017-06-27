@@ -12,6 +12,7 @@ import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -36,7 +37,7 @@ import com.javabeans.CookiesManager;;
  * Servlet implementation class RecipeSave
  */
 @WebServlet("/RecipeSave")
-@javax.servlet.annotation.MultipartConfig
+@MultipartConfig(maxFileSize = 16177216)
 public class RecipeSave extends HttpServlet
 		implements FormNamesNewRecipe, TableProductsNames, TableRecipesNames, TableProductsMapNames, TableCategories, TableCategoriesMapNames {
 	private static final long serialVersionUID = 1L;
@@ -117,7 +118,6 @@ public class RecipeSave extends HttpServlet
 			}
 			preProducts.close();
 			PreparedStatement preCategoryMap = connectionDB.prepareStatement(queryNewCategoriesMapRecord);
-			// 1 - recipeId; 2 - categoryId
 			preCategoryMap.setInt(1, thisRecipe.getId());
 			preCategoryMap.setInt(2, recipeCategory);
 			preCategoryMap.close();

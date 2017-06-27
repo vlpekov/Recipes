@@ -78,14 +78,12 @@ public class CreateTables implements DatabaseNames, TablesColumnNames {
 
 
 	private void crateImagesTable() {
-		String crateTable = "CREATE TABLE `" + dbName + "`.`images` (" + "id SERIAL PRIMARY KEY NOT NULL, "
-				+ "image MEDIUMBLOB NOT NULL);";
-
+//		String crateTable = "CREATE TABLE `" + dbName + "`.`images` (" + "id SERIAL PRIMARY KEY NOT NULL, "
+//				+ "image MEDIUMBLOB NOT NULL);";
+		System.out.println(createTableImagesCommand);
 		try {
-			dbStatement.executeUpdate(crateTable);
-			System.out.println(crateTable);
+			dbStatement.executeUpdate(createTableImagesCommand);
 		} catch (Exception e) {
-			System.out.println("Ops... crateUsersTable failed");
 			e.printStackTrace();
 		}
 	}
