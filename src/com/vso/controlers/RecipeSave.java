@@ -5,7 +5,9 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
@@ -20,10 +22,12 @@ import javax.servlet.http.Part;
 import com.database.utilities.ConnectorDB;
 import com.vso.interfaces.FormNamesNewRecipe;
 import com.vso.interfaces.FormNamesRegistration;
+import com.vso.interfaces.TableProductsMapNames;
 import com.vso.interfaces.TableProductsNames;
 import com.vso.interfaces.TableRecipesNames;
 import com.vso.interfaces.TableUsersNames;
 import com.vso.models.Password;
+import com.vso.models.Recipe;
 import com.javabeans.CookiesManager;;
 
 /**
@@ -31,7 +35,8 @@ import com.javabeans.CookiesManager;;
  */
 @WebServlet("/RecipeSave")
 @javax.servlet.annotation.MultipartConfig
-public class RecipeSave extends HttpServlet implements FormNamesNewRecipe, TableProductsNames, TableRecipesNames {
+public class RecipeSave extends HttpServlet
+		implements FormNamesNewRecipe, TableProductsNames, TableRecipesNames, TableProductsMapNames {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -91,11 +96,20 @@ public class RecipeSave extends HttpServlet implements FormNamesNewRecipe, Table
 			pre.executeUpdate();
 			pre.close();
 			request.setAttribute("recipeRecordSuccess", "<h1>Рецептата е записана успешно.</h1>");
-
-			for (String product : productsList) {
-				System.out.println(product);
+			
+			Recipe thisRecipe = new Recipe(recipeName);
+			System.out.println(queryNewProductsMapRecord);
+			PreparedStatement preProducts = connectionDB.prepareStatement(queryNewProductsMapRecord);
+			for (int index = 0; index < productsList.length; index++) {
+				preProducts.setInt(1, getProductId(productsList[index], connectionDB));
+				preProducts.setInt(2, thisRecipe.getId());
+				preProducts.setInt(3, Integer.parseInt(quantitiesList[index]));
+				System.out.println("========= 1: " + getProductId(productsList[index], connectionDB));
+				System.out.println("========= 2: " + thisRecipe.getId());
+				System.out.println("========= 3: " + Integer.parseInt(quantitiesList[index]));
+				preProducts.executeUpdate();
 			}
-
+			preProducts.close();
 			request.setAttribute("productsRecordSuccess", "<h1>Продуктите са записана успешно.</h1>");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -120,4 +134,23 @@ public class RecipeSave extends HttpServlet implements FormNamesNewRecipe, Table
 			}
 		}
 	}
+
+	private int getProductId(String productName, Connection connectionDB) {
+		String query = queryGetProductByName + productName + "'";
+		Statement statement = null;
+		ResultSet results = null;
+		try {
+			statement = connectionDB.createStatement();
+			results = statement.executeQuery(query);
+			if (results.next()) {
+				return results.getInt(tableProductsColumnId);
+			}
+			statement.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	
 }

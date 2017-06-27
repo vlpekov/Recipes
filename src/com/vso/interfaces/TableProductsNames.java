@@ -17,9 +17,15 @@ public interface TableProductsNames extends DatabaseNames {
 			+ tableProductsColumnFats + " TEXT NOT NULL, " + tableProductsColumnProteins + " TEXT NOT NULL, "
 			+ tableProductsColumnCarbohydrates + " TEXT NOT NULL, " + tableProductsColumnUnit + " TEXT NOT NULL, "
 			+ tableProductsColumnGroup + " TEXT NOT NULL);";
+	
 	String tableProductsInsertCommand = "INSERT INTO `" + databaseName + "`.`" + tableProductsName + "` (`"
 			+ tableProductsColumnName + "`, `" + tableProductsColumnCategory + "`, `" + tableProductsColumnCalories
 			+ "`, `" + tableProductsColumnFats + "`, `" + tableProductsColumnProteins + "`, `"
 			+ tableProductsColumnCarbohydrates + "`, `" + tableProductsColumnUnit + "`, `" + tableProductsColumnGroup
 			+ "`) VALUES(";
+	//FillTables.java
+	
+	String queryGetProductByName = "SELECT * FROM " + databaseName + "." + tableProductsName + " WHERE "
+			+ tableProductsColumnName + "='";
+	// String query = queryGetProductByName + productName + "'";
 }

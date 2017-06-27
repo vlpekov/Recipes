@@ -26,7 +26,7 @@ public class Recipe implements DatabaseNames, TableRecipesNames {
 		this.recipeName = recipeName;
 		getRecipeFromDbByName(this.recipeName);
 	}
-	
+
 	public Recipe(int recipeId) {
 		getDbConnection();
 		this.id = recipeId;
@@ -50,7 +50,6 @@ public class Recipe implements DatabaseNames, TableRecipesNames {
 		try {
 			statement = connectionDB.createStatement();
 			results = statement.executeQuery(query);
-			results = statement.executeQuery(query);
 			if (results.next()) {
 				id = results.getInt(tableRecipesColumnID);
 				cookingDescription = results.getString(tableRecipesColumnRecipeDescription);
@@ -60,9 +59,11 @@ public class Recipe implements DatabaseNames, TableRecipesNames {
 				publishingDate = results.getDate(tableRecipesColumnPublishingDate);
 
 			}
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+
 	}
 
 	public void getRecipeFromDbById(int id) {
@@ -80,8 +81,8 @@ public class Recipe implements DatabaseNames, TableRecipesNames {
 				difficulty = results.getString(tableRecipesColumnDifficulty);
 				portions = results.getString(tableRecipesColumnPortions);
 				publishingDate = results.getDate(tableRecipesColumnPublishingDate);
-
 			}
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
