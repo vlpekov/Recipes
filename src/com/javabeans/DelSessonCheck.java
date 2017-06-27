@@ -6,7 +6,7 @@ import javax.servlet.http.Cookie;
 
 import com.vso.interfaces.Cookies;
 
-public class SessonCheck implements Serializable, Cookies {
+public class DelSessonCheck implements Serializable, Cookies {
 	public void sessionCheck()  {
 		Cookie[] cookies = request.getCookies();
 		// check null because there are chances that there are no cookies

@@ -19,7 +19,7 @@ public class UserManager implements TableUsersNames {
 				+ username + "';";
 		System.out.println("UserManager.java query:" + query);
 		try {
-			connectionDB = Conector.getInstance().getConnection();
+			connectionDB = ConnectorDB.getInstance().getConnection();
 			Statement statement = connectionDB.createStatement();
 			results = statement.executeQuery(query);
 			if (results.next()) {

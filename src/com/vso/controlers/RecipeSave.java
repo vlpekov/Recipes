@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import com.database.utilities.Conector;
+import com.database.utilities.ConnectorDB;
 import com.vso.interfaces.FormNamesNewRecipe;
 import com.vso.interfaces.FormNamesRegistration;
 import com.vso.interfaces.TableProductsNames;
@@ -61,16 +61,18 @@ public class RecipeSave extends HttpServlet implements FormNamesNewRecipe, Table
 		PrintWriter out = response.getWriter();
 		Connection connectionDB = null;
 
-		String recipeName = request.getParameter("test");
+		String recipeName = request.getParameter(recipeTitleInputName);
 		String cookingDescription = request.getParameter(cookingDescriptionInputName);
 		String cookingTime = request.getParameter(timeInputName);
 		String difficulty = request.getParameter(difficultyInputName);
 		String[] productsList = request.getParameter("hiddenProductsField").split("\\$");
 		String[] quantitiesList = request.getParameter("hiddenQuantitiesField").split("\\$");
 		String portions = request.getParameter(portionsInputName);
+		Date currentDate = new Date(new Date().getTime());
+		java.sql.Date sqlDate = new java.sql.Date(currentDate.getTime());
 		// Part filePart = request.getPart(imageInputName);
 		// InputStream fileContent = filePart.getInputStream();
-		
+		System.out.println(recipeName);
 		System.out.println(cookingDescription);
 		System.out.println(cookingTime);
 		System.out.println(difficulty);
@@ -81,34 +83,29 @@ public class RecipeSave extends HttpServlet implements FormNamesNewRecipe, Table
 		for (String quantity : quantitiesList) {
 			System.out.println(quantity);
 		}
-		// for (String quantity : quantities){
-		// System.out.println(quantity);
-		// }
-		// connectionDB = Conector.getInstance().getConnection();
-		// PreparedStatement pre = connectionDB.prepareStatement("INSERT INTO `"
-		// + databaseName + "`.`" + tableUsersName
-		// + "` (`" + tableUsersColumnUsername + "`, `" +
-		// tableUsersColumnPassword + "`, `"
-		// + tableUsersColumnFirstName + "`, `" + tableUsersColumnLastName + "`,
-		// `" + tableUsersColumnEmail
-		// + "`, `" + tableUsersColumnRegistrationDate + "`, `" +
-		// tableUsersColumnGender + "`, `"
-		// + tableUsersColumnProfilPictureFile + "`, `" +
-		// tableUsersColumnProfilPictureName
-		// + "`) VALUES (?,?,?,?,?,?,?,?,?);");
-		// pre.setString(1, username);
-		// pre.setString(2, password);
-		// pre.setString(3, firstName);
-		// pre.setString(4, lastName);
-		// pre.setString(5, email);
-		// pre.setDate(6, sqlDate);
-		// pre.setString(7, "who cares");
-		// pre.setBlob(8, fileContent);
-		// pre.setString(9, "" + username + "_image");
-		// pre.executeUpdate();
-		// pre.close();
-		request.setAttribute("recordSuccess",
-				"<h1>Поздравления<br>Регистрирахте се успешно.<br>Може да се впишете:</h1>");
+		System.out.println(queryNewRecord);
+		try {
+			connectionDB = ConnectorDB.getInstance().getConnection();
+			PreparedStatement pre = connectionDB.prepareStatement(queryNewRecord);
+			// 1 - RecipeName; 2 - RecipeDescription; 3 - PublishingDate; 4 -
+			// CookingTime; 5 - Difficulty; 6 - Portions;
+			pre.setString(1, recipeName);
+			pre.setString(2, cookingDescription);
+			pre.setDate(3, sqlDate);
+			pre.setString(4, cookingTime);
+			pre.setString(5, difficulty);
+			pre.setString(6, portions);
+			pre.executeUpdate();
+			pre.close();
+			request.setAttribute("recordSuccess", "<h1>Рецептата е записана успешно.</h1>");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		RequestDispatcher dispatcher = request.getRequestDispatcher("signin");
 		dispatcher.include(request, response);
 		out.close();

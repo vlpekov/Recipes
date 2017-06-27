@@ -22,7 +22,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.database.utilities.Conector;
+import com.database.utilities.ConnectorDB;
 import com.database.utilities.SetupDB;
 import com.vso.models.Password;
 import com.vso.interfaces.*;
@@ -59,7 +59,7 @@ public class AutocompleteProducts extends HttpServlet implements DatabaseNames, 
 		ArrayList<String> productsList = new ArrayList<String>();
 		String sqlCommand = "SELECT " + tableProductsColumnName + " FROM " + databaseName + "." + tableProducts + ";";
 		try {
-			Connection connectionDB = Conector.getInstance().getConnection();
+			Connection connectionDB = ConnectorDB.getInstance().getConnection();
 			Statement statement = connectionDB.createStatement();
 			ResultSet results = statement.executeQuery(sqlCommand);
 			while (results.next()) {

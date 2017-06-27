@@ -18,8 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.database.utilities.Conector;
-import com.database.utilities.SetupDB;
+import com.database.utilities.ConnectorDB;
 import com.vso.models.Password;
 import com.vso.interfaces.*;
 
@@ -33,7 +32,7 @@ public class RegistrationValidation extends HttpServlet implements FormNamesRegi
 		PrintWriter out = response.getWriter();
 		Connection connectionDB = null;
 		try {
-			connectionDB = Conector.getInstance().getConnection();
+			connectionDB = ConnectorDB.getInstance().getConnection();
 		} catch (ClassNotFoundException e1) {
 			e1.printStackTrace();
 		} catch (SQLException e1) {
@@ -61,7 +60,7 @@ public class RegistrationValidation extends HttpServlet implements FormNamesRegi
 				InputStream fileContent = filePart.getInputStream();
 				String password = new Password().getSaltedHash(request.getParameter(passwordInputName));
 				System.out.println("RegistrationValidation.class hashed password: " + password);
-				connectionDB = Conector.getInstance().getConnection();
+				connectionDB = ConnectorDB.getInstance().getConnection();
 				PreparedStatement pre = connectionDB.prepareStatement(
 						"INSERT INTO `" + databaseName + "`.`" + tableUsersName + "` (`" + tableUsersColumnUsername + "`, `" + tableUsersColumnPassword + "`, `" + tableUsersColumnFirstName + "`, `" + tableUsersColumnLastName + "`, `" + tableUsersColumnEmail + "`, `" + tableUsersColumnRegistrationDate + "`, `" + tableUsersColumnGender + "`, `" + tableUsersColumnProfilPictureFile + "`, `" + tableUsersColumnProfilPictureName + "`) VALUES (?,?,?,?,?,?,?,?,?);");
 				pre.setString(1, username);
@@ -118,7 +117,7 @@ public class RegistrationValidation extends HttpServlet implements FormNamesRegi
 		String query = "SELECT * FROM " + databaseName + "." + tableUsersName + " where " + tableUsersColumnUsername + "='"
 				+ username + "'";
 		try {
-			connectionDB = Conector.getInstance().getConnection();
+			connectionDB = ConnectorDB.getInstance().getConnection();
 			statement = connectionDB.createStatement();
 			results = statement.executeQuery(query);
 			if (results.next()) {

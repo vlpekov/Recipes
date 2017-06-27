@@ -19,4 +19,6 @@ public interface TableUsersNames extends DatabaseNames {
 			+ tableUsersColumnEmail + " TEXT NOT NULL, " + tableUsersColumnRegistrationDate + " DATE NOT NULL, " + tableUsersColumnGender
 			+ " TEXT NOT NULL, " + tableUsersColumnProfilPictureFile + " MEDIUMBLOB NOT NULL, " + tableUsersColumnProfilPictureName
 			+ " TEXT NOT NULL, UNIQUE (" + tableUsersColumnUsername + "(20)));";
+	
+	String queryGetUsername = "SELECT * FROM " + databaseName + "." + tableUsersName + " where " + tableUsersColumnUsername + "='";
 }

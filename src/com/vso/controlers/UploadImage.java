@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import com.database.utilities.Conector;
+import com.database.utilities.ConnectorDB;
 
 @WebServlet("/uploadImage")
 @MultipartConfig(maxFileSize = 16177216)
@@ -29,7 +29,7 @@ public class UploadImage extends HttpServlet {
 		if (part != null) {
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
-				connectionDB = Conector.getInstance().getConnection();
+				connectionDB = ConnectorDB.getInstance().getConnection();
 				PreparedStatement ps = connectionDB
 						.prepareStatement("INSERT INTO `recipes_site`.`images` (`image`) values (?)");
 

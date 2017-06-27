@@ -45,7 +45,7 @@ public class LoginCheck {
 				+ username + "';";
 		System.out.println("LoginCheck.java query:" + query);
 		try {
-			connectionDB = Conector.getInstance().getConnection();
+			connectionDB = ConnectorDB.getInstance().getConnection();
 			Statement statement = connectionDB.createStatement();
 			results = statement.executeQuery(query);
 			if (results.next()) {
@@ -77,7 +77,7 @@ public class LoginCheck {
 		String query = "SELECT * FROM " + SetupDB.getDbName() + "." + usersTableName + " where " + usernameColumn + "='"
 				+ username + "'";
 		try {
-			connectionDB = Conector.getInstance().getConnection();
+			connectionDB = ConnectorDB.getInstance().getConnection();
 			statement = connectionDB.createStatement();
 			results = statement.executeQuery(query);
 			if (results.next()) {
