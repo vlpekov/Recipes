@@ -24,8 +24,13 @@ public class Recipe implements DatabaseNames, TableRecipesNames {
 	public Recipe(String recipeName) {
 		getDbConnection();
 		this.recipeName = recipeName;
-		getRecipeFromDb(this.recipeName);
-
+		getRecipeFromDbByName(this.recipeName);
+	}
+	
+	public Recipe(int recipeId) {
+		getDbConnection();
+		this.id = recipeId;
+		getRecipeFromDbById(this.id);
 	}
 
 	private void getDbConnection() {
@@ -36,11 +41,32 @@ public class Recipe implements DatabaseNames, TableRecipesNames {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 	}
 
-	public void getRecipeFromDb(String recipeName) {
+	public void getRecipeFromDbByName(String recipeName) {
 		String query = queryGetRecipeByName + recipeName + "'";
+		Statement statement = null;
+		ResultSet results = null;
+		try {
+			statement = connectionDB.createStatement();
+			results = statement.executeQuery(query);
+			results = statement.executeQuery(query);
+			if (results.next()) {
+				id = results.getInt(tableRecipesColumnID);
+				cookingDescription = results.getString(tableRecipesColumnRecipeDescription);
+				cookingTime = results.getString(tableRecipesColumnCookingTime);
+				difficulty = results.getString(tableRecipesColumnDifficulty);
+				portions = results.getString(tableRecipesColumnPortions);
+				publishingDate = results.getDate(tableRecipesColumnPublishingDate);
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void getRecipeFromDbById(int id) {
+		String query = queryGetRecipeById + id + "'";
 		Statement statement = null;
 		ResultSet results = null;
 		try {
@@ -132,8 +158,5 @@ public class Recipe implements DatabaseNames, TableRecipesNames {
 	public void setPublishingDate(java.sql.Date publishingDate) {
 		this.publishingDate = publishingDate;
 	}
-	
-	
-	
 
 }

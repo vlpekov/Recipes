@@ -17,13 +17,12 @@ public class CreateTables implements DatabaseNames, TablesColumnNames {
 		crateProductsTable();
 		crateUserMap();
 		crateCategoryMap();
-		crateProductsMap();
+		crateProductsMapTable();
 		crateImagesTable();
 	}
 
 	private void crateUsersTable() {
 		try {
-			System.out.println(createTableUsersCommand);
 			dbStatement.executeUpdate(createTableUsersCommand);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -39,9 +38,17 @@ public class CreateTables implements DatabaseNames, TablesColumnNames {
 	}
 
 	private void crateProductsTable() {
-		System.out.println(createTableProductsCommand);
 		try {
 			dbStatement.executeUpdate(createTableProductsCommand);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void crateProductsMapTable() {
+		System.out.println(createTableProductsMapCommand);
+		try {
+			dbStatement.executeUpdate(createTableProductsMapCommand);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -74,14 +81,6 @@ public class CreateTables implements DatabaseNames, TablesColumnNames {
 		}
 	}
 
-	private void crateProductsMap() {
-		try {
-			String crateTable = "CREATE TABLE `" + dbName + "`.`products_map` (" + "id SERIAL PRIMARY KEY NOT NULL, "
-					+ "products_id INT NOT NULL, " + "recipe_id INT NOT NULL);";
-			dbStatement.executeUpdate(crateTable);
-		} catch (Exception e) {
-		}
-	}
 
 	private void crateImagesTable() {
 		String crateTable = "CREATE TABLE `" + dbName + "`.`images` (" + "id SERIAL PRIMARY KEY NOT NULL, "

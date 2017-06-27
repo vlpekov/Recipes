@@ -29,7 +29,7 @@ public interface TableRecipesNames extends DatabaseNames {
 			+ tableRecipesColumnID + "='";
 	// String query = queryGetRecipeById + recipeId + "'";
 
-	String queryNewRecord = "INSERT INTO `" + databaseName + "`.`" + tableRecipesName + "` (`"
+	String queryNewRecipeRecord = "INSERT INTO `" + databaseName + "`.`" + tableRecipesName + "` (`"
 			+ tableRecipesColumnRecipeName + "`, `" + tableRecipesColumnRecipeDescription + "`, `"
 			+ tableRecipesColumnPublishingDate + "`, `" + tableRecipesColumnCookingTime + "`,`"
 			+ tableRecipesColumnDifficulty + "`, `" + tableRecipesColumnPortions + "`) VALUES (?,?,?,?,?,?);";

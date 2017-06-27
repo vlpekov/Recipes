@@ -72,23 +72,16 @@ public class RecipeSave extends HttpServlet implements FormNamesNewRecipe, Table
 		java.sql.Date sqlDate = new java.sql.Date(currentDate.getTime());
 		// Part filePart = request.getPart(imageInputName);
 		// InputStream fileContent = filePart.getInputStream();
-		System.out.println(recipeName);
-		System.out.println(cookingDescription);
-		System.out.println(cookingTime);
-		System.out.println(difficulty);
-		System.out.println(portions);
+
 		for (String product : productsList) {
 			System.out.println(product);
 		}
 		for (String quantity : quantitiesList) {
 			System.out.println(quantity);
 		}
-		System.out.println(queryNewRecord);
 		try {
 			connectionDB = ConnectorDB.getInstance().getConnection();
-			PreparedStatement pre = connectionDB.prepareStatement(queryNewRecord);
-			// 1 - RecipeName; 2 - RecipeDescription; 3 - PublishingDate; 4 -
-			// CookingTime; 5 - Difficulty; 6 - Portions;
+			PreparedStatement pre = connectionDB.prepareStatement(queryNewRecipeRecord);
 			pre.setString(1, recipeName);
 			pre.setString(2, cookingDescription);
 			pre.setDate(3, sqlDate);
@@ -97,12 +90,16 @@ public class RecipeSave extends HttpServlet implements FormNamesNewRecipe, Table
 			pre.setString(6, portions);
 			pre.executeUpdate();
 			pre.close();
-			request.setAttribute("recordSuccess", "<h1>Рецептата е записана успешно.</h1>");
+			request.setAttribute("recipeRecordSuccess", "<h1>Рецептата е записана успешно.</h1>");
+
+			for (String product : productsList) {
+				System.out.println(product);
+			}
+
+			request.setAttribute("productsRecordSuccess", "<h1>Продуктите са записана успешно.</h1>");
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

@@ -1,5 +1,5 @@
 package com.vso.interfaces;
 
-public interface TablesColumnNames extends TableUsersNames, TableProductsNames, TableRecipesNames {
+public interface TablesColumnNames extends TableUsersNames, TableProductsNames, TableRecipesNames, TableProductsMapNames {
 
 }
