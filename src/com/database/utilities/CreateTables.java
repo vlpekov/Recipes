@@ -23,6 +23,7 @@ public class CreateTables implements DatabaseNames, TablesColumnNames {
 
 	private void crateUsersTable() {
 		try {
+			System.out.println(createTableUsersCommand);
 			dbStatement.executeUpdate(createTableUsersCommand);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -30,12 +31,8 @@ public class CreateTables implements DatabaseNames, TablesColumnNames {
 	}
 
 	private void crateRecipesTable() {
-		String crateTable = "CREATE TABLE `" + dbName + "`.`recipes` (" + "id SERIAL PRIMARY KEY NOT NULL, "
-				+ "name TEXT NOT NULL, " + "cooking_description TEXT NOT NULL, " + "type_idmap INT NOT NULL, "
-				+ "user_idmap INT NOT NULL, " + "products_idmap INT NOT NULL);";
 		try {
-			System.out.println(crateTable);
-			dbStatement.executeUpdate(crateTable);
+			dbStatement.executeUpdate(createTableRecipesCommand);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -70,11 +70,6 @@ public class AutocompleteProducts extends HttpServlet implements DatabaseNames, 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("---------------начало-------------------------");
-		for (String product : productsList) {
-			System.out.println(product);
-		}
-		System.out.println("---------------край-------------------------");
 		JSONArray json = new JSONArray(productsList);
 		response.setContentType("application/json");
 		response.getWriter().print(json);

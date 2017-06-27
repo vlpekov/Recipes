@@ -30,4 +30,12 @@ public class FormNewRecipe implements Serializable, FormNamesNewRecipe {
 	public String getPortionsInputName() {
 		return portionsInputName;
 	}
+	
+	public String getImageInputName() {
+		return imageInputName;
+	}
+	
+	public String getQuantityInputName() {
+		return quantityInputName;
+	}
 }
