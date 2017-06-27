@@ -1,6 +1,7 @@
 package com.database.utilities;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import com.vso.interfaces.DatabaseNames;
@@ -11,14 +12,27 @@ public class FillTables implements DatabaseNames, TablesColumnNames {
 	private Statement dbStatement = SetupDB.getStatement();
 
 	public FillTables() {
-//		fillProductsTable();
+		// fillProductsTable();
+		// fillCategoriesTable();
+	}
+
+	private void fillCategoriesTable() {
+		try {
+			String category1 = tableCategoriesInsertCommand + "'веган');";
+			dbStatement.executeUpdate(category1);
+			String category2 = tableCategoriesInsertCommand + "'вегетарианскa');";
+			dbStatement.executeUpdate(category2);
+			String category3 = tableCategoriesInsertCommand + "'месна');";
+			dbStatement.executeUpdate(category3);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void fillProductsTable() {
 		try {
 			String product1 = tableProductsInsertCommand
 					+ "'Боб', 'Бобови храни', '333', '1', '23', '60', 'гр.', 'веган');";
-			System.out.println(product1);
 			dbStatement.executeUpdate(product1);
 			String product2 = tableProductsInsertCommand
 					+ "'Тофу', 'Бобови храни', '77', '4', '8', '3', 'гр.', 'веган');";

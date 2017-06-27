@@ -46,7 +46,6 @@ public class CreateTables implements DatabaseNames, TablesColumnNames {
 	}
 	
 	private void crateProductsMapTable() {
-		System.out.println(createTableProductsMapCommand);
 		try {
 			dbStatement.executeUpdate(createTableProductsMapCommand);
 		} catch (Exception e) {
@@ -56,9 +55,7 @@ public class CreateTables implements DatabaseNames, TablesColumnNames {
 
 	private void crateCategoryTable() {
 		try {
-			String crateTable = "CREATE TABLE `" + dbName + "`.`category` (" + "id SERIAL PRIMARY KEY NOT NULL, "
-					+ "name TEXT NOT NULL);";
-			dbStatement.executeUpdate(crateTable);
+			dbStatement.executeUpdate(createTableCategoriesCommand);
 		} catch (Exception e) {
 		}
 	}

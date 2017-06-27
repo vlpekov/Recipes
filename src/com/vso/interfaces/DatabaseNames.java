@@ -5,8 +5,8 @@ public interface DatabaseNames {
 	String tableUsers = "users";
 	String tableRecipes = "recipes";
 	String tableProducts = "products";
-	String tableCategory = "category";
+	String tableCategory = "categories";
 	String tableProductsMap = "products_map";
 	String tableUserMap = "user_map";
-	String tableCategoryMap = "category_map";
+	String tableCategoryMap = "categories_map";
 }

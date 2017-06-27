@@ -38,7 +38,10 @@ import com.javabeans.CookiesManager;;
 public class RecipeSave extends HttpServlet
 		implements FormNamesNewRecipe, TableProductsNames, TableRecipesNames, TableProductsMapNames {
 	private static final long serialVersionUID = 1L;
-
+	
+	int vegan = 1;
+	int vegeterian = 2;
+	int meat = 3;
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -98,16 +101,16 @@ public class RecipeSave extends HttpServlet
 			request.setAttribute("recipeRecordSuccess", "<h1>Рецептата е записана успешно.</h1>");
 			
 			Recipe thisRecipe = new Recipe(recipeName);
-			System.out.println(queryNewProductsMapRecord);
 			PreparedStatement preProducts = connectionDB.prepareStatement(queryNewProductsMapRecord);
+			int recipeCategory = vegan;
 			for (int index = 0; index < productsList.length; index++) {
 				preProducts.setInt(1, getProductId(productsList[index], connectionDB));
 				preProducts.setInt(2, thisRecipe.getId());
 				preProducts.setInt(3, Integer.parseInt(quantitiesList[index]));
-				System.out.println("========= 1: " + getProductId(productsList[index], connectionDB));
-				System.out.println("========= 2: " + thisRecipe.getId());
-				System.out.println("========= 3: " + Integer.parseInt(quantitiesList[index]));
 				preProducts.executeUpdate();
+				if (recipeCategory != meat) {
+					
+				}
 			}
 			preProducts.close();
 			request.setAttribute("productsRecordSuccess", "<h1>Продуктите са записана успешно.</h1>");
