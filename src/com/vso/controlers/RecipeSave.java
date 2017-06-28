@@ -93,16 +93,22 @@ public class RecipeSave extends HttpServlet implements FormNamesNewRecipe, Table
 				}
 			}
 			prStProducts.close();
+			
+			System.out.println(queryNewCategoriesMapRecord);
 			PreparedStatement prStCategoryMap = connectionDB.prepareStatement(queryNewCategoriesMapRecord);
 			prStCategoryMap.setInt(1, thisRecipe.getId());
 			prStCategoryMap.setInt(2, recipeCategory);
+			prStCategoryMap.executeUpdate();
 			prStCategoryMap.close();
 			request.setAttribute("productsRecordSuccess", "<h1>Продуктите са записана успешно.</h1>");
 			InputStream fileContent = filePart.getInputStream();
+			
+			System.out.println(queryNewImageRecord);
 			PreparedStatement prStImage = connectionDB.prepareStatement(queryNewImageRecord);
 			prStImage.setBlob(1, fileContent);
 			prStImage.setString(2, "image_recipe" + thisRecipe.getId());
 			prStImage.setInt(3, thisRecipe.getId());
+			prStImage.executeUpdate();
 			prStImage.close();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -134,19 +140,19 @@ public class RecipeSave extends HttpServlet implements FormNamesNewRecipe, Table
 	private void getCategories(Connection connectionDB) {
 		Statement statement = null;
 		ResultSet results = null;
-		String query = queryGetCategoryIDByName + categryVegan;
+		String query = queryGetCategoryIDByName + categryVegan + "'";
 		try {
 			statement = connectionDB.createStatement();
 			results = statement.executeQuery(query);
 			if (results.next()) {
 				vegan = results.getInt(tableCategoriesColumnId);
 			}
-			query = queryGetCategoryIDByName + categryVegetarian;
+			query = queryGetCategoryIDByName + categryVegetarian + "'";
 			results = statement.executeQuery(query);
 			if (results.next()) {
 				vegeterian = results.getInt(tableCategoriesColumnId);
 			}
-			query = queryGetCategoryIDByName + categryMeaty;
+			query = queryGetCategoryIDByName + categryMeaty + "'";
 			results = statement.executeQuery(query);
 			if (results.next()) {
 				meaty = results.getInt(tableCategoriesColumnId);

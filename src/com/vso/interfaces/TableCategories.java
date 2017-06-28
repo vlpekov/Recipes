@@ -1,7 +1,7 @@
 package com.vso.interfaces;
 
 public interface TableCategories extends DatabaseNames {
-	String tableCategoriesName = tableCategoriesMap;
+	String tableCategoriesName = tableCategories;
 	String tableCategoriesColumnId = "id";
 	String tableCategoriesColumnName = "category_name";
 	String categryVegan = "веган";

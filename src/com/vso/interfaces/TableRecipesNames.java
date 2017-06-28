@@ -11,7 +11,7 @@ public interface TableRecipesNames extends DatabaseNames {
 	String tableRecipesColumnRecipeName = "name";
 	String tableRecipesColumnRecipeDescription = "description";
 	String tableRecipesColumnPublishingDate = "published_date";
-	String tableRecipesColumnCookingTime = "picture_name";
+	String tableRecipesColumnCookingTime = "cooking_time";
 	String tableRecipesColumnDifficulty = "difficulty";
 	String tableRecipesColumnPortions = "portion";
 
