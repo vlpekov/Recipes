@@ -30,7 +30,7 @@ public class SetupDB implements DatabaseNames {
 		CreateDB.crateDatabase();
 		connection = setDBConnection();
 		new CreateTables();
-		new FillTables();
+//		new FillTables();
 	}
 
 	private static Statement setDBConnection() {

@@ -59,10 +59,8 @@ public class RegistrationValidation extends HttpServlet implements FormNamesRegi
 			try {
 				InputStream fileContent = filePart.getInputStream();
 				String password = new Password().getSaltedHash(request.getParameter(passwordInputName));
-				System.out.println("RegistrationValidation.class hashed password: " + password);
 				connectionDB = ConnectorDB.getInstance().getConnection();
-				PreparedStatement pre = connectionDB.prepareStatement(
-						"INSERT INTO `" + databaseName + "`.`" + tableUsersName + "` (`" + tableUsersColumnUsername + "`, `" + tableUsersColumnPassword + "`, `" + tableUsersColumnFirstName + "`, `" + tableUsersColumnLastName + "`, `" + tableUsersColumnEmail + "`, `" + tableUsersColumnRegistrationDate + "`, `" + tableUsersColumnGender + "`, `" + tableUsersColumnProfilPictureFile + "`, `" + tableUsersColumnProfilPictureName + "`) VALUES (?,?,?,?,?,?,?,?,?);");
+				PreparedStatement pre = connectionDB.prepareStatement(queryAddNewUser);
 				pre.setString(1, username);
 				pre.setString(2, password);
 				pre.setString(3, firstName);
@@ -86,7 +84,7 @@ public class RegistrationValidation extends HttpServlet implements FormNamesRegi
 				e.printStackTrace();
 			}
 		} else {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+			request.getRequestDispatcher("index.jsp");
 		}
 		out.close();
 	}

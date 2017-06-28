@@ -19,7 +19,6 @@
 <%
 	Cookie[] cookies = request.getCookies();
 	isLoggedIn = cookieManager.isUserCorrect(cookies);
-	System.out.println(session.getAttribute("name") + " ----------------------index---------------seasion");
 %>
 <%
 	String guestElements = "";

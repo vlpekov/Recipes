@@ -28,13 +28,11 @@ public class CookiesManager implements Cookies {
 	
 	@Override
 	public Cookie createCookie(String CookieName, String CookieData) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Cookie deleteCookie(String CookieName) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

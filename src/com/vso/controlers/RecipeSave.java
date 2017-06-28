@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import com.database.utilities.ConnectorDB;
+import com.vso.interfaces.Cookies;
 import com.vso.interfaces.FormNamesNewRecipe;
 import com.vso.interfaces.TableCategories;
 import com.vso.interfaces.TableCategoriesMapNames;
@@ -29,12 +30,13 @@ import com.vso.interfaces.TableProductsMapNames;
 import com.vso.interfaces.TableProductsNames;
 import com.vso.interfaces.TableRecipesNames;
 import com.vso.models.Recipe;
+import com.vso.models.User;
 import com.javabeans.CookiesManager;;
 
 @WebServlet("/RecipeSave")
 @MultipartConfig(maxFileSize = 16177216)
 public class RecipeSave extends HttpServlet implements FormNamesNewRecipe, TableProductsNames, TableRecipesNames,
-		TableProductsMapNames, TableCategories, TableCategoriesMapNames, TableImages {
+		TableProductsMapNames, TableCategories, TableCategoriesMapNames, TableImages, Cookies {
 	private static final long serialVersionUID = 1L;
 
 	int vegan;
@@ -79,6 +81,7 @@ public class RecipeSave extends HttpServlet implements FormNamesNewRecipe, Table
 			request.setAttribute("recipeRecordSuccess", "<h1>Рецептата е записана успешно.</h1>");
 			getCategories(connectionDB);
 			Recipe thisRecipe = new Recipe(recipeName);
+
 			PreparedStatement prStProducts = connectionDB.prepareStatement(queryNewProductsMapRecord);
 			int recipeCategory = vegan;
 			for (int index = 0; index < productsList.length; index++) {
@@ -93,8 +96,7 @@ public class RecipeSave extends HttpServlet implements FormNamesNewRecipe, Table
 				}
 			}
 			prStProducts.close();
-			
-			System.out.println(queryNewCategoriesMapRecord);
+
 			PreparedStatement prStCategoryMap = connectionDB.prepareStatement(queryNewCategoriesMapRecord);
 			prStCategoryMap.setInt(1, thisRecipe.getId());
 			prStCategoryMap.setInt(2, recipeCategory);
@@ -102,14 +104,20 @@ public class RecipeSave extends HttpServlet implements FormNamesNewRecipe, Table
 			prStCategoryMap.close();
 			request.setAttribute("productsRecordSuccess", "<h1>Продуктите са записана успешно.</h1>");
 			InputStream fileContent = filePart.getInputStream();
-			
-			System.out.println(queryNewImageRecord);
+
 			PreparedStatement prStImage = connectionDB.prepareStatement(queryNewImageRecord);
 			prStImage.setBlob(1, fileContent);
 			prStImage.setString(2, "image_recipe" + thisRecipe.getId());
 			prStImage.setInt(3, thisRecipe.getId());
 			prStImage.executeUpdate();
 			prStImage.close();
+			
+			User currentUser = new User(getUser(request, response));
+			PreparedStatement prStUserMap = connectionDB.prepareStatement(queryNewCategoriesMapRecord);
+			prStUserMap.setInt(1, thisRecipe.getId());
+			prStUserMap.setInt(2, currentUser.getUserId());
+			prStUserMap.executeUpdate();
+			prStUserMap.close();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -176,6 +184,19 @@ public class RecipeSave extends HttpServlet implements FormNamesNewRecipe, Table
 		}
 	}
 
+	private String getUser(HttpServletRequest request, HttpServletResponse response) {
+		String username = "";
+		Cookie[] cookies = request.getCookies();
+		for (int i = 0; i < cookies.length; i++) {
+			Cookie cookie = cookies[i];
+			if (cookie.getName().equals(cookieUsername)) {
+				username = cookie.getValue();
+				return username;
+			}
+		}
+		return username;
+	}
+
 	private int getProductId(String productName, Connection connectionDB) {
 		String query = queryGetProductByName + productName + "'";
 		Statement statement = null;
@@ -191,6 +212,16 @@ public class RecipeSave extends HttpServlet implements FormNamesNewRecipe, Table
 			e.printStackTrace();
 		}
 		return 0;
+	}
+
+	@Override
+	public Cookie createCookie(String CookieName, String CookieData) {
+		return null;
+	}
+
+	@Override
+	public Cookie deleteCookie(String CookieName) {
+		return null;
 	}
 
 }
