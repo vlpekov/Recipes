@@ -20,11 +20,11 @@ import com.database.utilities.ConnectorDB;
 public class UploadImage extends HttpServlet {
 
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		int result = 0;
 		Connection connectionDB = null;
-		Part part = req.getPart("image");
+		Part part = request.getPart("image");
 
 		if (part != null) {
 			try {

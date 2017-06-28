@@ -64,12 +64,12 @@
 			response.sendRedirect("signin");
 		}
 	%>
-	<div class="form-container">
+	<div class="form-container" >
 		<div class="form-box">
 			<h2>Нова рецепта:</h2>
 
 			<form action="save_recipe" id="mainform" method="post"
-				name="recipe_data">
+				name="recipe_data" enctype="multipart/form-data">
 				<p class="form-title">Име на рецептата:</p>
 				<input class="form-field" type="text"
 					name="<%=filds.getRecipeTitleInputName()%>" placeholder="Име"
