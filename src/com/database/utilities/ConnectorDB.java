@@ -29,7 +29,7 @@ public class ConnectorDB {
 		return connection;
 	}
 	
-//	Connection connectionDB = Conector.getInstance().getConnection();
+//	Connection connectionDB = ConectorDB.getInstance().getConnection();
 //	Statement statement = connectionDB.createStatement();
 
 }

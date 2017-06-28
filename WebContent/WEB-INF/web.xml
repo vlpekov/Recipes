@@ -53,6 +53,14 @@
     <url-pattern>/save_recipe</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>GetUserProfile</servlet-name>
+    <servlet-class>com.vso.controlers.GetUserProfile</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetUserProfile</servlet-name>
+    <url-pattern>/getUser</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>Register</servlet-name>
     <jsp-file>/WEB-INF/jsps/register.jsp</jsp-file>
   </servlet>
@@ -75,6 +83,14 @@
   <servlet-mapping>
     <servlet-name>NewRecipe</servlet-name>
     <url-pattern>/new_recipe</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ViewUserProfile</servlet-name>
+    <jsp-file>/WEB-INF/jsps/userProfile.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ViewUserProfile</servlet-name>
+    <url-pattern>/user_profile</url-pattern>
   </servlet-mapping>
   <filter>
     <filter-name>CharsetFilter</filter-name>

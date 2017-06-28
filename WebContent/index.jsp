@@ -41,7 +41,7 @@
 		<div class="left_header">
 			<h3>
 				Добре дошъл,
-				<%=cookieManager.getCurrentUsername()%>
+				<a href="getUser?username=<%=cookieManager.getCurrentUsername()%>"><%=cookieManager.getCurrentUsername()%></a>
 				(Сесия:
 				<%=session.getAttribute("name")%>)
 			</h3>
