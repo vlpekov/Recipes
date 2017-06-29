@@ -655,6 +655,10 @@ article section {
 	box-sizing: border-box;
 }
 
+.circle_pic {
+object-fit: cover;
+}
+
 .last {
 	margin-right: 0;
 	box-sizing: border-box;

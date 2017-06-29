@@ -39,12 +39,15 @@
 
 	<div class="header_body">
 		<div class="left_header">
-			<h3>
-				Добре дошъл,
-				<a href="getUser?username=<%=cookieManager.getCurrentUsername()%>"><%=cookieManager.getCurrentUsername()%></a>
-				(Сесия:
-				<%=session.getAttribute("name")%>)
-			</h3>
+			<iframe
+				src="profile_picture?username=<%=cookieManager.getCurrentUsername()%>"
+				style="border: none;"> </iframe>
+<!-- 			<h3> -->
+<!-- 				Добре дошъл, <a -->
+<%-- 					href="getUser?username=<%=cookieManager.getCurrentUsername()%>"><%=cookieManager.getCurrentUsername()%></a> --%>
+<!-- 				(Сесия: -->
+<%-- 				<%=session.getAttribute("name")%>) --%>
+<!-- 			</h3> -->
 		</div>
 		<div class="midle_header">
 			<a href="/Recipes/" target="_top"> <img border="0"
@@ -93,7 +96,9 @@
 		</div>
 	</div>
 	<div class="container">
-		<nav> <a href="new_recipe">Публикувай рецепта</a> <a href="">Моите рецепти</a> <a href="#section3">Сготви рецепта</a> </nav>
+
+		<nav> <a href="new_recipe">Публикувай рецепта</a> <a href="">Моите
+			рецепти</a> <a href="#section3">Сготви рецепта</a> </nav>
 		<article>
 		<h1>A Better Approch Than Tables or Frames</h1>
 		<p>
