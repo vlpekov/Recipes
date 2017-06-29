@@ -9,7 +9,7 @@ import java.util.Date;
 import com.database.utilities.ConnectorDB;
 import com.vso.interfaces.*;
 
-public class Recipe implements DatabaseNames, TableRecipesNames {
+public class Recipe implements DatabaseNames, TableRecipesNames, TableProductsMapNames {
 	int id;
 	String recipeName;
 	String cookingDescription;
@@ -47,6 +47,7 @@ public class Recipe implements DatabaseNames, TableRecipesNames {
 		String query = queryGetRecipeByName + recipeName + "'";
 		Statement statement = null;
 		ResultSet results = null;
+		int productNumber = 0;
 		try {
 			statement = connectionDB.createStatement();
 			results = statement.executeQuery(query);
@@ -58,6 +59,14 @@ public class Recipe implements DatabaseNames, TableRecipesNames {
 				portions = results.getString(tableRecipesColumnPortions);
 				publishingDate = results.getDate(tableRecipesColumnPublishingDate);
 
+			}
+			String productsQuery = queryGetProductsByRecipeId + id + "'";
+			results = statement.executeQuery(productsQuery);
+			if (results.next()) {
+				productsList[productNumber] = results.getString(tableRecipesColumnCookingTime);
+				quantitiesList[productNumber] = results.getString(tableProductsMapColumnQuantity);
+				
+				productNumber ++;
 			}
 			statement.close();
 		} catch (SQLException e) {

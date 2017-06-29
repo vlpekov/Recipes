@@ -19,4 +19,8 @@ public interface TableProductsMapNames extends DatabaseNames, TableProductsNames
 			+ tableProductsMapColumnProductId + "`, `" + tableProductsMapColumnRecipeId + "`, `"
 			+ tableProductsMapColumnQuantity + "`) VALUES (?,?,?);";
 	// 1 - ProductId; 2 - RecipeId; 3 - Quantity;
+	
+	String queryGetProductsByRecipeId = "SELECT * FROM " + databaseName + "." + tableProductsMapName + " WHERE "
+			+ tableProductsMapColumnRecipeId + "='";
+	// String query = queryGetUserByUsername + recipeId + "'";
 }

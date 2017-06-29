@@ -129,7 +129,7 @@ public class RecipeSave extends HttpServlet implements FormNamesNewRecipe, Table
 	}
 
 	private String getProductCategory(String productName, Connection connectionDB) {
-		String query = queryGetProductCategoryByName + productName + "'";
+		String query = queryGetProductByName + productName + "'";
 		Statement statement = null;
 		ResultSet results = null;
 		try {
