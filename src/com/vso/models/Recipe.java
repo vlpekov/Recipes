@@ -27,16 +27,12 @@ public class Recipe implements DatabaseNames, TablesColumnNames {
 		getDbConnection();
 		this.recipeName = recipeName;
 		getRecipeFromDbByName(this.recipeName);
-		setCategory();
-		generateHTMLProductsTable();
 	}
 
 	public Recipe(int recipeId) {
 		getDbConnection();
 		this.id = recipeId;
 		getRecipeFromDbById(this.id);
-		setCategory();
-		generateHTMLProductsTable();
 	}
 
 	public int getId() {
@@ -111,9 +107,6 @@ public class Recipe implements DatabaseNames, TablesColumnNames {
 		this.publishingDate = publishingDate;
 	}
 	
-	public String getCategory() {
-		return category;
-	}
 
 	private void getDbConnection() {
 		try {
@@ -143,7 +136,7 @@ public class Recipe implements DatabaseNames, TablesColumnNames {
 			}
 			String productsQuery = queryGetProductsByRecipeId + id + "'";
 			results = statement.executeQuery(productsQuery);
-			if (results.next()) {
+			while (results.next()) {
 				Product product = new Product(results.getInt(tableProductsMapColumnProductId));
 				productsList[productNumber] = product.getProductName();
 				quantitiesList[productNumber] = results.getString(tableProductsMapColumnQuantity);
@@ -205,7 +198,7 @@ public class Recipe implements DatabaseNames, TablesColumnNames {
 		return unit;
 	}
 
-	private void setCategory() {
+	private void getCategory() {
 		String query = queryGetCategoryByRecipeId + id + "'";
 		int categoryId = 0;
 		Statement statement = null;
@@ -221,6 +214,7 @@ public class Recipe implements DatabaseNames, TablesColumnNames {
 			if (results.next()) {
 				this.category = results.getString(tableCategoriesColumnName);
 			}
+			generateHTMLProductsTable();
 			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();

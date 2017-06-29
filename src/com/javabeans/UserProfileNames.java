@@ -6,6 +6,7 @@ import com.vso.interfaces.UserProfileTagsNames;
 
 public class UserProfileNames implements Serializable, UserProfileTagsNames {
 	private static final long serialVersionUID = 1L;
+	
 	public String getUsername() {
 		return usernameTag;
 	}
@@ -20,6 +21,9 @@ public class UserProfileNames implements Serializable, UserProfileTagsNames {
 	}
 	public String getRegistrationDate() {
 		return registrationDate;
+	}
+	public String getRecipes() {
+		return recipes;
 	}
 
 }

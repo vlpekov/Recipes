@@ -1,5 +1,6 @@
-<%@page
+<%@ page
 	import="javax.security.auth.message.callback.PrivateKeyCallback.Request"%>
+<%@ page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -45,9 +46,21 @@
 			</tr>
 		</table>
 		<div class="recipes">
-			<img border="0" alt="Рецептурник" src="img/hr2top.png" class="hr_img_bottom">
+			<img border="0" alt="Рецептурник" src="img/hr2top.png"
+				class="hr_img_bottom">
 			<h2>Публикувани рецепти</h2>
 			<img border="0" alt="Рецептурник" src="img/hr2.png"> </a>
+			<% ArrayList<String> recipeIds = new ArrayList();%>
+			<% recipeIds = (ArrayList<String>)request.getAttribute(tags.getRecipes());
+				for (String recipeId : recipeIds) {
+			%>
+			<%=recipeId.toString()%>
+			<img src="recipeImg?recipeId=<%=recipeId.toString()%>"
+				class="circle_pic" width="120" height="120"
+				style="border-radius: 50%">
+			<%
+				}
+			%>
 		</div>
 	</div>
 </body>

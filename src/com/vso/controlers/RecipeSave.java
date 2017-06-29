@@ -29,14 +29,14 @@ import com.vso.interfaces.TableImages;
 import com.vso.interfaces.TableProductsMapNames;
 import com.vso.interfaces.TableProductsNames;
 import com.vso.interfaces.TableRecipesNames;
+import com.vso.interfaces.TablesColumnNames;
 import com.vso.models.Recipe;
 import com.vso.models.User;
 import com.javabeans.CookiesManager;;
 
 @WebServlet("/RecipeSave")
 @MultipartConfig(maxFileSize = 16177216)
-public class RecipeSave extends HttpServlet implements FormNamesNewRecipe, TableProductsNames, TableRecipesNames,
-		TableProductsMapNames, TableCategories, TableCategoriesMapNames, TableImages, Cookies {
+public class RecipeSave extends HttpServlet implements FormNamesNewRecipe, Cookies, TablesColumnNames {
 	private static final long serialVersionUID = 1L;
 
 	int vegan;
@@ -113,11 +113,12 @@ public class RecipeSave extends HttpServlet implements FormNamesNewRecipe, Table
 			prStImage.close();
 			
 			User currentUser = new User(getUser(request, response));
-			PreparedStatement prStUserMap = connectionDB.prepareStatement(queryNewCategoriesMapRecord);
+			PreparedStatement prStUserMap = connectionDB.prepareStatement(queryNewUsersMapRecord);
 			prStUserMap.setInt(1, thisRecipe.getId());
 			prStUserMap.setInt(2, currentUser.getUserId());
 			prStUserMap.executeUpdate();
 			prStUserMap.close();
+			thisRecipe.getProductsList();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {

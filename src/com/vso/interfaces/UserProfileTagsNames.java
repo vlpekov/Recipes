@@ -6,4 +6,5 @@ String firstName = "first_name";
 String lastName = "last_name";
 String email = "eamil";
 String registrationDate = "registration_date";
+String recipes = "recipes";
 }

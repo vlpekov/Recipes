@@ -54,15 +54,15 @@ public class GetProfilePicture extends HttpServlet implements TableUsersNames {
 				output.close();
 			}
 			request.setAttribute("username", query);
-			RequestDispatcher view = request.getRequestDispatcher("user_profile");
-			view.forward(request, response);
+//			RequestDispatcher view = request.getRequestDispatcher("user_profile");
+//			view.forward(request, response);
 			statement.close();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+//		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
