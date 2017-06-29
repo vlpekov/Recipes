@@ -32,14 +32,11 @@ public class GetRecipe extends HttpServlet implements RecipeTags{
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String recipeId = request.getParameter("recipeId");
 		Recipe recipe = new Recipe(recipeId);
-		
-		
-		String productsList = "products";
 		request.setAttribute(recipeName, recipe.getRecipeName());
 		request.setAttribute(cookingDescription, recipe.getCookingDescription());
 		request.setAttribute(cookingTime, recipe.getCookingTime());
 		request.setAttribute(difficulty, recipe.getDifficulty());
-		request.setAttribute(productsList, products);
+		request.setAttribute(productsList, recipe.getCategory());
 		request.setAttribute(portions, recipe.getPortions());
 		request.setAttribute(publishedDate, recipe.getPublishingDate());
 		RequestDispatcher dispatcher = request.getRequestDispatcher("recipe");

@@ -9,7 +9,7 @@ import java.util.Date;
 import com.database.utilities.ConnectorDB;
 import com.vso.interfaces.*;
 
-public class Recipe implements DatabaseNames, TableRecipesNames, TableProductsMapNames {
+public class Recipe implements DatabaseNames, TablesColumnNames {
 	int id;
 	String recipeName;
 	String cookingDescription;
@@ -17,7 +17,9 @@ public class Recipe implements DatabaseNames, TableRecipesNames, TableProductsMa
 	String difficulty;
 	String[] productsList;
 	String[] quantitiesList;
+	String category;
 	String portions;
+	String htmlProductsTable;
 	java.sql.Date publishingDate;
 	Connection connectionDB = null;
 
@@ -25,77 +27,16 @@ public class Recipe implements DatabaseNames, TableRecipesNames, TableProductsMa
 		getDbConnection();
 		this.recipeName = recipeName;
 		getRecipeFromDbByName(this.recipeName);
+		setCategory();
+		generateHTMLProductsTable();
 	}
 
 	public Recipe(int recipeId) {
 		getDbConnection();
 		this.id = recipeId;
 		getRecipeFromDbById(this.id);
-	}
-
-	private void getDbConnection() {
-		try {
-			connectionDB = ConnectorDB.getInstance().getConnection();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void getRecipeFromDbByName(String recipeName) {
-		String query = queryGetRecipeByName + recipeName + "'";
-		Statement statement = null;
-		ResultSet results = null;
-		int productNumber = 0;
-		try {
-			statement = connectionDB.createStatement();
-			results = statement.executeQuery(query);
-			if (results.next()) {
-				id = results.getInt(tableRecipesColumnID);
-				cookingDescription = results.getString(tableRecipesColumnRecipeDescription);
-				cookingTime = results.getString(tableRecipesColumnCookingTime);
-				difficulty = results.getString(tableRecipesColumnDifficulty);
-				portions = results.getString(tableRecipesColumnPortions);
-				publishingDate = results.getDate(tableRecipesColumnPublishingDate);
-
-			}
-			String productsQuery = queryGetProductsByRecipeId + id + "'";
-			results = statement.executeQuery(productsQuery);
-			if (results.next()) {
-				Product product = new Product(results.getInt(tableProductsMapColumnProductId));
-				productsList[productNumber] = product.getProductName();
-				quantitiesList[productNumber] = results.getString(tableProductsMapColumnQuantity);
-				
-				productNumber ++;
-			}
-			statement.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-	}
-
-	public void getRecipeFromDbById(int id) {
-		String query = queryGetRecipeById + id + "'";
-		Statement statement = null;
-		ResultSet results = null;
-		try {
-			statement = connectionDB.createStatement();
-			results = statement.executeQuery(query);
-			results = statement.executeQuery(query);
-			if (results.next()) {
-				id = results.getInt(tableRecipesColumnID);
-				cookingDescription = results.getString(tableRecipesColumnRecipeDescription);
-				cookingTime = results.getString(tableRecipesColumnCookingTime);
-				difficulty = results.getString(tableRecipesColumnDifficulty);
-				portions = results.getString(tableRecipesColumnPortions);
-				publishingDate = results.getDate(tableRecipesColumnPublishingDate);
-			}
-			statement.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		setCategory();
+		generateHTMLProductsTable();
 	}
 
 	public int getId() {
@@ -169,5 +110,121 @@ public class Recipe implements DatabaseNames, TableRecipesNames, TableProductsMa
 	public void setPublishingDate(java.sql.Date publishingDate) {
 		this.publishingDate = publishingDate;
 	}
+	
+	public String getCategory() {
+		return category;
+	}
 
+	private void getDbConnection() {
+		try {
+			connectionDB = ConnectorDB.getInstance().getConnection();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void getRecipeFromDbByName(String recipeName) {
+		String query = queryGetRecipeByName + recipeName + "'";
+		Statement statement = null;
+		ResultSet results = null;
+		int productNumber = 0;
+		try {
+			statement = connectionDB.createStatement();
+			results = statement.executeQuery(query);
+			if (results.next()) {
+				id = results.getInt(tableRecipesColumnID);
+				cookingDescription = results.getString(tableRecipesColumnRecipeDescription);
+				cookingTime = results.getString(tableRecipesColumnCookingTime);
+				difficulty = results.getString(tableRecipesColumnDifficulty);
+				portions = results.getString(tableRecipesColumnPortions);
+				publishingDate = results.getDate(tableRecipesColumnPublishingDate);
+			}
+			String productsQuery = queryGetProductsByRecipeId + id + "'";
+			results = statement.executeQuery(productsQuery);
+			if (results.next()) {
+				Product product = new Product(results.getInt(tableProductsMapColumnProductId));
+				productsList[productNumber] = product.getProductName();
+				quantitiesList[productNumber] = results.getString(tableProductsMapColumnQuantity);
+				productNumber++;
+			}
+			statement.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	private void getRecipeFromDbById(int id) {
+		String query = queryGetRecipeById + id + "'";
+		Statement statement = null;
+		ResultSet results = null;
+		try {
+			statement = connectionDB.createStatement();
+			results = statement.executeQuery(query);
+			results = statement.executeQuery(query);
+			if (results.next()) {
+				id = results.getInt(tableRecipesColumnID);
+				cookingDescription = results.getString(tableRecipesColumnRecipeDescription);
+				cookingTime = results.getString(tableRecipesColumnCookingTime);
+				difficulty = results.getString(tableRecipesColumnDifficulty);
+				portions = results.getString(tableRecipesColumnPortions);
+				publishingDate = results.getDate(tableRecipesColumnPublishingDate);
+			}
+			statement.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void generateHTMLProductsTable() {
+		htmlProductsTable = "<table><tr><th>Продукт:</th><th>Количество</th><th>Мярка</th></tr>";
+		for (int index = 0; index < productsList.length; index++) {
+			htmlProductsTable += "<tr><td>" + productsList[index] + "</td><td>" + quantitiesList[index] + "</td><td>"
+					+ getUnit(productsList[index]) + "</td></tr>";
+		}
+		htmlProductsTable += "</table>";
+	}
+
+	private String getUnit(String productName) {
+		String query = queryGetProductByName + productName + "'";
+		Statement statement = null;
+		ResultSet results = null;
+		String unit = "";
+		try {
+			statement = connectionDB.createStatement();
+			results = statement.executeQuery(query);
+			if (results.next()) {
+				unit = results.getString(tableProductsColumnUnit);
+			}
+			statement.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return unit;
+	}
+
+	private void setCategory() {
+		String query = queryGetCategoryByRecipeId + id + "'";
+		int categoryId = 0;
+		Statement statement = null;
+		ResultSet results = null;
+		try {
+			statement = connectionDB.createStatement();
+			results = statement.executeQuery(query);
+			if (results.next()) {
+				categoryId = results.getInt(tableCategoriesMapColumnCategoryId);
+			}
+			
+			results = statement.executeQuery(queryGetCategoryNameByID + categoryId + "'");
+			if (results.next()) {
+				this.category = results.getString(tableCategoriesColumnName);
+			}
+			statement.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
 }

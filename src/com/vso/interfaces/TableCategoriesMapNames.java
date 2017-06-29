@@ -16,5 +16,9 @@ public interface TableCategoriesMapNames extends DatabaseNames, TableCategories,
 	String queryNewCategoriesMapRecord = "INSERT INTO `" + databaseName + "`.`" + tableCategoriesMapName + "` (`"
 			+ tableCategoriesMapColumnRecipeId + "`, `" + tableCategoriesMapColumnCategoryId + "`) VALUES (?,?);";
 	// 1 - recipeId; 2 - categoryId
+	
+	String queryGetCategoryByRecipeId = "SELECT * FROM " + databaseName + "." + tableCategoriesMapName + " WHERE "
+			+ tableCategoriesMapColumnRecipeId + "='";
+	// String query = queryGetCategoryByRecipeId + id + "'";
 }
 
