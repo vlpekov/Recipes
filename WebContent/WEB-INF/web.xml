@@ -64,6 +64,15 @@
 		<url-pattern>/getUser</url-pattern>
 	</servlet-mapping>
 	<servlet>
+		<servlet-name>userImage</servlet-name>
+		<servlet-class>com.vso.controlers.GetProfilePicture</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>userImage</servlet-name>
+		<url-pattern>/userImg</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
 		<servlet-name>Register</servlet-name>
 		<jsp-file>/WEB-INF/jsps/register.jsp</jsp-file>
 	</servlet>
@@ -95,7 +104,6 @@
 		<servlet-name>ViewUserProfile</servlet-name>
 		<url-pattern>/user_profile</url-pattern>
 	</servlet-mapping>
-
 	<servlet>
 		<servlet-name>ProfilePicture</servlet-name>
 		<jsp-file>/WEB-INF/jsps/profilePicture.jsp</jsp-file>
@@ -104,7 +112,6 @@
 		<servlet-name>ProfilePicture</servlet-name>
 		<url-pattern>/profile_picture</url-pattern>
 	</servlet-mapping>
-
 	<filter>
 		<filter-name>CharsetFilter</filter-name>
 		<filter-class>com.vso.filters.CharsetFilter</filter-class>

@@ -20,6 +20,7 @@ public class User implements DatabaseNames, TableUsersNames {
 	private String email;
 	private String gender;
 	java.sql.Date registrationDate;
+
 	Connection connectionDB = null;
 
 	public User(String username) {
@@ -134,4 +135,7 @@ public class User implements DatabaseNames, TableUsersNames {
 		return userId;
 	}
 
+	public java.sql.Date getRegistrationDate() {
+		return registrationDate;
+	}
 }

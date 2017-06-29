@@ -14,10 +14,11 @@
 	<%
 		username = request.getParameter("username");
 	%>
-	<img src="getUser?username=<%=username%>" class="circle_pic"
+	<img src="userImg?username=<%=username%>" class="circle_pic"
 		width="120" height="120" style="border-radius: 50%">
 	<h2>
-		<a href="user_profile?username=<%=username%>" target="_parent">Добре дошъл, <%=username%></a>
+		Добре дошъл, <a href="getUser?username=<%=username%>"
+			target="_parent"> <%=username%></a>
 	</h2>
 </body>
 </html>

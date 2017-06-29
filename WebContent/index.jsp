@@ -41,13 +41,7 @@
 		<div class="left_header">
 			<iframe
 				src="profile_picture?username=<%=cookieManager.getCurrentUsername()%>"
-				style="border: none;"> </iframe>
-<!-- 			<h3> -->
-<!-- 				Добре дошъл, <a -->
-<%-- 					href="getUser?username=<%=cookieManager.getCurrentUsername()%>"><%=cookieManager.getCurrentUsername()%></a> --%>
-<!-- 				(Сесия: -->
-<%-- 				<%=session.getAttribute("name")%>) --%>
-<!-- 			</h3> -->
+				style="border: none;" <%=userElements%>> </iframe>
 		</div>
 		<div class="midle_header">
 			<a href="/Recipes/" target="_top"> <img border="0"
@@ -97,7 +91,7 @@
 	</div>
 	<div class="container">
 
-		<nav> <a href="new_recipe">Публикувай рецепта</a> <a href="">Моите
+		<nav <%=userElements%>> <a href="new_recipe">Публикувай рецепта</a> <a href="">Моите
 			рецепти</a> <a href="#section3">Сготви рецепта</a> </nav>
 		<article>
 		<h1>A Better Approch Than Tables or Frames</h1>
@@ -107,7 +101,7 @@
 		</p>
 		<p>You can use this instead of tables or frames. Feel free to
 			adapt this as much as you want to make your own website layout.</p>
-		<hr>
+		<hr class="style1">
 		<h2>Dividing The Page Into Sections</h2>
 		<section>
 		<div class="thirds">
@@ -147,8 +141,5 @@
 			</ul>
 		</div>
 		</section> </article>
-		<footer> Example Code Courtesy of <a
-			href="https://resource-centre.net" title="The Free Tutorial Centre">The
-			Free Tutorial Centre</a> </footer>
 	</div>
 </html>
