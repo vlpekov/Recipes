@@ -68,7 +68,7 @@
     <servlet-name>userImage</servlet-name>
     <url-pattern>/userImg</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <servlet-name>GetRecipePicture</servlet-name>
     <servlet-class>com.vso.controlers.GetRecipePicture</servlet-class>
   </servlet>
@@ -76,7 +76,6 @@
     <servlet-name>GetRecipePicture</servlet-name>
     <url-pattern>/recipeImg</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>Register</servlet-name>
     <jsp-file>/WEB-INF/jsps/register.jsp</jsp-file>
