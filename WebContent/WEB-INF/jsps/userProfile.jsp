@@ -22,8 +22,8 @@
 			</a>
 		</div>
 		<div class="username">
-			<h2><%=request.getAttribute(tags.getFirstName())%>
-				<%=request.getAttribute(tags.getLastName())%></h2>
+			<h1><%=request.getAttribute(tags.getFirstName())%>
+				<%=request.getAttribute(tags.getLastName())%></h1>
 			<img class="hr_img" border="0" src="img/hr.png">
 		</div>
 		<table>
@@ -44,6 +44,11 @@
 						<%=request.getAttribute(tags.getRegistrationDate())%></h4></td>
 			</tr>
 		</table>
+		<div class="recipes">
+			<img border="0" alt="Рецептурник" src="img/hr2top.png" class="hr_img_bottom">
+			<h2>Публикувани рецепти</h2>
+			<img border="0" alt="Рецептурник" src="img/hr2.png"> </a>
+		</div>
 	</div>
 </body>
 </html>

@@ -17,4 +17,10 @@ public interface TableImages extends DatabaseNames, TableRecipesNames {
 			+ tableImagesColumnImageFile + "`, `" + tableImagesColumnImageName + "`, `" + tableImagesColumnRecipeId
 			+ "`) VALUES (?,?,?);";
 	// 1 - ImageFile; 2 - ImageName; 3 - recipeId;
+	
+	
+	String queryGetImageByRecipeId = "SELECT * FROM " + databaseName + "." + tableImagesName + " WHERE "
+			+ tableImagesColumnRecipeId + "='";
+	// String query = queryGetImageByRecipeId + recipeId + "'";
+
 }

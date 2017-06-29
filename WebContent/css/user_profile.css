@@ -9,16 +9,9 @@ body, html {
 body {
 	font-family: Helvetica, Arial, sans-serif;
 	font-size: 14px;
-	background: #5F411F;
-	background: -webkit-gradient(linear, left top, left bottom, from(#f2e3d2),
-		to(#c9b7a2));
-	background: -webkit-linear-gradient(top, #f2e3d2, #c9b7a2);
-	background: -moz-linear-gradient(top, #f2e3d2, #c9b7a2);
-	background: -ms-linear-gradient(top, #f2e3d2, #c9b7a2);
-	background: -o-linear-gradient(top, #f2e3d2, #c9b7a2);
-	background-image: -ms-linear-gradient(top, #f2e3d2 0%, #c9b7a2 100%);
-	background-repeat: no-repeat;
+	background: url('../img/white_paper.jpg'); 
 	background-attachment: fixed;
+	background-repeat:repeat;
 }
 
 .container {
@@ -26,8 +19,7 @@ body {
 	width: 70%;
 	margin-top: 120px;
 	border: 1px solid #42290B;
-	background: url('../img/paper.jpg');
-	background-size: cover;
+	background: url('../img/paper.jpg'); background-size : cover;
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	border-radius: 10px;
@@ -45,6 +37,7 @@ body {
 	min-width: 500px;
 	padding: 45px;
 	padding-left: 75px;
+	background-size: cover;
 	background-size: cover;
 }
 
@@ -69,13 +62,23 @@ body {
 	margin: auto;
 }
 
-h2 {
+h1 {
 	font-family: Georgia, serif;
 	color: #4E443C;
 	font-variant: small-caps;
 	text-transform: none;
 	font-weight: 200;
 	font-size: 26px;
+	margin-bottom: 0;
+}
+
+h2 {
+	font-family: Georgia, serif;
+	color: #4E443C;
+	font-variant: small-caps;
+	text-transform: none;
+	font-weight: 200;
+	font-size: 23px;
 	margin-bottom: 0;
 }
 
@@ -106,8 +109,11 @@ h4 {
 	margin-top: -20px;
 }
 
+.hr_img_bottom {
+	margin-bottom: -20px;
+}
 tr {
-	vertical-align: bottom;
+	vertical-align: top;
 }
 
 .left_column {
@@ -120,6 +126,10 @@ tr {
 	line-height: 90px;
 }
 
+.recipes  {
+	text-align: center;
+	vertical-align: middle;
+}
 .site_label {
 	text-align: center;
 	vertical-align: middle;
