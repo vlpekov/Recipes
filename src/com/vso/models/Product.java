@@ -9,7 +9,7 @@ import com.database.utilities.ConnectorDB;
 import com.vso.interfaces.TableProductsNames;
 
 public class Product implements TableProductsNames {
-	private String productId;
+	private int productId;
 	private String productName;
 	private String productCategory;
 	private String productCalories;
@@ -20,7 +20,7 @@ public class Product implements TableProductsNames {
 	private String productGroup;
 	Connection connectionDB = null;
 
-	public Product(String productId) {
+	public Product(int productId) {
 		this.productId = productId;
 		getDbConnection();
 		getProductFromDbById(productId);
@@ -36,7 +36,7 @@ public class Product implements TableProductsNames {
 		}
 	}
 
-	public void getProductFromDbById(String id) {
+	public void getProductFromDbById(int id) {
 		String query = queryGetProductById + id + "'";
 		Statement statement = null;
 		ResultSet results = null;
@@ -59,4 +59,46 @@ public class Product implements TableProductsNames {
 			e.printStackTrace();
 		}
 	}
+
+	public int getProductId() {
+		return productId;
+	}
+
+	public String getProductName() {
+		return productName;
+	}
+
+	public String getProductCategory() {
+		return productCategory;
+	}
+
+	public String getProductCalories() {
+		return productCalories;
+	}
+
+	public String getProductFats() {
+		return productFats;
+	}
+
+	public String getProductProteins() {
+		return productProteins;
+	}
+
+	public String getProductCarbohydrates() {
+		return productCarbohydrates;
+	}
+
+	public String getProductUnit() {
+		return productUnit;
+	}
+
+	public String getProductGroup() {
+		return productGroup;
+	}
+
+	public Connection getConnectionDB() {
+		return connectionDB;
+	}
+	
+	
 }

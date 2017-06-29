@@ -63,7 +63,8 @@ public class Recipe implements DatabaseNames, TableRecipesNames, TableProductsMa
 			String productsQuery = queryGetProductsByRecipeId + id + "'";
 			results = statement.executeQuery(productsQuery);
 			if (results.next()) {
-				productsList[productNumber] = results.getString(tableRecipesColumnCookingTime);
+				Product product = new Product(results.getInt(tableProductsMapColumnProductId));
+				productsList[productNumber] = product.getProductName();
 				quantitiesList[productNumber] = results.getString(tableProductsMapColumnQuantity);
 				
 				productNumber ++;
