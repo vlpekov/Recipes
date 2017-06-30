@@ -28,6 +28,9 @@ public interface TableRecipesNames extends DatabaseNames {
 	String queryGetRecipeById = "SELECT * FROM " + databaseName + "." + tableRecipesName + " where "
 			+ tableRecipesColumnID + "='";
 	// String query = queryGetRecipeById + recipeId + "'";
+	
+	String queryGetFullList = "SELECT * FROM " + databaseName + "." + tableRecipesName;
+	// String query = queryGetRecipeById + recipeId + "'";
 
 	String queryNewRecipeRecord = "INSERT INTO `" + databaseName + "`.`" + tableRecipesName + "` (`"
 			+ tableRecipesColumnRecipeName + "`, `" + tableRecipesColumnRecipeDescription + "`, `"
