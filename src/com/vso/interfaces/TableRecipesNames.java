@@ -32,8 +32,9 @@ public interface TableRecipesNames extends DatabaseNames {
 	String queryGetFullList = "SELECT * FROM " + databaseName + "." + tableRecipesName;
 	// String query = queryGetRecipeById + recipeId + "'";
 
-	String queryGetPartList = "SELECT * FROM "+ databaseName + "." + tableRecipesName + " LIMIT ";
-	// String query = queryGetPartList  +  + (startNumber - 1) + "," + showPerPage + ";");
+	String queryGetPartList = "SELECT * FROM " + databaseName + "." + tableRecipesName + " LIMIT ";
+	// String query = queryGetPartList + + (startNumber - 1) + "," + showPerPage
+	// + ";");
 
 	String queryNewRecipeRecord = "INSERT INTO `" + databaseName + "`.`" + tableRecipesName + "` (`"
 			+ tableRecipesColumnRecipeName + "`, `" + tableRecipesColumnRecipeDescription + "`, `"
@@ -41,4 +42,6 @@ public interface TableRecipesNames extends DatabaseNames {
 			+ tableRecipesColumnDifficulty + "`, `" + tableRecipesColumnPortions + "`) VALUES (?,?,?,?,?,?);";
 	// 1 - RecipeName; 2 - RecipeDescription; 3 - PublishingDate; 4 -
 	// CookingTime; 5 - Difficulty; 6 - Portions;
+
+	String queryGetRecipesNumber = "SELECT COUNT(*) AS count FROM `" + databaseName + "`.`" + tableRecipesName + "`;";
 }

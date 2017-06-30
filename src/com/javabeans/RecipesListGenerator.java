@@ -38,13 +38,13 @@ public class RecipesListGenerator implements Serializable, TableRecipesNames {
 	}
 
 	private String getRecipeName(String string) {
-		if (string.length()>33) {
-			String namePart = string.substring(0,30) + "...";
+		if (string.length() > 33) {
+			String namePart = string.substring(0, 30) + "...";
 			return namePart;
 		} else {
 			return string;
 		}
-		
+
 	}
 
 	public ArrayList<String> getListRecpeNames() {
@@ -65,9 +65,28 @@ public class RecipesListGenerator implements Serializable, TableRecipesNames {
 				listIds.add(results.getString(tableRecipesColumnID));
 				listRecpeNames.add(getRecipeName(results.getString(tableRecipesColumnRecipeName)));
 			}
-
+			prStatement.close();
 		} catch (Exception e) {
 		}
 		return listIds;
+	}
+
+	public int getRowsNumber() {
+		Connection connectionDB = null;
+		Statement statement = null;
+		ResultSet results = null;
+		int rowsNumber = 0;
+		try {
+			connectionDB = ConnectorDB.getInstance().getConnection();
+			statement = connectionDB.createStatement();
+			System.out.println(queryGetRecipesNumber);
+			results = statement.executeQuery(queryGetRecipesNumber);
+			if (results.next()) {
+				rowsNumber = results.getInt("count");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return rowsNumber;
 	}
 }

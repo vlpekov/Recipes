@@ -13,22 +13,29 @@
 	<%!ArrayList<String> recipeIdsList = new ArrayList<String>();
 	ArrayList<String> recipeNamesList = new ArrayList<String>();%>
 	<%
-		int showPerPage = 9;
+		int showPerPage = 12;
 		int startNumber = 1;
 		int columns = 4;
 		try {
 			columns = Integer.parseInt(request.getParameter("iframeColumns"));
+		} catch (Exception e) {
+		}
+		try {
 			int pageId = Integer.parseInt(request.getParameter("page"));
+			System.out.println("startNumber: " + startNumber + "; pageId:" + pageId
+					+ "**************************************************");
 			if (pageId > 1) {
 				startNumber = (pageId - 1) * showPerPage + 1;
 			}
+			System.out.println("startNumber: " + startNumber + "; pageId:" + pageId
+					+ "**************************************************");
 		} catch (Exception e) {
 		}
 		recipeIdsList = list.getListPartly(startNumber, showPerPage);
 		recipeNamesList = list.getListRecpeNames();
 	%>
 
-	Резултати рецепти:
+	Покажи най-новите рецепти
 	<table>
 		<tr>
 			<%
@@ -56,5 +63,54 @@
 			%>
 		</tr>
 	</table>
+	<%
+		int toNumber = startNumber + showPerPage - 1;
+		int allRecipes = list.getRowsNumber();
+		int pages = allRecipes / showPerPage + 1;
+		int pageId;
+		try {
+			pageId = Integer.parseInt(request.getParameter("page"));
+		} catch (Exception e) {
+			pageId = 1;
+		}
+	%>
+	<p>
+		<%
+			for (int currentPage = 1; currentPage <= pages; currentPage++) {
+				if (pageId == currentPage) {
+		%>
+		<%=currentPage%>
+		<%
+			} else {
+		%>
+		<a href="list?iframeColumns=<%=columns%>&page=<%=currentPage%>"><%=currentPage%></a>
+		<%
+			}
+		%>
+		<%
+			}
+		%>
+		<%
+			if (allRecipes - startNumber < showPerPage) {
+		%>
+		Показани
+		<%=startNumber%>
+		-
+		<%=allRecipes%>
+		от общо
+		<%=allRecipes%>
+		рецепти.
+		<%
+			} else {
+		%>
+		Показани
+		<%=startNumber%>
+		-
+		<%=toNumber%>
+		от общо рецепти.
+		<%
+			}
+		%>
+	</p>
 </body>
 </html>
