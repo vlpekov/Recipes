@@ -32,7 +32,7 @@ public interface TableRecipesNames extends DatabaseNames {
 	String queryGetFullList = "SELECT * FROM " + databaseName + "." + tableRecipesName;
 	// String query = queryGetRecipeById + recipeId + "'";
 
-	String queryGetPartList = "SELECT * FROM "+ databaseName + "." + tableRecipesName + "LIMIT ";
+	String queryGetPartList = "SELECT * FROM "+ databaseName + "." + tableRecipesName + " LIMIT ";
 	// String query = queryGetPartList  +  + (startNumber - 1) + "," + showPerPage + ";");
 
 	String queryNewRecipeRecord = "INSERT INTO `" + databaseName + "`.`" + tableRecipesName + "` (`"

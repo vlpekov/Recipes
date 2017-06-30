@@ -25,8 +25,8 @@ public class RecipesListGenerator implements Serializable, TableRecipesNames {
 			statement = connectionDB.createStatement();
 			results = statement.executeQuery(query);
 			while (results.next()) {
-				listIds.add(tableRecipesColumnID);
-				listRecpeNames.add(tableRecipesColumnRecipeName);
+				listIds.add(results.getString(tableRecipesColumnID));
+				listRecpeNames.add(getRecipeName(results.getString(tableRecipesColumnRecipeName)));
 			}
 			statement.close();
 		} catch (ClassNotFoundException e) {
@@ -35,6 +35,16 @@ public class RecipesListGenerator implements Serializable, TableRecipesNames {
 			e.printStackTrace();
 		}
 		return listIds;
+	}
+
+	private String getRecipeName(String string) {
+		if (string.length()>33) {
+			String namePart = string.substring(0,30) + "...";
+			return namePart;
+		} else {
+			return string;
+		}
+		
 	}
 
 	public ArrayList<String> getListRecpeNames() {
@@ -50,11 +60,10 @@ public class RecipesListGenerator implements Serializable, TableRecipesNames {
 		try {
 			connectionDB = ConnectorDB.getInstance().getConnection();
 			prStatement = connectionDB.prepareStatement(query);
-			System.out.println();
 			results = prStatement.executeQuery(query);
 			while (results.next()) {
-				listIds.add(tableRecipesColumnID);
-				listRecpeNames.add(tableRecipesColumnRecipeName);
+				listIds.add(results.getString(tableRecipesColumnID));
+				listRecpeNames.add(getRecipeName(results.getString(tableRecipesColumnRecipeName)));
 			}
 
 		} catch (Exception e) {
