@@ -28,13 +28,17 @@ public interface TableRecipesNames extends DatabaseNames {
 	String queryGetRecipeById = "SELECT * FROM " + databaseName + "." + tableRecipesName + " where "
 			+ tableRecipesColumnID + "='";
 	// String query = queryGetRecipeById + recipeId + "'";
-	
+
 	String queryGetFullList = "SELECT * FROM " + databaseName + "." + tableRecipesName;
 	// String query = queryGetRecipeById + recipeId + "'";
+
+	String queryGetPartList = "SELECT * FROM "+ databaseName + "." + tableRecipesName + "LIMIT ";
+	// String query = queryGetPartList  +  + (startNumber - 1) + "," + showPerPage + ";");
 
 	String queryNewRecipeRecord = "INSERT INTO `" + databaseName + "`.`" + tableRecipesName + "` (`"
 			+ tableRecipesColumnRecipeName + "`, `" + tableRecipesColumnRecipeDescription + "`, `"
 			+ tableRecipesColumnPublishingDate + "`, `" + tableRecipesColumnCookingTime + "`,`"
 			+ tableRecipesColumnDifficulty + "`, `" + tableRecipesColumnPortions + "`) VALUES (?,?,?,?,?,?);";
-	// 1 - RecipeName; 2 - RecipeDescription; 3 - PublishingDate; 4 - CookingTime; 5 - Difficulty; 6 - Portions;
+	// 1 - RecipeName; 2 - RecipeDescription; 3 - PublishingDate; 4 -
+	// CookingTime; 5 - Difficulty; 6 - Portions;
 }
