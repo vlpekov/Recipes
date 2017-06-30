@@ -64,9 +64,11 @@ public class RecipeSave extends HttpServlet implements FormNamesNewRecipe, Cooki
 		String[] productsList = request.getParameter("hiddenProductsField").split("\\$");
 		String[] quantitiesList = request.getParameter("hiddenQuantitiesField").split("\\$");
 		String portions = request.getParameter(portionsInputName);
+		String newRecipeId = null;
 		Date currentDate = new Date(new Date().getTime());
 		java.sql.Date sqlDate = new java.sql.Date(currentDate.getTime());
 		Part filePart = request.getPart(imageInputName);
+		String user = "";
 		try {
 			connectionDB = ConnectorDB.getInstance().getConnection();
 			PreparedStatement prStRecipe = connectionDB.prepareStatement(queryNewRecipeRecord);
@@ -81,7 +83,7 @@ public class RecipeSave extends HttpServlet implements FormNamesNewRecipe, Cooki
 			request.setAttribute("recipeRecordSuccess", "<h1>Рецептата е записана успешно.</h1>");
 			getCategories(connectionDB);
 			Recipe thisRecipe = new Recipe(recipeName);
-
+			newRecipeId = "" + thisRecipe.getId();
 			PreparedStatement prStProducts = connectionDB.prepareStatement(queryNewProductsMapRecord);
 			int recipeCategory = vegan;
 			for (int index = 0; index < productsList.length; index++) {
@@ -111,7 +113,7 @@ public class RecipeSave extends HttpServlet implements FormNamesNewRecipe, Cooki
 			prStImage.setInt(3, thisRecipe.getId());
 			prStImage.executeUpdate();
 			prStImage.close();
-			
+
 			User currentUser = new User(getUser(request, response));
 			PreparedStatement prStUserMap = connectionDB.prepareStatement(queryNewUsersMapRecord);
 			prStUserMap.setInt(1, thisRecipe.getId());
@@ -119,14 +121,17 @@ public class RecipeSave extends HttpServlet implements FormNamesNewRecipe, Cooki
 			prStUserMap.executeUpdate();
 			prStUserMap.close();
 			thisRecipe.getProductsList();
+			request.setAttribute(tableUsersColumnUsername, currentUser.getUsername());
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher("signin");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/getRecipe?recipeId=" + newRecipeId);
 		dispatcher.include(request, response);
+		
 		out.close();
+		
 	}
 
 	private String getProductCategory(String productName, Connection connectionDB) {
@@ -176,7 +181,7 @@ public class RecipeSave extends HttpServlet implements FormNamesNewRecipe, Cooki
 		boolean isLoggedIn;
 		Cookie[] cookies = request.getCookies();
 		isLoggedIn = new CookiesManager().isUserCorrect(cookies);
-		if (isLoggedIn) {
+		if (!isLoggedIn) {
 			try {
 				response.sendRedirect("login");
 			} catch (IOException e) {
