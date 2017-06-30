@@ -9,7 +9,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="css/main.css">
 <title>Рецептурник</title>
-<jsp:useBean id="filds" class="com.javabeans.FormRegistration" />
+<jsp:useBean id="filds" class="com.javabeans.IndexTagsNames" />
 <jsp:useBean id="cookieManager" class="com.javabeans.CookiesManager" />
 <%
 	SetupDB single = SetupDB.getInstance();
@@ -23,18 +23,27 @@
 <%
 	String guestElements = "";
 	String userElements = "";
+	int iframeColumns;
 %>
 <%
 	isLoggedIn = cookieManager.isUserCorrect(cookies);
 	if (isLoggedIn) {
 		guestElements = "hidden";
 		userElements = "";
+		iframeColumns = 3;
 	} else {
 		guestElements = "";
 		userElements = "hidden";
+		iframeColumns = 4;
 	}
 %>
 </head>
+<script>
+	function resizeIframe(obj) {
+		obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+		obj.style.width = obj.contentWindow.document.body.scrollWidth + 'px';
+	}
+</script>
 <body class="tablecloth">
 
 	<div class="header_body">
@@ -91,55 +100,13 @@
 	</div>
 	<div class="container">
 
-		<nav <%=userElements%>> <a href="new_recipe">Публикувай рецепта</a> <a href="">Моите
-			рецепти</a> <a href="#section3">Сготви рецепта</a> </nav>
-		<article>
-		<h1>A Better Approch Than Tables or Frames</h1>
-		<p>
-			This working file is a <strong>fixed-width layout</strong> made
-			possible through the use of HTML5 tags and CSS3.
-		</p>
-		<p>You can use this instead of tables or frames. Feel free to
-			adapt this as much as you want to make your own website layout.</p>
-		<hr class="style1">
-		<h2>Dividing The Page Into Sections</h2>
-		<section>
-		<div class="thirds">
-			<p>You can split up your content into columns, but be careful of
-				not exceeding 100%.</p>
+		<nav <%=userElements%>> <a href="new_recipe">Публикувай
+			рецепта</a> <a href="">Моите рецепти</a> <a href="#section3">Сготви
+			рецепта</a> </nav>
+		<div style="text-align: center">
+			<iframe src="list?iframeColumns=<%=iframeColumns%>"
+				style="border: none;" frameborder="0" scrolling="no"
+				onload="resizeIframe(this)"> </iframe>
 		</div>
-		<div class="thirds">
-			<p>If you do, you will find one of your intended 'columns' is
-				pushed underneath the others.</p>
-		</div>
-		<div class="thirds last">
-			<p>
-				This may take some tweaking of the <strong>width</strong> and <strong>margin-right</strong>
-				properties.
-			</p>
-		</div>
-		</section>
-		<hr>
-		<h2>Go Halves</h2>
-		<section>
-		<div class="halves">
-			<p>You can equally divide the page into halves. Just bear in mind
-				that your 100% is a total of your column width percentages and your
-				margin percentages.</p>
-			<p>
-				We have used a <strong>.last</strong> class to ensure there is no <strong>margin-right</strong>
-				on the final column so it sits flush to the right of our site.
-			</p>
-		</div>
-		<div class="halves last">
-			When in doubt, do the maths.<br>
-			<ul>
-				<li>2 Columns at 49% = 98%</li>
-				<li>Add one margin right at 1%. Total is now 99%;</li>
-				<li>This means for 50% width in this case you should have done:
-					(100% - 1%) divided by 2 = 49.5%</li>
-			</ul>
-		</div>
-		</section> </article>
 	</div>
 </html>

@@ -11,6 +11,7 @@
 <title>User profile</title>
 </head>
 <jsp:useBean id="tags" class="com.javabeans.UserProfileTags" />
+<jsp:useBean id="cookieManager" class="com.javabeans.CookiesManager" />
 <%!String username;%>
 <%
 	username = request.getParameter("username");
@@ -58,7 +59,7 @@
 			<a href="getRecipe?recipeId=<%=recipeId.toString()%>"
 			target="_parent"><img src="recipeImg?recipeId=<%=recipeId.toString()%>"
 				class="circle_pic" width="120" height="120"
-				style="border-radius: 50%">
+				style="border-radius: 50%"></a>
 			<%
 				}
 			%>

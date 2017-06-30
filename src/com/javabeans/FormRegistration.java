@@ -6,6 +6,8 @@ import com.vso.interfaces.FormNamesRegistration;
 
 public class FormRegistration implements Serializable, FormNamesRegistration {
 	private static final long serialVersionUID = 1L;
+	
+	String iframeGetParameter = "iframeColumns";
 
 	public String getUsernameInputName() {
 		return usernameInputName;
@@ -33,6 +35,10 @@ public class FormRegistration implements Serializable, FormNamesRegistration {
 
 	public String getPictureInputName() {
 		return pictureInputName;
+	}
+
+	public String getIframeGetParameter() {
+		return iframeGetParameter;
 	}
 
 }

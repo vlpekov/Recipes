@@ -13,11 +13,11 @@
 	<%!ArrayList<String> recipeIdsList = new ArrayList<String>();
 	ArrayList<String> recipeNamesList = new ArrayList<String>();%>
 	<%
-		String bookName = request.getParameter("bookName");
 		int showPerPage = 9;
 		int startNumber = 1;
-
+		int columns = 4;
 		try {
+			columns = Integer.parseInt(request.getParameter("iframeColumns"));
 			int pageId = Integer.parseInt(request.getParameter("page"));
 			if (pageId > 1) {
 				startNumber = (pageId - 1) * showPerPage + 1;
@@ -34,18 +34,24 @@
 			<%
 				System.out.println(recipeIdsList.size());
 				for (int index = 0; index < recipeIdsList.size(); index++) {
-					String recipe = recipeIdsList.get(index) + " - " + recipeNamesList.get(index);
-					System.out.println(recipe);
+					System.out.println(columns);
 			%><td><div class="image">
-				<img src="recipeImg?recipeId=<%=recipeIdsList.get(index)%>"
-					class="square_pic" width="200" height="200">
+					<a href="getRecipe?recipeId=<%=recipeIdsList.get(index)%>"
+						target="_parent"><img
+						src="recipeImg?recipeId=<%=recipeIdsList.get(index)%>"
+						class="square_pic" width="200" height="200"></a>
+					<h2>
+						<span><%=recipeNamesList.get(index)%></span>
+					</h2>
+				</div></td>
 
-				<h2>
-					<span><%=recipeNamesList.get(index)%></span>
-				</h2>
-			</div>
-			</td>
 			<%
+				if ((index > 0) && ((index + 1) % columns == 0)) {
+			%>
+		</tr>
+		<tr>
+			<%
+				}
 				}
 			%>
 		</tr>
