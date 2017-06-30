@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import com.vso.interfaces.UserProfileTagsNames;
 
-public class UserProfileNames implements Serializable, UserProfileTagsNames {
+public class UserProfileTags implements Serializable, UserProfileTagsNames {
 	private static final long serialVersionUID = 1L;
 	
 	public String getUsername() {

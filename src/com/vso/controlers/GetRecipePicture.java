@@ -59,7 +59,7 @@ public class GetRecipePicture extends HttpServlet implements TableImages {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+//		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**

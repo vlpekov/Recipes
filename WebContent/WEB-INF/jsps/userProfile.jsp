@@ -10,7 +10,7 @@
 <link rel="stylesheet" type="text/css" href="css/user_profile.css">
 <title>User profile</title>
 </head>
-<jsp:useBean id="tags" class="com.javabeans.UserProfileNames" />
+<jsp:useBean id="tags" class="com.javabeans.UserProfileTags" />
 <%!String username;%>
 <%
 	username = request.getParameter("username");
@@ -55,7 +55,8 @@
 				for (String recipeId : recipeIds) {
 			%>
 			<%=recipeId.toString()%>
-			<img src="recipeImg?recipeId=<%=recipeId.toString()%>"
+			<a href="getRecipe?recipeId=<%=recipeId.toString()%>"
+			target="_parent"><img src="recipeImg?recipeId=<%=recipeId.toString()%>"
 				class="circle_pic" width="120" height="120"
 				style="border-radius: 50%">
 			<%

@@ -43,9 +43,17 @@ body {
 }
 
 .square_pic {
+	object-fit: cover;
 	width: auto;
-	max-height: 200px;
+	width: 250px;
+	height: 250px;
 	position: relative;
+	border: solid 2px #ffffff;
+	background-color: #eed;
+	box-shadow: 5px 5px rgba(0, 0, 0, 0.4);
+	-moz-box-shadow: 5px 5px rgba(0, 0, 0, 0.4);
+	-webkit-box-shadow: 5px 5px rgba(0, 0, 0, 0.4);
+	-o-box-shadow: 5px 5px rgba(0, 0, 0, 0.4);
 }
 
 .img_frame {
@@ -98,20 +106,31 @@ h3 {
 	font-weight: 200;
 	letter-spacing: .1em;
 	display: inline;
-	line-height: 40px;
+	line-height: 20px;
 	margin-left: 60px;
 }
 
 h4 {
 	font-family: georgia, serif;
-	color: #a60000;
-	font-size: 16px;
+	color: #0080c0;
+	font-size: 14px;
 	font-weight: normal;
-	font-style: italic;
 	letter-spacing: .1em;
 	display: inline;
 	padding-left: 20px;
 	text-align: right;
+}
+
+h5 {
+	font-family: georgia, serif;
+	color: #292625;
+	font-size: 17px;
+	font-weight: 200;
+	letter-spacing: .1em;
+	display: inline;
+	line-height: 20px;
+	margin-left: 30px;
+	padding-left: 20px;
 }
 
 .hr_img {
@@ -119,11 +138,27 @@ h4 {
 }
 
 .hr_img_bottom {
-	margin-bottom: -20px;
+	margin-bottom: 0px;
 }
 
 tr {
 	vertical-align: top;
+}
+
+.inner_table {
+	padding-left: 20px;
+	padding-top: 5px;
+	text-align: justify;
+	text-justify: inter-word;
+}
+
+.text {
+	padding-left: 30px;
+	padding-right: 30px;
+	padding-top: 5px;
+	text-align: justify;
+	text-justify: inter-word;
+	margin-top: 10px;
 }
 
 .left_column {
@@ -136,7 +171,7 @@ tr {
 	line-height: 90px;
 }
 
-.recipes {
+.info {
 	text-align: center;
 	vertical-align: middle;
 }
@@ -147,6 +182,15 @@ tr {
 	margin-top: -150px;
 }
 
+.icons {
+	height: 25px;
+}
+
+.right {
+	text-align: right;
+	padding-right: 15px;
+	vertical-align: top;
+}
 blockquote {
 	font-family: Cambria, Georgia, serif;
 	font-size: 17px;

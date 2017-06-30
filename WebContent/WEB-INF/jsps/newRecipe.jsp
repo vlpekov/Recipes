@@ -121,18 +121,18 @@
 						<td class="form-title">Ниво на трудност:</td>
 						<td style="vertical-align: middle"><input class="star star1"
 							id="radio1" type="radio" name=<%=filds.getDifficultyInputName()%>
-							value="1"><label class="star star1" for="radio1"></label>
+							value="5"><label class="star star1" for="radio1"></label>
 							<input class="star star2" id="radio2" type="radio"
-							name=<%=filds.getDifficultyInputName()%> value="2"> <label
+							name=<%=filds.getDifficultyInputName()%> value="4"> <label
 							class="star star2" for="radio2"></label> <input
 							class="star star3" id="radio3" type="radio"
 							name=<%=filds.getDifficultyInputName()%> value="3"> <label
 							class="star star3" for="radio3"></label> <input
 							class="star star4" id="radio4" type="radio"
-							name=<%=filds.getDifficultyInputName()%> value="4"> <label
+							name=<%=filds.getDifficultyInputName()%> value="2"> <label
 							class="star star4" for="radio4"></label> <input
 							class="star star5" id="radio5" type="radio"
-							name=<%=filds.getDifficultyInputName()%> value="5"> <label
+							name=<%=filds.getDifficultyInputName()%> value="1"> <label
 							class="star star5" for="radio5"></label></td>
 					</tr>
 				</table>

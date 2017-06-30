@@ -3,6 +3,11 @@ package com.javabeans;
 import com.vso.interfaces.RecipeTags;
 
 public class RecipeTagsNames implements RecipeTags {
+	
+	public String getIdRecipe() {
+		return idRecipe;
+	}
+
 	public String getRecipeName() {
 		return recipeName;
 	}
@@ -30,4 +35,9 @@ public class RecipeTagsNames implements RecipeTags {
 	public String getPublishedDate() {
 		return publishedDate;
 	}
+
+	public String getCategory() {
+		return category;
+	}
+	
 }

@@ -76,6 +76,14 @@
     <servlet-name>GetRecipePicture</servlet-name>
     <url-pattern>/recipeImg</url-pattern>
   </servlet-mapping>
+    <servlet>
+    <servlet-name>GetRecipe</servlet-name>
+    <servlet-class>com.vso.controlers.GetRecipe</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetRecipe</servlet-name>
+    <url-pattern>/getRecipe</url-pattern>
+  </servlet-mapping>
   <servlet>
     <servlet-name>Register</servlet-name>
     <jsp-file>/WEB-INF/jsps/register.jsp</jsp-file>
@@ -115,6 +123,14 @@
   <servlet-mapping>
     <servlet-name>ProfilePicture</servlet-name>
     <url-pattern>/profile_picture</url-pattern>
+  </servlet-mapping>
+    <servlet>
+    <servlet-name>RecipeView</servlet-name>
+    <jsp-file>/WEB-INF/jsps/recipeView.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RecipeView</servlet-name>
+    <url-pattern>/view_recipe</url-pattern>
   </servlet-mapping>
   <filter>
     <filter-name>CharsetFilter</filter-name>
