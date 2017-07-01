@@ -28,13 +28,15 @@ import com.vso.interfaces.TableUsersNames;
 public class ShowByCategory extends HttpServlet
 		implements TableRecipesNames, TableUsersNames, TableUserMap, FormSearchRecipe, TableCategoriesMapNames {
 	private static final long serialVersionUID = 1L;
-	private int categorySearch = 3;
-	private int allCategories = 3;
+	private int categorySearch = 0;
+	private int allCategories = 0;
+	private int meaty = 3;
 	private int vegetarianCategory = 2;
 	private int vegenCategory = 1;
-	private String radioAllChecked = "checked=\"checked\"";
+	private String radioMeatyChecked = "checked=\"checked\"";
 	private String radioVegetarianChecked = "";
 	private String radioVeganChecked = "";
+	private String radioeAllChecked = "";
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -66,30 +68,33 @@ public class ShowByCategory extends HttpServlet
 		try {
 			radioValue = request.getParameter(formSearchRadioButtonName);
 			setRadioValues(radioValue);
-			System.out.println("radioValue========================================= " + radioValue);
 		} catch (Exception e) {
 		}
 		ArrayList<String> listIds = new ArrayList<String>();
 		ArrayList<String> listRecpeNames = new ArrayList<String>();
 		Connection connectionDB = null;
-		PreparedStatement prStatement = null;
+		Statement statement = null;
 		ResultSet results = null;
-		String queryCountResults = searchFor + "%';";
-		String query = queryGetCategoryByCategory + categorySearch + "' ORDER BY id DESC LIMIT " + (startNumber - 1) + ","
-				+ showPerPage + ";";
-		System.out.println(query);
+		String queryCountResults = queryGetRecipesNumberByCategory + categorySearch + "';";
+		String queryShowAll = queryGetRecipesNumberByCategory + categorySearch + "';";
+		String queryCategorySearch = queryGetCategoryByCategory + categorySearch + "' ORDER BY id DESC LIMIT "
+				+ (startNumber - 1) + "," + showPerPage + ";";
 		try {
-
 			connectionDB = ConnectorDB.getInstance().getConnection();
-			prStatement = connectionDB.prepareStatement(query);
-			results = prStatement.executeQuery(query);
-			while (results.next()) {
+			statement = connectionDB.createStatement();
+			if (categorySearch == 0) {
+				results = statement.executeQuery(queryGetAllOrderByDateDesc);
+				while (results.next()) {
+					listIds.add(results.getString(tableRecipesColumnID));
+					listRecpeNames.add(results.getString(tableRecipesColumnRecipeName));
+				}
+			} else {
+				results = statement.executeQuery(queryCategorySearch);
+				while (results.next()) {
 					listIds.add(results.getString(tableCategoriesMapColumnRecipeId));
 					listRecpeNames.add(getRecipeById(results.getInt(tableCategoriesMapColumnRecipeId)));
-					System.out.println("====================================zapis--------------");
+				}
 			}
-			System.out.println(listIds.size());
-			System.out.println(listRecpeNames.size());
 			request.setAttribute(formSearchStartNumber, startNumber);
 			request.setAttribute(formSearchShowPerPage, showPerPage);
 			request.setAttribute(formSearchSearchInputName, searchFor);
@@ -97,10 +102,11 @@ public class ShowByCategory extends HttpServlet
 			request.setAttribute("ids", listIds);
 			request.setAttribute("names", listRecpeNames);
 			request.setAttribute(formSearchRecpeAllRecipesNumber, getRowsNumber(queryCountResults));
-			request.setAttribute(formSearchRadioCheckedAll, radioAllChecked);
+			request.setAttribute(formSearchRadioCheckedAll, radioeAllChecked);
 			request.setAttribute(formSearchRadioCheckedVegetarian, radioVegetarianChecked);
 			request.setAttribute(formSearchRadioCheckedVegan, radioVeganChecked);
-			prStatement.close();
+			request.setAttribute(formSearchRadioCheckedMeaty, radioMeatyChecked);
+			statement.close();
 			// request.getRequestDispatcher("search_results").forward(request,
 			// response);
 		} catch (Exception e) {
@@ -136,18 +142,28 @@ public class ShowByCategory extends HttpServlet
 
 	private void setRadioValues(String radioValue) {
 		if (radioValue.equals("всички")) {
-			radioAllChecked = "checked=\"checked\"";
+			categorySearch = allCategories;
+			radioeAllChecked = "checked=\"checked\"";
+			radioMeatyChecked = "";
 			radioVegetarianChecked = "";
 			radioVeganChecked = "";
-			categorySearch = allCategories;
+		}
+		if (radioValue.equals("месни")) {
+			radioMeatyChecked = "checked=\"checked\"";
+			radioVegetarianChecked = "";
+			radioVeganChecked = "";
+			radioeAllChecked = "";
+			categorySearch = meaty;
 		} else if (radioValue.equals("вегетариански")) {
-			radioAllChecked = "";
+			radioMeatyChecked = "";
 			radioVegetarianChecked = "checked=\"checked\"";
 			radioVeganChecked = "";
+			radioeAllChecked = "";
 			categorySearch = vegetarianCategory;
-		} else {
-			radioAllChecked = "";
+		} else if (radioValue.equals("веген")) {
+			radioMeatyChecked = "";
 			radioVegetarianChecked = "";
+			radioeAllChecked = "";
 			radioVeganChecked = "checked=\"checked\"";
 			categorySearch = vegenCategory;
 		}
@@ -157,12 +173,12 @@ public class ShowByCategory extends HttpServlet
 		Connection connectionDB = null;
 		Statement statement = null;
 		ResultSet results = null;
-		String query = "SELECT COUNT(*) AS count FROM `recipes_site`.`recipes` WHERE `name` LIKE '%тор%';";
+		System.out.println(queryParameters);
 		int rowsNumber = 0;
 		try {
 			connectionDB = ConnectorDB.getInstance().getConnection();
 			statement = connectionDB.createStatement();
-			results = statement.executeQuery(query);
+			results = statement.executeQuery(queryParameters);
 			if (results.next()) {
 				rowsNumber = results.getInt("count");
 			}

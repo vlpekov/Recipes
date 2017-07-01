@@ -21,6 +21,7 @@ public interface TableCategoriesMapNames extends DatabaseNames, TableCategories,
 			+ tableCategoriesMapColumnRecipeId + "='";
 	// String query = queryGetCategoryByRecipeId + id + "'";
 
+	
 	String queryGetCategoryByCategory = "SELECT * FROM " + databaseName + "." + tableCategoriesMapName + " WHERE "
 			+ tableCategoriesMapColumnCategoryId + "='";
 	// String query = queryGetCategoryByCategory + id + "'";

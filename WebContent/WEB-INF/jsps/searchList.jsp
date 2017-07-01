@@ -34,13 +34,21 @@
 		String allChecked = "checked=\"checked\"";
 		String vegetarianChecked = "";
 		String veganChecked = "";
+		String meatyChecked = "";
 		allChecked = (String) request.getAttribute(names.getFormSearchRadioCheckedAll());
 		vegetarianChecked = (String) request.getAttribute(names.getFormSearchRadioCheckedVegetarian());
 		veganChecked = (String) request.getAttribute(names.getFormSearchRadioCheckedVegan());
-		System.out.println("===========tuk===fffffffffffffffffffffffffffffff=*****");
-		System.out.println(request.getAttribute(names.getFormSearchRadioCheckedAll())+ "11111111111" + names.getFormSearchRadioCheckedAll());
-		System.out.println(request.getAttribute(names.getFormSearchRadioCheckedVegetarian()) + "11111111111" + names.getFormSearchRadioCheckedVegetarian());
-		System.out.println(request.getAttribute(names.getFormSearchRadioCheckedVegan())+ "11111111111" + names.getFormSearchRadioCheckedVegan());
+		meatyChecked = (String) request.getAttribute(names.getFormSearchRadioCheckedMeaty());
+		System.out.println("======================ДАННИ ОТ СЪРВЛЕТ===========================");
+		System.out.println("startNumber " + startNumber);
+		System.out.println("showPerPage " + showPerPage);
+		System.out.println("columns " + columns);
+		System.out.println("allRecipes + " + allRecipes);
+		System.out.println("searchFor " + searchFor);
+		System.out.println(allChecked + " allChecked");
+		System.out.println(vegetarianChecked + " vegetarianChecked");
+		System.out.println(veganChecked + " veganChecked");
+		System.out.println(meatyChecked + " meatyChecked");
 	%>
 	<script type='text/javascript'>
 		$(document).ready(function() {
@@ -65,20 +73,6 @@
 					class="red_button" type="submit" value="Търси">
 			</div>
 
-			<div id="div_radio">
-				Покажи рецепти: <label class="radio-inline"> <input
-					name="radio" type="radio" value="всички" <%=allChecked%> />
-					всички
-				</label> <label class="radio-inline"> <input name="radio"
-					type="radio" value="вегетариански" <%=vegetarianChecked%> />
-					вегетариански
-				</label> <label class="radio-inline"> <input name="radio"
-					type="radio" value="веган" <%=veganChecked%> /> веган
-				</label>
-			</div>
-			<input type="button" onclick="javascript:show_form(0);"
-				value="Разширено търсене" />
-
 
 			<div>
 				<input type="hidden" name=<%=names.getFormSearchStartNumber()%>
@@ -90,7 +84,31 @@
 			</div>
 		</form>
 	</div>
-
+	<form method="post" action="show_category">
+		<div id="div_radio">
+			Покажи рецепти: <label class="radio-inline"> <input
+				name="radio" type="radio" value="всички" <%=allChecked%> /> всички
+			</label> 
+			<label class="radio-inline"> <input
+				name="radio" type="radio" value="месни" <%=meatyChecked%> /> месни
+			</label>
+			<label class="radio-inline"> <input name="radio"
+				type="radio" value="вегетариански" <%=vegetarianChecked%> />
+				вегетариански
+			</label> <label class="radio-inline"> <input name="radio"
+				type="radio" value="веган" <%=veganChecked%> /> веган
+			</label>
+		</div>
+		<input type="button" onclick="javascript:show_form(0);"
+			value="Разширено търсене" /> <input type="hidden"
+			name=<%=names.getFormSearchStartNumber()%> value=<%=startNumber%>>
+		<input type="hidden" name=<%=names.getFormSearchShowPerPage()%>
+			value=<%=showPerPage%>> <input type="hidden"
+			name=<%=names.getFormSearchColumnsNumber()%> value=<%=columns%>>
+		<%-- 					<input type="hidden" name=<%= %> value=<%= %>> --%>
+		</div>
+		</div>
+	</form>
 
 
 	<table>

@@ -113,12 +113,13 @@
 				pageId = 1;
 			}
 		%>
-		<p>
+		<p>Страници:
 			<%
 				for (int currentPage = 1; currentPage <= pages; currentPage++) {
 					if (pageId == currentPage) {
 			%>
 
+			
 			<%=currentPage%>
 			<%
 				} else {
@@ -128,24 +129,22 @@
 				}
 				}
 				if (allRecipes - startNumber < showPerPage) {
-			%>
-			Показани
+			%><br> (Показани
 			<%=startNumber%>
 			-
 			<%=allRecipes%>
 			от общо
 			<%=allRecipes%>
-			рецепти.
+			рецепти.)
 			<%
 				} else {
-			%>
-			Показани
+			%><br> (Показани
 			<%=startNumber%>
 			-
 			<%=toNumber%>
 			от общо
 			<%=allRecipes%>
-			рецепти.
+			рецепти.)
 			<%
 				}
 			%>

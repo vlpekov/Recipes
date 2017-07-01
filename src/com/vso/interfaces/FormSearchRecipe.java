@@ -13,5 +13,6 @@ public interface FormSearchRecipe {
 	String formSearchRadioCheckedAll = "radio_all";
 	String formSearchRadioCheckedVegetarian = "radio_vegetarian";
 	String formSearchRadioCheckedVegan = "radio_vegan";
+	String formSearchRadioCheckedMeaty = "radio_meaty";
 	
 }
