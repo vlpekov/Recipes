@@ -9,4 +9,9 @@ public interface FormSearchRecipe {
 	String formSearchIdList = "id_list";
 	String formSearchRecpeNamesList = "recipes_names_list";
 	String formSearchRecpeAllRecipesNumber = "recipes_number";
+	String formSearchRadioButtonName = "radio";
+	String formSearchRadioCheckedAll = "radio_all";
+	String formSearchRadioCheckedVegetarian = "radio_vegetarian";
+	String formSearchRadioCheckedVegan = "radio_vegan";
+	
 }

@@ -6,9 +6,18 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="css/list.css">
-<title>Insert title here</title>
+<script type='text/javascript'
+	src='http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script>
+<title>List</title>
 </head>
 <body>
+	<script type='text/javascript'>
+		$(document).ready(function() {
+			$('input[name=radio]').change(function() {
+				$('form').submit();
+			});
+		});
+	</script>
 	<jsp:useBean id="list" class="com.javabeans.RecipesListGenerator" />
 	<jsp:useBean id="names" class="com.javabeans.FormRecipeSearchNames" />
 	<%!ArrayList<String> recipeIdsList = new ArrayList<String>();
@@ -34,11 +43,30 @@
 	<div class="search_form">
 		<form method="post" action="search">
 			<div class="search_box">
-				<input id="searchInput"
-					name=<%=names.getFormSearchSearchString()%> class="form-control"
-					placeholder="име на рецептата" type="search"> <input
-					class="red_button" type="submit" value="Търси">
+				<input id="searchInput" name=<%=names.getFormSearchSearchString()%>
+					class="form-control" placeholder="име на рецептата" type="search">
+				<input class="red_button" type="submit" value="Търси">
 
+				<div>
+					<input type="hidden" name=<%=names.getFormSearchStartNumber()%>
+						value=<%=startNumber%>> <input type="hidden"
+						name=<%=names.getFormSearchShowPerPage()%> value=<%=showPerPage%>>
+					<input type="hidden" name=<%=names.getFormSearchColumnsNumber()%>
+						value=<%=columns%>>
+					<%-- 					<input type="hidden" name=<%= %> value=<%= %>> --%>
+				</div>
+			</div>
+		</form>
+		<form method="post" action="show_category">
+			<div id="div_radio">
+				Покажи рецепти: <label class="radio-inline"> <input
+					name="radio" type="radio" value="всички" checked="checked" />
+					всички
+				</label> <label class="radio-inline"> <input name="radio"
+					type="radio" value="вегетариански" /> вегетариански
+				</label> <label class="radio-inline"> <input name="radio"
+					type="radio" value="веган" /> веган
+				</label>
 				<div>
 					<input type="hidden" name=<%=names.getFormSearchStartNumber()%>
 						value=<%=startNumber%>> <input type="hidden"

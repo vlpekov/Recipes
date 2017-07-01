@@ -92,6 +92,15 @@
     <servlet-name>SearchRecipe</servlet-name>
     <url-pattern>/search</url-pattern>
   </servlet-mapping>
+    <servlet>
+    <servlet-name>ShowCategory</servlet-name>
+    <servlet-class>com.vso.controlers.ShowByCategory</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ShowCategory</servlet-name>
+    <url-pattern>/show_category</url-pattern>
+  </servlet-mapping>
+  
   <servlet>
     <servlet-name>Register</servlet-name>
     <jsp-file>/WEB-INF/jsps/register.jsp</jsp-file>

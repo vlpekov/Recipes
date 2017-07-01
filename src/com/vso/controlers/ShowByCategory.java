@@ -1,7 +1,6 @@
 package com.vso.controlers;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,10 +22,10 @@ import com.vso.interfaces.TableUserMap;
 import com.vso.interfaces.TableUsersNames;
 
 /**
- * Servlet implementation class SearchRecipes
+ * Servlet implementation class ShowByCategory
  */
-@WebServlet("/SearchRecipes")
-public class SearchRecipes extends HttpServlet
+@WebServlet("/ShowByCategory")
+public class ShowByCategory extends HttpServlet
 		implements TableRecipesNames, TableUsersNames, TableUserMap, FormSearchRecipe, TableCategoriesMapNames {
 	private static final long serialVersionUID = 1L;
 	private int categorySearch = 3;
@@ -40,7 +39,7 @@ public class SearchRecipes extends HttpServlet
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public SearchRecipes() {
+	public ShowByCategory() {
 		super();
 	}
 
@@ -76,29 +75,18 @@ public class SearchRecipes extends HttpServlet
 		PreparedStatement prStatement = null;
 		ResultSet results = null;
 		String queryCountResults = searchFor + "%';";
-		String query = queryGetSearchPartly + searchFor + "%' ORDER BY id DESC LIMIT " + (startNumber - 1) + ","
+		String query = queryGetCategoryByCategory + categorySearch + "' ORDER BY id DESC LIMIT " + (startNumber - 1) + ","
 				+ showPerPage + ";";
+		System.out.println(query);
 		try {
 
 			connectionDB = ConnectorDB.getInstance().getConnection();
 			prStatement = connectionDB.prepareStatement(query);
 			results = prStatement.executeQuery(query);
-			int enter = 1;
 			while (results.next()) {
-				System.out.println("-----===============================----------влизане " + enter + " showPerPage - "
-						+ showPerPage);
-				if (categorySearch == 3) {
-					System.out.println(" ----------------------------Всички рецепти запис -------------------");
-					listIds.add(results.getString(tableRecipesColumnID));
-					listRecpeNames.add(getRecipeName(results.getString(tableRecipesColumnRecipeName)));
-				} else {
-					if (isCategory(results.getString(tableRecipesColumnID))) {
-						System.out.println("веган-вегетариан ------------------------ намерен!");
-						listIds.add(results.getString(tableRecipesColumnID));
-						listRecpeNames.add(getRecipeName(results.getString(tableRecipesColumnRecipeName)));
-					}
-				}
-				enter++;
+					listIds.add(results.getString(tableCategoriesMapColumnRecipeId));
+					listRecpeNames.add(getRecipeById(results.getInt(tableCategoriesMapColumnRecipeId)));
+					System.out.println("====================================zapis--------------");
 			}
 			System.out.println(listIds.size());
 			System.out.println(listRecpeNames.size());
@@ -184,7 +172,22 @@ public class SearchRecipes extends HttpServlet
 		return rowsNumber;
 	}
 
-	private String getRecipeName(String name) {
+	private String getRecipeById(int recipeId) {
+		String name = "";
+		Connection connectionDB = null;
+		Statement statement = null;
+		ResultSet results = null;
+		String query = queryGetRecipeById + recipeId + "'";
+		try {
+			connectionDB = ConnectorDB.getInstance().getConnection();
+			statement = connectionDB.createStatement();
+			results = statement.executeQuery(query);
+			if (results.next()) {
+				name = results.getString(tableRecipesColumnRecipeName);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		if (name.length() > 33) {
 			String namePart = name.substring(0, 30) + "...";
 			return namePart;

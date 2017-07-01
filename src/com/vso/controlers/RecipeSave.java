@@ -39,9 +39,9 @@ import com.javabeans.CookiesManager;;
 public class RecipeSave extends HttpServlet implements FormNamesNewRecipe, Cookies, TablesColumnNames {
 	private static final long serialVersionUID = 1L;
 
-	int vegan;
-	int vegeterian;
-	int meaty;
+	int vegan = 1;
+	int vegeterian = 2;
+	int meaty = 3;
 
 	public RecipeSave() {
 		super();

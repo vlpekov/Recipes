@@ -4,6 +4,19 @@ import com.vso.interfaces.FormSearchRecipe;
 
 public class FormRecipeSearchNames implements FormSearchRecipe {
 	
+	
+	public String getFormSearchRadioCheckedAll() {
+		return formSearchRadioCheckedAll;
+	}
+	public String getFormSearchRadioCheckedVegetarian() {
+		return formSearchRadioCheckedVegetarian;
+	}
+	public String getFormSearchRadioCheckedVegan() {
+		return formSearchRadioCheckedVegan;
+	}
+	public String getFormSearchRadioButtonName() {
+		return formSearchRadioButtonName;
+	}
 	public String getFormSearchRecpeAllRecipesNumber() {
 		return formSearchRecpeAllRecipesNumber;
 	}
