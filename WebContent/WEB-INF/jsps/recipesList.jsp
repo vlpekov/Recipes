@@ -63,6 +63,8 @@
 					name="radio" type="radio" value="всички" checked="checked" />
 					всички
 				</label> <label class="radio-inline"> <input name="radio"
+					type="radio" value="месни" /> месни
+				</label><label class="radio-inline"> <input name="radio"
 					type="radio" value="вегетариански" /> вегетариански
 				</label> <label class="radio-inline"> <input name="radio"
 					type="radio" value="веган" /> веган
