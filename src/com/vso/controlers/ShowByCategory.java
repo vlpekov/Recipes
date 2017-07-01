@@ -51,7 +51,6 @@ public class ShowByCategory extends HttpServlet
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -76,23 +75,26 @@ public class ShowByCategory extends HttpServlet
 		Statement statement = null;
 		ResultSet results = null;
 		String queryCountResults = queryGetRecipesNumberByCategory + categorySearch + "';";
-		String queryShowAll = queryGetRecipesNumberByCategory + categorySearch + "';";
+		String queryGetAllCategories = queryGetAllOrderByDateDesc + " LIMIT " + (startNumber - 1) + "," + showPerPage + ";";
 		String queryCategorySearch = queryGetCategoryByCategory + categorySearch + "' ORDER BY id DESC LIMIT "
 				+ (startNumber - 1) + "," + showPerPage + ";";
 		try {
 			connectionDB = ConnectorDB.getInstance().getConnection();
 			statement = connectionDB.createStatement();
 			if (categorySearch == 0) {
-				results = statement.executeQuery(queryGetAllOrderByDateDesc);
+				request.setAttribute(formSearchRecpeAllRecipesNumber, getRowsNumber(queryTableRecipesGetRecipesNumber));
+				results = statement.executeQuery(queryGetAllCategories);
 				while (results.next()) {
 					listIds.add(results.getString(tableRecipesColumnID));
 					listRecpeNames.add(results.getString(tableRecipesColumnRecipeName));
 				}
 			} else {
+				request.setAttribute(formSearchRecpeAllRecipesNumber, getRowsNumber(queryCountResults));
 				results = statement.executeQuery(queryCategorySearch);
 				while (results.next()) {
 					listIds.add(results.getString(tableCategoriesMapColumnRecipeId));
 					listRecpeNames.add(getRecipeById(results.getInt(tableCategoriesMapColumnRecipeId)));
+					
 				}
 			}
 			request.setAttribute(formSearchStartNumber, startNumber);
@@ -101,11 +103,11 @@ public class ShowByCategory extends HttpServlet
 			request.setAttribute(formSearchColumnsNumber, columns);
 			request.setAttribute("ids", listIds);
 			request.setAttribute("names", listRecpeNames);
-			request.setAttribute(formSearchRecpeAllRecipesNumber, getRowsNumber(queryCountResults));
 			request.setAttribute(formSearchRadioCheckedAll, radioeAllChecked);
 			request.setAttribute(formSearchRadioCheckedVegetarian, radioVegetarianChecked);
 			request.setAttribute(formSearchRadioCheckedVegan, radioVeganChecked);
 			request.setAttribute(formSearchRadioCheckedMeaty, radioMeatyChecked);
+			
 			statement.close();
 			// request.getRequestDispatcher("search_results").forward(request,
 			// response);
@@ -160,7 +162,7 @@ public class ShowByCategory extends HttpServlet
 			radioVeganChecked = "";
 			radioeAllChecked = "";
 			categorySearch = vegetarianCategory;
-		} else if (radioValue.equals("веген")) {
+		} else if (radioValue.equals("веган")) {
 			radioMeatyChecked = "";
 			radioVegetarianChecked = "";
 			radioeAllChecked = "";

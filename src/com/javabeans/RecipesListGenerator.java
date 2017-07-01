@@ -140,7 +140,7 @@ public class RecipesListGenerator implements Serializable, TableRecipesNames, Ta
 		try {
 			connectionDB = ConnectorDB.getInstance().getConnection();
 			statement = connectionDB.createStatement();
-			results = statement.executeQuery(queryGetRecipesNumber);
+			results = statement.executeQuery(queryTableRecipesGetRecipesNumber);
 			if (results.next()) {
 				rowsNumber = results.getInt("count");
 			}

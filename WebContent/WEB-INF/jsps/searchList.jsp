@@ -39,16 +39,6 @@
 		vegetarianChecked = (String) request.getAttribute(names.getFormSearchRadioCheckedVegetarian());
 		veganChecked = (String) request.getAttribute(names.getFormSearchRadioCheckedVegan());
 		meatyChecked = (String) request.getAttribute(names.getFormSearchRadioCheckedMeaty());
-		System.out.println("======================ДАННИ ОТ СЪРВЛЕТ===========================");
-		System.out.println("startNumber " + startNumber);
-		System.out.println("showPerPage " + showPerPage);
-		System.out.println("columns " + columns);
-		System.out.println("allRecipes + " + allRecipes);
-		System.out.println("searchFor " + searchFor);
-		System.out.println(allChecked + " allChecked");
-		System.out.println(vegetarianChecked + " vegetarianChecked");
-		System.out.println(veganChecked + " veganChecked");
-		System.out.println(meatyChecked + " meatyChecked");
 	%>
 	<script type='text/javascript'>
 		$(document).ready(function() {
@@ -60,27 +50,17 @@
 	<div class="search_form">
 		<form method="post" action="search" id="parametеrs">
 
-			<%-- 						<input type="hidden" name=<%=names.getFormSearchStartNumber()%> --%>
-			<%-- 				value=<%=startNumber%>> <input type="hidden" --%>
-			<%-- 				name=<%=names.getFormSearchShowPerPage()%> value=<%=showPerPage%>> --%>
-			<%-- 			<input type="hidden" name=<%=names.getFormSearchColumnsNumber()%> --%>
-			<%-- 				value=<%=columns%>> --%>
-
-
 			<div class="search_box">
-				<input id="searchInput" name="searchInput" class="form-control"
-					placeholder="име на рецептата" type="search"> <input
-					class="red_button" type="submit" value="Търси">
+				<input id="searchInput" name=<%=names.getFormSearchSearchString()%>
+					class="form-control" placeholder="име на рецептата" type="search">
+				<input class="red_button" type="submit" value="Търси">
 			</div>
-
-
 			<div>
 				<input type="hidden" name=<%=names.getFormSearchStartNumber()%>
 					value=<%=startNumber%>> <input type="hidden"
 					name=<%=names.getFormSearchShowPerPage()%> value=<%=showPerPage%>>
 				<input type="hidden" name=<%=names.getFormSearchColumnsNumber()%>
 					value=<%=columns%>>
-				<%-- 					<input type="hidden" name=<%= %> value=<%= %>> --%>
 			</div>
 		</form>
 	</div>
@@ -88,29 +68,36 @@
 		<div id="div_radio">
 			Покажи рецепти: <label class="radio-inline"> <input
 				name="radio" type="radio" value="всички" <%=allChecked%> /> всички
-			</label> 
-			<label class="radio-inline"> <input
-				name="radio" type="radio" value="месни" <%=meatyChecked%> /> месни
-			</label>
-			<label class="radio-inline"> <input name="radio"
+			</label> <label class="radio-inline"> <input name="radio"
+				type="radio" value="месни" <%=meatyChecked%> /> месни
+			</label> <label class="radio-inline"> <input name="radio"
 				type="radio" value="вегетариански" <%=vegetarianChecked%> />
 				вегетариански
 			</label> <label class="radio-inline"> <input name="radio"
 				type="radio" value="веган" <%=veganChecked%> /> веган
 			</label>
 		</div>
-		<input type="button" onclick="javascript:show_form(0);"
-			value="Разширено търсене" /> <input type="hidden"
-			name=<%=names.getFormSearchStartNumber()%> value=<%=startNumber%>>
-		<input type="hidden" name=<%=names.getFormSearchShowPerPage()%>
-			value=<%=showPerPage%>> <input type="hidden"
-			name=<%=names.getFormSearchColumnsNumber()%> value=<%=columns%>>
-		<%-- 					<input type="hidden" name=<%= %> value=<%= %>> --%>
+		<input type="hidden" name=<%=names.getFormSearchStartNumber()%>
+			value=<%=startNumber%>> <input type="hidden"
+			name=<%=names.getFormSearchShowPerPage()%> value=<%=showPerPage%>>
+		<input type="hidden" name=<%=names.getFormSearchColumnsNumber()%>
+			value=<%=columns%>>
 		</div>
 		</div>
 	</form>
-
-
+	<%
+		if (searchFor != null && recipeIdsList.size() > 0) {
+	%>
+	<p>
+		Показани за резултати за търсенен на "<%=searchFor%>":
+	</p>
+	<%
+		} else if (recipeIdsList.size() < 1) {
+	%>
+	<p>Няма намерени резултати!</p>
+	<%
+		}
+	%>
 	<table>
 		<tr>
 			<%
@@ -146,7 +133,7 @@
 	%>
 	<p>
 		<%
-			for (int currentPage = 1; currentPage <= pages; currentPage++) { //
+			for (int currentPage = 1; currentPage <= pages; currentPage++) {
 				if (pageId == currentPage) {
 		%>
 
@@ -181,6 +168,5 @@
 			}
 		%>
 	</p>
-	<input type="submit" form="parametеrs" value="Следваща" />
 </body>
 </html>

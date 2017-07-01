@@ -43,7 +43,7 @@ public interface TableRecipesNames extends DatabaseNames {
 	// 1 - RecipeName; 2 - RecipeDescription; 3 - PublishingDate; 4 -
 	// CookingTime; 5 - Difficulty; 6 - Portions;
 
-	String queryGetRecipesNumber = "SELECT COUNT(*) AS count FROM `" + databaseName + "`.`" + tableRecipesName + "`;";
+	String queryTableRecipesGetRecipesNumber = "SELECT COUNT(*) AS count FROM `" + databaseName + "`.`" + tableRecipesName + "`;";
 	
 	String queryGetAllOrderByDateDesc = "SELECT * FROM `" + databaseName + "`.`" + tableRecipesName + "` ORDER BY " + tableRecipesColumnID+ " DESC";
 	
