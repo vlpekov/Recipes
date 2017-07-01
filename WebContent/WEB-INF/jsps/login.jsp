@@ -18,7 +18,10 @@
 					out.println(usernameCheck);
 				}
 			%>
+			<h2>Поздравления<br>Регистрирахте се успешно.<br>Може да се впишете:</h2>
 		</center>
+		
+		
 	</div>
 	<div class="login_field">
 		<form class="form-container" action="login" method="post">

@@ -52,9 +52,9 @@
 				src="profile_picture?username=<%=cookieManager.getCurrentUsername()%>"
 				style="border: none;" <%=userElements%>> </iframe>
 		</div>
-		<div class="midle_header">
-			<a href="/Recipes/" target="_top"> <img border="0"
-				alt="Рецептурник" src="img/label.png" height="110">
+		<div class="midle_header" class="site_label">
+			<a href="/Recipes/" target="_top"> <img  border="0"
+				alt="Рецептурник" src="img/label.png" height="150">
 			</a>
 		</div>
 		<div class="right_header">
@@ -101,7 +101,7 @@
 	<div class="container">
 
 		<nav <%=userElements%>> <a href="new_recipe">Публикувай
-			рецепта</a> <a href="">Моите рецепти</a> <a href="#section3">Сготви
+			рецепта</a> <a href="getUser?username=<%=cookieManager.getCurrentUsername()%>">Моите рецепти</a> <a href="#section3">Сготви
 			рецепта</a> </nav>
 		<div style="text-align: center">
 			<iframe src="list?iframeColumns=<%=iframeColumns%>"

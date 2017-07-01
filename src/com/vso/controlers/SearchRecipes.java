@@ -107,7 +107,7 @@ public class SearchRecipes extends HttpServlet
 			request.setAttribute(formSearchColumnsNumber, columns);
 			request.setAttribute("ids", listIds);
 			request.setAttribute("names", listRecpeNames);
-			request.setAttribute(formSearchRecpeAllRecipesNumber, getRowsNumber(queryCountResults));
+			request.setAttribute(formSearchRecpeAllRecipesNumber, getRowsNumber(searchFor));
 			request.setAttribute(formSearchRadioCheckedAll, radioAllChecked);
 			request.setAttribute(formSearchRadioCheckedVegetarian, radioVegetarianChecked);
 			request.setAttribute(formSearchRadioCheckedVegan, radioVeganChecked);
@@ -168,7 +168,8 @@ public class SearchRecipes extends HttpServlet
 		Connection connectionDB = null;
 		Statement statement = null;
 		ResultSet results = null;
-		String query = "SELECT COUNT(*) AS count FROM `recipes_site`.`recipes` WHERE `name` LIKE '%тор%';";
+		String query = "SELECT COUNT(*) AS count FROM `recipes_site`.`recipes` WHERE `name` LIKE '%" + queryParameters + "%';";
+		System.out.println(query);
 		int rowsNumber = 0;
 		try {
 			connectionDB = ConnectorDB.getInstance().getConnection();

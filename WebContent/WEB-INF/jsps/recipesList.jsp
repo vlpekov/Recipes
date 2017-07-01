@@ -39,6 +39,11 @@
 		}
 		recipeIdsList = list.getListPartly(startNumber, showPerPage);
 		recipeNamesList = list.getListRecpeNames();
+		if (request.getAttribute(names.getFormSearchStartNumber()) != null) {
+			startNumber = (Integer) request.getAttribute(names.getFormSearchStartNumber());
+			showPerPage = (Integer) request.getAttribute(names.getFormSearchShowPerPage());
+			columns = (Integer) request.getAttribute(names.getFormSearchColumnsNumber());
+		}
 	%>
 	<div class="search_form">
 		<form method="post" action="search">
@@ -53,7 +58,11 @@
 						name=<%=names.getFormSearchShowPerPage()%> value=<%=showPerPage%>>
 					<input type="hidden" name=<%=names.getFormSearchColumnsNumber()%>
 						value=<%=columns%>>
-					<%-- 					<input type="hidden" name=<%= %> value=<%= %>> --%>
+					<%
+						System.out.println(startNumber + "startNumber");
+						System.out.println(startNumber + "showPerPage");
+						System.out.println(startNumber + "columns");
+					%>
 				</div>
 			</div>
 		</form>
@@ -113,13 +122,14 @@
 				pageId = 1;
 			}
 		%>
-		<p>Страници:
+		<p>
+			Страници:
 			<%
-				for (int currentPage = 1; currentPage <= pages; currentPage++) {
-					if (pageId == currentPage) {
-			%>
+			for (int currentPage = 1; currentPage <= pages; currentPage++) {
+				if (pageId == currentPage) {
+		%>
 
-			
+
 			<%=currentPage%>
 			<%
 				} else {

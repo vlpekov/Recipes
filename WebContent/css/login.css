@@ -9,7 +9,6 @@ body {
 	overflow: hidden;
 }
 
-
 .top_bar {
 	width: 100%;
 	background-image: url("../img/top.png");
@@ -93,6 +92,17 @@ body {
 	min-width: 300px;
 	padding: 20px;
 	width: 300px;
+}
+
+h2 {
+	font-family: Georgia, serif;
+	color: #ffffff;
+	font-variant: small-caps;
+	text-transform: none;
+	font-weight: 200;
+	font-size: 23px;
+	margin-bottom: 0;
+	padding-top: 30px;
 }
 
 .form-field {
@@ -246,7 +256,7 @@ tablecloth_light {
 }
 
 .login_field {
-  display: table;
-  margin: 0 auto;
+	display: table;
+	margin: 0 auto;
 	margin-top: 10%;
 }

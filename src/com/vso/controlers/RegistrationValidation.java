@@ -72,7 +72,7 @@ public class RegistrationValidation extends HttpServlet implements FormNamesRegi
 				pre.setString(9, "" + username + "_image");
 				pre.executeUpdate();
 				pre.close();
-				request.setAttribute("registrationSuccess", "<h1>Поздравления<br>Регистрирахте се успешно.<br>Може да се впишете:</h1>");
+				request.setAttribute("registrationSuccess", "<h2>Поздравления<br>Регистрирахте се успешно.<br>Може да се впишете:</h2>");
 				RequestDispatcher dispatcher = request.getRequestDispatcher("signin");
 				dispatcher.include(request, response);
 
