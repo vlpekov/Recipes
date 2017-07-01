@@ -85,6 +85,14 @@
     <url-pattern>/getRecipe</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>SearchRecipe</servlet-name>
+    <servlet-class>com.vso.controlers.SearchRecipes</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SearchRecipe</servlet-name>
+    <url-pattern>/search</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>Register</servlet-name>
     <jsp-file>/WEB-INF/jsps/register.jsp</jsp-file>
   </servlet>
@@ -140,7 +148,7 @@
     <servlet-name>RecipesList</servlet-name>
     <url-pattern>/list</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <servlet-name>UserRecipesList</servlet-name>
     <jsp-file>/WEB-INF/jsps/userRecipesList.jsp</jsp-file>
   </servlet>
@@ -148,7 +156,14 @@
     <servlet-name>UserRecipesList</servlet-name>
     <url-pattern>/user_recipes</url-pattern>
   </servlet-mapping>
-  
+  <servlet>
+    <servlet-name>SearchResults</servlet-name>
+    <jsp-file>/WEB-INF/jsps/searchList.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SearchResults</servlet-name>
+    <url-pattern>/search_results</url-pattern>
+  </servlet-mapping>
   <filter>
     <filter-name>CharsetFilter</filter-name>
     <filter-class>com.vso.filters.CharsetFilter</filter-class>

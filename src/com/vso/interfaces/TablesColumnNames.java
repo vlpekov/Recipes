@@ -1,6 +1,6 @@
 package com.vso.interfaces;
 
 public interface TablesColumnNames extends TableUsersNames, TableProductsNames, TableRecipesNames,
-		TableProductsMapNames, TableCategories, TableCategoriesMapNames, TableImages, TableUserMap {
+		TableProductsMapNames, TableCategories, TableCategoriesMapNames, TableImages, TableUserMap, FormSearchRecipe {
 
 }

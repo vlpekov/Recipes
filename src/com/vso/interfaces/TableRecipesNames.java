@@ -48,4 +48,11 @@ public interface TableRecipesNames extends DatabaseNames {
 	String queryGetAllOrderByDateDesc = "SELECT * FROM `" + databaseName + "`.`" + tableRecipesName + "` ORDER BY " + tableRecipesColumnID+ " DESC";
 	
 	String queryGetAllOrderByDateAsc = "SELECT * FROM " + databaseName + "`.`" + tableRecipesName + "` ORDER BY " + tableRecipesColumnID+ " ASC";
+	
+	String queryGetSearchPartly = "SELECT * FROM `" + databaseName + "`.`" + tableRecipesName + "`  WHERE " + tableRecipesColumnRecipeName + " LIKE '%";
+// 	String query = "SELECT * FROM `" + databaseName + "`.`" + tableRecipesName + "`  WHERE " + tableRecipesColumnRecipeName + "LIKE '%" + searchFor + " %' ORDER BY id DESC LIMIT 0,12 ;
+
+	String queryCountSearchResults = "SELECT COUNT(*) AS count FROM `" + databaseName + "`.`" + tableRecipesName + "` WHERE `" + tableRecipesColumnRecipeName + "` LIKE '%";
+// 	String query = "SELECT * FROM `" + databaseName + "`.`" + tableRecipesName + "`  WHERE " + tableRecipesColumnRecipeName + "LIKE '%" + searchFor + " %' ORDER BY id DESC LIMIT 0,12 ;
+
 }

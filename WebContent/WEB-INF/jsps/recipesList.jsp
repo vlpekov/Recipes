@@ -10,6 +10,7 @@
 </head>
 <body>
 	<jsp:useBean id="list" class="com.javabeans.RecipesListGenerator" />
+	<jsp:useBean id="names" class="com.javabeans.FormRecipeSearchNames" />
 	<%!ArrayList<String> recipeIdsList = new ArrayList<String>();
 	ArrayList<String> recipeNamesList = new ArrayList<String>();%>
 	<%
@@ -30,79 +31,94 @@
 		recipeIdsList = list.getListPartly(startNumber, showPerPage);
 		recipeNamesList = list.getListRecpeNames();
 	%>
-	<a
-		href="list?iframeColumns=<%=columns%>&page=<%=request.getParameter("page")%>">Покажи
-		най-новите рецепти</a> Покажи най-новите рецепти
-	<table>
-		<tr>
-			<%
-				System.out.println(recipeIdsList.size());
-				for (int index = 0; index < recipeIdsList.size(); index++) {
-					System.out.println(columns);
-			%><td><div class="image">
-					<a href="getRecipe?recipeId=<%=recipeIdsList.get(index)%>"
-						target="_parent"><img
-						src="recipeImg?recipeId=<%=recipeIdsList.get(index)%>"
-						class="square_pic" width="200" height="200"></a>
-					<h2>
-						<span><%=recipeNamesList.get(index)%></span>
-					</h2>
-				</div></td>
-			<%
-				if ((index > 0) && ((index + 1) % columns == 0)) {
-						out.print("</tr><tr>");
+	<div class="search_form">
+		<form method="post" action="search">
+			<div class="search_box">
+				<input id="searchInput"
+					name=<%=names.getFormSearchSearchString()%> class="form-control"
+					placeholder="име на рецептата" type="search"> <input
+					class="red_button" type="submit" value="Търси">
+
+				<div>
+					<input type="hidden" name=<%=names.getFormSearchStartNumber()%>
+						value=<%=startNumber%>> <input type="hidden"
+						name=<%=names.getFormSearchShowPerPage()%> value=<%=showPerPage%>>
+					<input type="hidden" name=<%=names.getFormSearchColumnsNumber()%>
+						value=<%=columns%>>
+					<%-- 					<input type="hidden" name=<%= %> value=<%= %>> --%>
+				</div>
+			</div>
+		</form>
+		<table>
+			<tr>
+				<%
+					System.out.println(recipeIdsList.size());
+					for (int index = 0; index < recipeIdsList.size(); index++) {
+						System.out.println(columns);
+				%><td><div class="image">
+						<a href="getRecipe?recipeId=<%=recipeIdsList.get(index)%>"
+							target="_parent"><img
+							src="recipeImg?recipeId=<%=recipeIdsList.get(index)%>"
+							class="square_pic" width="200" height="200"></a>
+						<h2>
+							<span><%=recipeNamesList.get(index)%></span>
+						</h2>
+					</div></td>
+				<%
+					if ((index > 0) && ((index + 1) % columns == 0)) {
+							out.print("</tr><tr>");
+						}
 					}
+				%>
+			</tr>
+		</table>
+		<%
+			int toNumber = startNumber + showPerPage - 1;
+			int allRecipes = list.getRowsNumber();
+			int pages = allRecipes / showPerPage + 1;
+			int pageId;
+			try {
+				pageId = Integer.parseInt(request.getParameter("page"));
+			} catch (Exception e) {
+				pageId = 1;
+			}
+		%>
+		<p>
+			<%
+				for (int currentPage = 1; currentPage <= pages; currentPage++) {
+					if (pageId == currentPage) {
+			%>
+
+			<%=currentPage%>
+			<%
+				} else {
+			%>
+			<a href="list?iframeColumns=<%=columns%>&page=<%=currentPage%>"><%=currentPage%></a>
+			<%
+				}
+				}
+				if (allRecipes - startNumber < showPerPage) {
+			%>
+			Показани
+			<%=startNumber%>
+			-
+			<%=allRecipes%>
+			от общо
+			<%=allRecipes%>
+			рецепти.
+			<%
+				} else {
+			%>
+			Показани
+			<%=startNumber%>
+			-
+			<%=toNumber%>
+			от общо
+			<%=allRecipes%>
+			рецепти.
+			<%
 				}
 			%>
-		</tr>
-	</table>
-	<%
-		int toNumber = startNumber + showPerPage - 1;
-		int allRecipes = list.getRowsNumber();
-		int pages = allRecipes / showPerPage + 1;
-		int pageId;
-		try {
-			pageId = Integer.parseInt(request.getParameter("page"));
-		} catch (Exception e) {
-			pageId = 1;
-		}
-	%>
-	<p>
-		<%
-			for (int currentPage = 1; currentPage <= pages; currentPage++) {
-				if (pageId == currentPage) {
-		%>
-
-		<%=currentPage%>
-		<%
-			} else {
-		%>
-		<a href="list?iframeColumns=<%=columns%>&page=<%=currentPage%>"><%=currentPage%></a>
-		<%
-			}
-			}
-			if (allRecipes - startNumber < showPerPage) {
-		%>
-		Показани
-		<%=startNumber%>
-		-
-		<%=allRecipes%>
-		от общо
-		<%=allRecipes%>
-		рецепти.
-		<%
-			} else {
-		%>
-		Показани
-		<%=startNumber%>
-		-
-		<%=toNumber%>
-		от общо
-		<%=allRecipes%>
-		рецепти.
-		<%
-			}
-		%>
-	</p>
+		</p>
 </body>
 </html>
