@@ -22,20 +22,17 @@
 		}
 		try {
 			int pageId = Integer.parseInt(request.getParameter("page"));
-			System.out.println("startNumber: " + startNumber + "; pageId:" + pageId
-					+ "**************************************************");
 			if (pageId > 1) {
 				startNumber = (pageId - 1) * showPerPage + 1;
 			}
-			System.out.println("startNumber: " + startNumber + "; pageId:" + pageId
-					+ "**************************************************");
 		} catch (Exception e) {
 		}
 		recipeIdsList = list.getListPartly(startNumber, showPerPage);
 		recipeNamesList = list.getListRecpeNames();
 	%>
-
-	Покажи най-новите рецепти
+	<a
+		href="list?iframeColumns=<%=columns%>&page=<%=request.getParameter("page")%>">Покажи
+		най-новите рецепти</a> Покажи най-новите рецепти
 	<table>
 		<tr>
 			<%
@@ -51,14 +48,10 @@
 						<span><%=recipeNamesList.get(index)%></span>
 					</h2>
 				</div></td>
-
 			<%
 				if ((index > 0) && ((index + 1) % columns == 0)) {
-			%>
-		</tr>
-		<tr>
-			<%
-				}
+						out.print("</tr><tr>");
+					}
 				}
 			%>
 		</tr>
@@ -79,6 +72,7 @@
 			for (int currentPage = 1; currentPage <= pages; currentPage++) {
 				if (pageId == currentPage) {
 		%>
+
 		<%=currentPage%>
 		<%
 			} else {
@@ -86,11 +80,7 @@
 		<a href="list?iframeColumns=<%=columns%>&page=<%=currentPage%>"><%=currentPage%></a>
 		<%
 			}
-		%>
-		<%
 			}
-		%>
-		<%
 			if (allRecipes - startNumber < showPerPage) {
 		%>
 		Показани
@@ -107,7 +97,9 @@
 		<%=startNumber%>
 		-
 		<%=toNumber%>
-		от общо рецепти.
+		от общо
+		<%=allRecipes%>
+		рецепти.
 		<%
 			}
 		%>

@@ -44,7 +44,6 @@ public class RecipesListGenerator implements Serializable, TableRecipesNames {
 		} else {
 			return string;
 		}
-
 	}
 
 	public ArrayList<String> getListRecpeNames() {
@@ -56,8 +55,31 @@ public class RecipesListGenerator implements Serializable, TableRecipesNames {
 		Connection connectionDB = null;
 		PreparedStatement prStatement = null;
 		ResultSet results = null;
-		String query = queryGetPartList + (startNumber - 1) + "," + showPerPage + ";";
+		String query = queryGetAllOrderByDateDesc + " LIMIT " + (startNumber - 1) + "," + showPerPage + ";";
 		try {
+			connectionDB = ConnectorDB.getInstance().getConnection();
+			prStatement = connectionDB.prepareStatement(query);
+			results = prStatement.executeQuery(query);
+			while (results.next()) {
+				listIds.add(results.getString(tableRecipesColumnID));
+				listRecpeNames.add(getRecipeName(results.getString(tableRecipesColumnRecipeName)));
+				System.out.println(results.getString(tableRecipesColumnID) + " ---- " + getRecipeName(results.getString(tableRecipesColumnRecipeName)));
+			}
+			prStatement.close();
+		} catch (Exception e) {
+		}
+		return listIds;
+	}
+
+	public ArrayList<String> getListPartlyOrderByDesc(int startNumber, int showPerPage) {
+		ArrayList<String> listIds = new ArrayList<String>();
+		Connection connectionDB = null;
+		PreparedStatement prStatement = null;
+		ResultSet results = null;
+		String query = queryGetAllOrderByDateDesc + " LIMIT " + (startNumber - 1) + "," + showPerPage + ";";
+		System.out.println(query);
+		try {
+			
 			connectionDB = ConnectorDB.getInstance().getConnection();
 			prStatement = connectionDB.prepareStatement(query);
 			results = prStatement.executeQuery(query);
@@ -79,7 +101,6 @@ public class RecipesListGenerator implements Serializable, TableRecipesNames {
 		try {
 			connectionDB = ConnectorDB.getInstance().getConnection();
 			statement = connectionDB.createStatement();
-			System.out.println(queryGetRecipesNumber);
 			results = statement.executeQuery(queryGetRecipesNumber);
 			if (results.next()) {
 				rowsNumber = results.getInt("count");
