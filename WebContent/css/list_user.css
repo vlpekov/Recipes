@@ -1,0 +1,47 @@
+@CHARSET "UTF-8";
+body {
+}
+td {
+	padding: 5px;
+}
+.order {
+	position: inherit;
+}
+
+.image {
+	position: relative;
+	width: 100%; /* for IE 6 */
+	
+}
+
+h2 {
+	position: absolute;
+	top: 200px;
+	left: 0;
+	width: auto;
+	
+}
+
+h2 span {
+	color: white;
+	font: bold 14px/25px Helvetica, Sans-Serif;
+	letter-spacing: -1px;
+	background: rgb(0, 0, 0); /* fallback color */
+	background: rgba(0, 0, 0, 0.7);
+	padding: 10px;
+	line-height: 15px;
+}
+
+.square_pic {
+	object-fit: cover;
+	width: auto;
+	width: 250px;
+	height: 250px;
+	position: relative;
+	border: solid 2px #ffffff;
+	background-color: #eed;
+	box-shadow: 5px 5px rgba(0, 0, 0, 0.4);
+	-moz-box-shadow: 5px 5px rgba(0, 0, 0, 0.4);
+	-webkit-box-shadow: 5px 5px rgba(0, 0, 0, 0.4);
+	-o-box-shadow: 5px 5px rgba(0, 0, 0, 0.4);
+}

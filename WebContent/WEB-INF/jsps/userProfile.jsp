@@ -10,6 +10,12 @@
 <link rel="stylesheet" type="text/css" href="css/user_profile.css">
 <title>User profile</title>
 </head>
+<script>
+	function resizeIframe(obj) {
+		obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+		obj.style.width = obj.contentWindow.document.body.scrollWidth + 'px';
+	}
+</script>
 <jsp:useBean id="tags" class="com.javabeans.UserProfileTags" />
 <jsp:useBean id="cookieManager" class="com.javabeans.CookiesManager" />
 <%!String username;%>
@@ -46,23 +52,17 @@
 						<%=request.getAttribute(tags.getRegistrationDate())%></h4></td>
 			</tr>
 		</table>
+		<% 
+		System.out.println(" username : =======================================" + request.getParameter("username") );%>
 		<div class="recipes">
 			<img border="0" alt="Рецептурник" src="img/hr2top.png"
 				class="hr_img_bottom">
 			<h2>Публикувани рецепти</h2>
 			<img border="0" alt="Рецептурник" src="img/hr2.png"> </a>
-			<% ArrayList<String> recipeIds = new ArrayList();%>
-			<% recipeIds = (ArrayList<String>)request.getAttribute(tags.getRecipes());
-				for (String recipeId : recipeIds) {
-			%>
-			<%=recipeId.toString()%>
-			<a href="getRecipe?recipeId=<%=recipeId.toString()%>"
-			target="_parent"><img src="recipeImg?recipeId=<%=recipeId.toString()%>"
-				class="circle_pic" width="120" height="120"
-				style="border-radius: 50%"></a>
-			<%
-				}
-			%>
+			<div style="text-align: center">
+				<iframe src="user_recipes?username=<%=request.getParameter("username")%>" style="border: none;" frameborder="0"
+					scrolling="no" onload="resizeIframe(this)"> </iframe>
+			</div>
 		</div>
 	</div>
 </body>
