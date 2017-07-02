@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Нова рецепта</title>
-<link rel="stylesheet" type="text/css" href="css/newRecipe.css">
+<link rel="stylesheet" type="text/css" href="css/new_recipe.css">
 <link rel="stylesheet" href="css/jquery-ui.css">
 <script src="js/newInput.js" type="text/javascript"></script>
 <script src="js/jquery-1.11.2.js"></script>
@@ -67,7 +67,6 @@
 	<div class="form-container" >
 		<div class="form-box">
 			<h2>Нова рецепта:</h2>
-
 			<form action="save_recipe" id="mainform" method="post"
 				name="recipe_data" enctype="multipart/form-data">
 				<p class="form-title">Име на рецептата:</p>

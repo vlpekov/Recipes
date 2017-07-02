@@ -58,11 +58,6 @@
 						name=<%=names.getFormSearchShowPerPage()%> value=<%=showPerPage%>>
 					<input type="hidden" name=<%=names.getFormSearchColumnsNumber()%>
 						value=<%=columns%>>
-					<%
-						System.out.println(startNumber + "startNumber");
-						System.out.println(startNumber + "showPerPage");
-						System.out.println(startNumber + "columns");
-					%>
 				</div>
 			</div>
 		</form>
@@ -91,9 +86,7 @@
 		<table>
 			<tr>
 				<%
-					System.out.println(recipeIdsList.size());
 					for (int index = 0; index < recipeIdsList.size(); index++) {
-						System.out.println(columns);
 				%><td><div class="image">
 						<a href="getRecipe?recipeId=<%=recipeIdsList.get(index)%>"
 							target="_parent"><img

@@ -340,10 +340,10 @@ table tr {
 }
 
 .remove_button {
-	width: auto;
-	height: 20px;
+	width: 15px;
+	height: 15px;
 	line-height: 10px;
-	padding-top: 10px;
+	margin-bottom: 5px;
 }
 
 .list_product {

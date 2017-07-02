@@ -36,7 +36,7 @@ public class Recipe implements DatabaseNames, TablesColumnNames {
 		this.id = recipeId;
 		getRecipeFromDbById(this.id);
 		setCategory();
-		printInfo();
+//		printInfo();
 	}
 
 	private void printInfo() {
@@ -133,7 +133,6 @@ public class Recipe implements DatabaseNames, TablesColumnNames {
 
 	private void getRecipeFromDbByName(String recipeName) {
 		String query = queryGetRecipeByName + recipeName + "'";
-		System.out.println("Защо влизаш тук?! **************************************************************888");
 		Statement statement = null;
 		ResultSet results = null;
 		try {
@@ -149,10 +148,8 @@ public class Recipe implements DatabaseNames, TablesColumnNames {
 			}
 			String productsQuery = queryGetProductsByRecipeId + id + "'";
 			results = statement.executeQuery(productsQuery);
-			System.out.println(productsQuery);
 			while (results.next()) {
 				Product product = new Product(results.getInt(tableProductsMapColumnProductId));
-				System.out.println("product.getProductName();" + product.getProductName());
 				productsList.add(product.getProductName());
 				quantitiesList.add(results.getString(tableProductsMapColumnQuantity));
 			}
@@ -182,10 +179,8 @@ public class Recipe implements DatabaseNames, TablesColumnNames {
 			}
 			String productsQuery = queryGetProductsByRecipeId + id + "'";
 			results = statement.executeQuery(productsQuery);
-			System.out.println("getRecipeFromDbById " + productsQuery);
 			while (results.next()) {
 				Product product = new Product(results.getInt(tableProductsMapColumnProductId));
-				System.out.println("product.getProductName();" + product.getProductName());
 				productsList.add(product.getProductName());
 				quantitiesList.add(results.getString(tableProductsMapColumnQuantity));
 			}

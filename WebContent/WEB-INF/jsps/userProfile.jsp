@@ -52,8 +52,6 @@
 						<%=request.getAttribute(tags.getRegistrationDate())%></h4></td>
 			</tr>
 		</table>
-		<% 
-		System.out.println(" username : =======================================" + request.getParameter("username") );%>
 		<div class="recipes">
 			<img border="0" alt="Рецептурник" src="img/hr2top.png"
 				class="hr_img_bottom">

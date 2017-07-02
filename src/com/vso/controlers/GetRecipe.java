@@ -41,7 +41,6 @@ public class GetRecipe extends HttpServlet implements RecipeTags{
 		request.setAttribute(portions, recipe.getPortions());
 		request.setAttribute(publishedDate, recipe.getPublishingDate());
 		request.setAttribute(category, recipe.getCategory());
-		System.out.println(recipe.getRecipeName());
 		RequestDispatcher dispatcher = request.getRequestDispatcher("view_recipe");
 		dispatcher.include(request, response);
 	}

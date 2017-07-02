@@ -52,7 +52,6 @@ public class CookiesManager implements Cookies {
 				}
 			}
 		}
-		System.out.println("Cookies Manager class username, password: " + username + " , " + password);
 		String dbPassword = new UserManager().getUserPasswordFromDB(username);
 		try {
 			isUserCorrect = Password.checkCookiePassword(password, dbPassword);

@@ -123,7 +123,6 @@ public class ShowByCategory extends HttpServlet
 		Statement statement = null;
 		ResultSet results = null;
 		String query = queryGetCategoryByRecipeId + recipeId + "'";
-		System.out.println(query);
 		try {
 			connectionDB = ConnectorDB.getInstance().getConnection();
 			statement = connectionDB.createStatement();
@@ -131,14 +130,12 @@ public class ShowByCategory extends HttpServlet
 			if (results.next()) {
 				int categoryMap = results.getInt(tableCategoriesMapColumnCategoryId);
 				if (categoryMap == categorySearch) {
-					System.out.println("isCategoryisCategoryisCategoryisCategory ====== true");
 					return true;
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("isCategoryisCategoryisCategoryisCategory ====== false");
 		return false;
 	}
 
@@ -175,7 +172,6 @@ public class ShowByCategory extends HttpServlet
 		Connection connectionDB = null;
 		Statement statement = null;
 		ResultSet results = null;
-		System.out.println(queryParameters);
 		int rowsNumber = 0;
 		try {
 			connectionDB = ConnectorDB.getInstance().getConnection();

@@ -26,7 +26,6 @@ public class SetupDB implements DatabaseNames {
 	private static PreparedStatement preparedStatementConection;
 
 	private SetupDB() {
-		System.out.println("================================ SETUP DATABASE =====================================");
 		CreateDB.crateDatabase();
 		connection = setDBConnection();
 		new CreateTables();

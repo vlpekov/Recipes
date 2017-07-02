@@ -4,15 +4,15 @@ import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import com.database.utilities.*;
+
+import com.database.utilities.ConnectorDB;
 import com.vso.interfaces.TableRecipesNames;
 import com.vso.interfaces.TableUserMap;
 import com.vso.interfaces.TableUsersNames;
 
-public class RecipesListGenerator implements Serializable, TableRecipesNames, TableUsersNames, TableUserMap {
+public class UserRecipesList implements Serializable, TableRecipesNames, TableUsersNames, TableUserMap {
 	private static final long serialVersionUID = 1L;
 	private ArrayList<String> listRecpeNames = new ArrayList<String>();
 
@@ -80,15 +80,16 @@ public class RecipesListGenerator implements Serializable, TableRecipesNames, Ta
 		return userId;
 	}
 
-	public int getRowsNumber() {
+	public int getRowsNumber(String username) {
 		Connection connectionDB = null;
 		Statement statement = null;
 		ResultSet results = null;
 		int rowsNumber = 0;
+		String query = queryCountRowsByUserId + getUserId(username) + "'";
 		try {
 			connectionDB = ConnectorDB.getInstance().getConnection();
 			statement = connectionDB.createStatement();
-			results = statement.executeQuery(queryTableRecipesGetRecipesNumber);
+			results = statement.executeQuery(query);
 			if (results.next()) {
 				rowsNumber = results.getInt("count");
 			}

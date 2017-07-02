@@ -15,16 +15,13 @@ public class UserManager implements TableUsersNames {
 		Connection connectionDB;
 		String password = null;
 		String dbPassword = null;
-		String query = "SELECT * FROM " + SetupDB.getDbName() + "." + tableUsersName + " where " + tableUsersColumnUsername + "='"
-				+ username + "';";
-		System.out.println("UserManager.java query:" + query);
+		String query = queryGetUserByUsername + username + "';";
 		try {
 			connectionDB = ConnectorDB.getInstance().getConnection();
 			Statement statement = connectionDB.createStatement();
 			results = statement.executeQuery(query);
 			if (results.next()) {
 				dbPassword = results.getString("password");
-				System.out.println("UserManager.java method: getUserPasswordFromDB password: " + dbPassword);
 			}
 			return dbPassword;
 		} catch (Exception e) {

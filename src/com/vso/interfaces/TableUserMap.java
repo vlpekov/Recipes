@@ -20,4 +20,8 @@ public interface TableUserMap extends DatabaseNames, TableUsersNames, TableRecip
 	String queryGetRecipeIdByUserId = "SELECT * FROM " + databaseName + "." + tableUserMapName + " WHERE "
 			+ tableUserMapColumnUserId + "='";
 	// String query = queryGetRecipeIdByUserId + userId + "'";
+	
+	String queryCountRowsByUserId = "SELECT COUNT(*) AS count FROM " + databaseName + "." + tableUserMapName + " WHERE "
+			+ tableUserMapColumnUserId + "='";
+	// String query = queryCountRowsByUserId + userId + "'";
 }

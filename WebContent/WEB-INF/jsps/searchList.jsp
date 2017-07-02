@@ -101,9 +101,7 @@
 	<table>
 		<tr>
 			<%
-				System.out.println(recipeIdsList.size());
 				for (int index = 0; index < recipeIdsList.size(); index++) {
-					System.out.println(columns);
 			%><td><div class="image">
 					<a href="getRecipe?recipeId=<%=recipeIdsList.get(index)%>"
 						target="_parent"><img

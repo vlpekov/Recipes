@@ -83,12 +83,7 @@
 				<table>
 					<tr>
 						<td>
-							<h2>
-								Добре дошъл,
-								<%=cookieManager.getCurrentUsername()%>
-								(Сесия:
-								<%=session.getAttribute("name")%>)
-							</h2>
+							
 						</td>
 					<tr>
 						<td class="right"><a class="button" href="logout"

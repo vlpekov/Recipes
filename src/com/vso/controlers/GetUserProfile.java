@@ -68,24 +68,18 @@ public class GetUserProfile extends HttpServlet implements TableUsersNames, User
 		ArrayList<String> recipeIds = new ArrayList<String>();
 		Statement statement = null;
 		ResultSet results = null;
-		System.out.println(query);
 		try {
 			connectionDB = ConnectorDB.getInstance().getConnection();
 			statement = connectionDB.createStatement();
 			results = statement.executeQuery(query);
 			while (results.next()) {
-				System.out.println("Влизане €€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€");
 				recipeIds.add(results.getString(tableUserMapColumnRecipeId));
-				System.out.println(results.getString(tableUserMapColumnRecipeId));
 			}
 			statement.close();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		for (String id : recipeIds) {
-			System.out.println(id.toString() + "fsfsfsfsfsf");
 		}
 		return recipeIds;
 	}

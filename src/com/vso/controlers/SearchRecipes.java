@@ -66,7 +66,6 @@ public class SearchRecipes extends HttpServlet
 		try {
 			radioValue = request.getParameter(formSearchRadioButtonName);
 			setRadioValues(radioValue);
-			System.out.println("radioValue========================================= " + radioValue);
 		} catch (Exception e) {
 		}
 		ArrayList<String> listIds = new ArrayList<String>();
@@ -84,23 +83,17 @@ public class SearchRecipes extends HttpServlet
 			results = prStatement.executeQuery(query);
 			int enter = 1;
 			while (results.next()) {
-				System.out.println("-----===============================----------влизане " + enter + " showPerPage - "
-						+ showPerPage);
 				if (categorySearch == 3) {
-					System.out.println(" ----------------------------Всички рецепти запис -------------------");
 					listIds.add(results.getString(tableRecipesColumnID));
 					listRecpeNames.add(getRecipeName(results.getString(tableRecipesColumnRecipeName)));
 				} else {
 					if (isCategory(results.getString(tableRecipesColumnID))) {
-						System.out.println("веган-вегетариан ------------------------ намерен!");
 						listIds.add(results.getString(tableRecipesColumnID));
 						listRecpeNames.add(getRecipeName(results.getString(tableRecipesColumnRecipeName)));
 					}
 				}
 				enter++;
 			}
-			System.out.println(listIds.size());
-			System.out.println(listRecpeNames.size());
 			request.setAttribute(formSearchStartNumber, startNumber);
 			request.setAttribute(formSearchShowPerPage, showPerPage);
 			request.setAttribute(formSearchSearchInputName, searchFor);
@@ -112,8 +105,6 @@ public class SearchRecipes extends HttpServlet
 			request.setAttribute(formSearchRadioCheckedVegetarian, radioVegetarianChecked);
 			request.setAttribute(formSearchRadioCheckedVegan, radioVeganChecked);
 			prStatement.close();
-			// request.getRequestDispatcher("search_results").forward(request,
-			// response);
 		} catch (Exception e) {
 		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher("search_results");
@@ -126,7 +117,6 @@ public class SearchRecipes extends HttpServlet
 		Statement statement = null;
 		ResultSet results = null;
 		String query = queryGetCategoryByRecipeId + recipeId + "'";
-		System.out.println(query);
 		try {
 			connectionDB = ConnectorDB.getInstance().getConnection();
 			statement = connectionDB.createStatement();
@@ -134,14 +124,12 @@ public class SearchRecipes extends HttpServlet
 			if (results.next()) {
 				int categoryMap = results.getInt(tableCategoriesMapColumnCategoryId);
 				if (categoryMap == categorySearch) {
-					System.out.println("isCategoryisCategoryisCategoryisCategory ====== true");
 					return true;
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("isCategoryisCategoryisCategoryisCategory ====== false");
 		return false;
 	}
 
@@ -168,8 +156,7 @@ public class SearchRecipes extends HttpServlet
 		Connection connectionDB = null;
 		Statement statement = null;
 		ResultSet results = null;
-		String query = "SELECT COUNT(*) AS count FROM `recipes_site`.`recipes` WHERE `name` LIKE '%" + queryParameters + "%';";
-		System.out.println(query);
+		String query = queryCountSearchResults + queryParameters + "%';";
 		int rowsNumber = 0;
 		try {
 			connectionDB = ConnectorDB.getInstance().getConnection();

@@ -17,17 +17,22 @@
 				if (usernameCheck != null) {
 					out.println(usernameCheck);
 				}
+				String errorMsg = (String) request.getAttribute("error_msg");
 			%>
-			<h2>Поздравления<br>Регистрирахте се успешно.<br>Може да се впишете:</h2>
 		</center>
-		
-		
+
+
 	</div>
 	<div class="login_field">
 		<form class="form-container" action="login" method="post">
 			<div class="form-title">
 				<h2>Вход</h2>
 			</div>
+			<%
+				if (errorMsg != null) {
+					out.println(errorMsg);
+				}
+			%>
 			<div class="form-title">Потребителско име:</div>
 			<input class="form-field" type="text" name="username"
 				required="required" /><br />
@@ -37,6 +42,10 @@
 			<div class="submit-container">
 				<input class="brown_button" type="submit" value="Вход" />
 			</div>
+			<h2>
+				<a href="register" target="_top"> <img border="0"
+					alt="Регистрирай се" src="img/register.png" height="18"></a>
+			</h2>
 		</form>
 	</div>
 

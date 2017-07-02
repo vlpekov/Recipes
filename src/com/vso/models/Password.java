@@ -24,7 +24,6 @@ public class Password {
 	 */
 	public static String getSaltedHash(String password) throws Exception {
 		byte[] salt = SecureRandom.getInstance("SHA1PRNG").generateSeed(saltLen);
-		System.out.println("Password.java method:getSaltedHash salt:" + Base64.encodeBase64String(salt));
 		// store the salt with the password
 		return Base64.encodeBase64String(salt) + "$" + hash(password, salt);
 	}
@@ -34,20 +33,15 @@ public class Password {
 	 * hash of the password.
 	 */
 	public static boolean check(String password, String storedPassword) throws Exception {
-		System.out.println("Password.java method:check ************************************************************");
 		String[] saltAndPass = storedPassword.split("\\$");
 		if (saltAndPass.length != 2) {
 			throw new IllegalStateException("The stored password have the form 'salt$hash'");
 		}
 		String hashOfInput = hash(password, Base64.decodeBase64(saltAndPass[0]));
-		System.out.println("Password.java method:check hashOfInput: " + hashOfInput);
-		System.out.println("Password.java method:check storedPassword: " + saltAndPass[1]);
-		System.out.println("Password.java method:check equals: " + hashOfInput.equals(saltAndPass[1]));
 		return hashOfInput.equals(saltAndPass[1]);
 	}
 
 	public static boolean checkCookiePassword(String cookiePassword, String dbPassword) throws Exception {
-		System.out.println("Password.java checkCookiePassword ************************************************************");
 		String[] saltAndPassCookie = cookiePassword.split("\\$");
 		if (saltAndPassCookie.length != 2) {
 			throw new IllegalStateException("The stored password have the form 'salt$hash'");
@@ -56,7 +50,6 @@ public class Password {
 		if (saltAndPassDB.length != 2) {
 			throw new IllegalStateException("The stored password have the form 'salt$hash'");
 		}
-		System.out.println("Password.java checkCookiePassword equals: " + saltAndPassDB[1].equals(saltAndPassCookie[1]));
 		return saltAndPassDB[1].equals(saltAndPassCookie[1]);
 	}
 	

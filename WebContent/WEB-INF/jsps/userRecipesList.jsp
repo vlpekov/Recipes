@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<jsp:useBean id="list" class="com.javabeans.RecipesListGenerator" />
+	<jsp:useBean id="list" class="com.javabeans.UserRecipesList" />
 	<%!ArrayList<String> recipeIdsList = new ArrayList<String>();
 	ArrayList<String> recipeNamesList = new ArrayList<String>();%>
 	<%
@@ -17,7 +17,6 @@
 		int startNumber = 1;
 		int columns = 3;
 		String username = request.getParameter("username");
-		System.out.println(request.getParameter("username") + " =======================================");
 		try {
 			int pageId = Integer.parseInt(request.getParameter("page"));
 			if (pageId > 1) {
@@ -31,9 +30,7 @@
 	<table>
 		<tr>
 			<%
-				System.out.println(recipeIdsList.size());
 				for (int index = 0; index < recipeIdsList.size(); index++) {
-					System.out.println(columns);
 			%><td><div class="image">
 					<a href="getRecipe?recipeId=<%=recipeIdsList.get(index)%>"
 						target="_parent"><img
@@ -53,7 +50,7 @@
 	</table>
 	<%
 		int toNumber = startNumber + showPerPage - 1;
-		int allRecipes = list.getRowsNumber();
+		int allRecipes = list.getRowsNumber(username);
 		int pages = allRecipes / showPerPage + 1;
 		int pageId;
 		try {
@@ -62,14 +59,13 @@
 			pageId = 1;
 		}
 	%>
+	<%
+	if (allRecipes == 0) { out.println("<h4>Няма публикувани рецепти</h4>"); } else {%>
 	<h4>
 		<%
 			for (int currentPage = 1; currentPage <= pages; currentPage++) {
 				if (pageId == currentPage) {
-		%>
-
-		<%=currentPage%>
-		<%
+		out.print(currentPage);
 			} else {
 		%>
 		<a href="user_recipes?username=<%=username%>&page=<%=currentPage%>"><%=currentPage%></a>
@@ -99,5 +95,6 @@
 			}
 		%>
 	</h4>
+	<%} %>
 </body>
 </html>
